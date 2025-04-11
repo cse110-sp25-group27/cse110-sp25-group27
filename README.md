@@ -1,6 +1,6 @@
 # The POWELL RANGERS
 
-<img src='./admin/assets/PowellRangersLOGO.png' width='100%' >
+<img src='./admin/branding/PowellRangersLOGO.png' width='100%' >
 
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
 
