@@ -35,4 +35,4 @@
 - Finished video
 
 ## Diagrams
-![image]("admin/assets/teambonding.jpg")
+![image]("https://raw.githubusercontent.com/Tofulati/admin/assets/teambonding.jpg")

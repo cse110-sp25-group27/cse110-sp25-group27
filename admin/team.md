@@ -1,6 +1,6 @@
 # Powell Rangers
 
-![logo]("admin/assets/PowellRangersLOGO.png")
+![logo]("https://raw.githubusercontent.com/Tofulati/admin/assets/PowellRangersLOGO.png")
 
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
 
