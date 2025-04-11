@@ -1,6 +1,11 @@
 # Powell Rangers
 
+![logo]("admin/assets/PowellRangersLOGO.png")
+
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
+
+## Headquarters:
+[Powell Ranger Station](https://www.lib.uidaho.edu/digital/cccidaho/items/cccidaho1216.html)
 
 ## Important Values:
 Live for freedom, justice, and all that is good. Never reveal your face to anyone who is not a fellow Ranger, or a trusted ally. Never escalate a battle unless absolutely necessary.
