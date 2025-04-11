@@ -35,4 +35,4 @@
 - Finished video
 
 ## Diagrams
-![image]("./admin/teambonding.jpg")
+![image]("admin/teambonding.jpg")
