@@ -4,7 +4,8 @@
 
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
 
-**[Team Page](./admin/team.md)**
+**Learn more about us:**
+- [Team Page](./admin/team.md)
 
 **Meetings Notes:**
 - [April 11](./admin/meetings/apr_11.md)
