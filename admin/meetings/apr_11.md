@@ -35,4 +35,4 @@
 - Finished video
 
 ## Diagrams
-![image]("./admin/assets/teambonding.jpg")
+<img src='./admin/assets/teambonding.jpg' width='100%' >
