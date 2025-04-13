@@ -12,7 +12,7 @@ Live for freedom, justice, and all that is good. Never reveal your face to anyon
 
 ## Roster:
  - Albert Ho: I'm Albert, a 3rd year CS student at UCSD. I have plans of doing a post grad and research in Biology and Machine Learning. Here's my personal [page](https://github.com/Tofulati) 
- - Prachi Heda
+ - Prachi Heda: Hi, I'm Prachi! I am a 3rd Math - CS student at UCSD. Check out my [github!](https://github.com/prachiheda)
  - Charlie Zhu: Hey, I'm Charlie. I'm a 3rd year CS student at UCSD. [Here's my github](https://github.com/1855387)
  - Austin Choi: Hello, I'm Austin. I am a 3rd year CS student at UCSD. [My Github](https://github.com/Austnzz) 
  - Inchul Kim: hiya 3rd year CS transfered here from palomar [My github](https://github.com/inchulkim95)
