@@ -23,4 +23,4 @@ Live for freedom, justice, and all that is good. Never reveal your face to anyon
 - Srujam Dave: Hey! I'm Srujam, a 2nd year Computer Engineering student at UCSD. You can find my Github [here](https:)https://github.com/SvetlanaBobiles
 - Svetlana Bobiles: Hi I'm Svetlana! I'm a 3rd year CS UCSD student. [Here's my Github:](https://github.com/SvetlanaBobiles)
 
-![Team intro](../videos/teamintro.mp4)
+![Team intro](../admin/videos/teamintro.mp4)
