@@ -19,7 +19,7 @@ Live for freedom, justice, and all that is good. Never reveal your face to anyon
  - Minnie Zhang: Hello!! I'm Minnie, a 3rd year student studying CS at UCSD. [Github link](https://github.com/mnyiz)
  - Nadine Apresto: Heyy, I'm Nadine! I'm a 3rd year CS student, but it's my first year at UCSD! [My Github!](https://github.com/nadineapresto)
  - Samantha Phan: Hi, I'm Samantha, a 3rd year CS major but a first -year transfer.[Here is my page](https://github.com/sphan07)
- - Skyler Nguyen: Hello, I'm Skyler, a 3rd year Comp Eng Major. This is my [Github](https://github.com/skn0012)
+ - Skyler Nguyen: Hello, I'm Skyler, a 3rd year Comp Eng Major. This is my [Github](https://github.com/skn0012).
 - Srujam Dave: Hey! I'm Srujam, a 2nd year Computer Engineering student at UCSD. You can find my Github [here](https:)https://github.com/SvetlanaBobiles
 - Svetlana Bobiles: Hi I'm Svetlana! I'm a 3rd year CS UCSD student. [Here's my Github:](https://github.com/SvetlanaBobiles)
 
