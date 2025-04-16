@@ -40,3 +40,4 @@
   - 
 
 ## Diagrams
+![Card diagram](./assets/apr16_img.png)
