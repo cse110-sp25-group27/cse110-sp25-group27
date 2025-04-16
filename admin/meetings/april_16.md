@@ -37,7 +37,14 @@
   - random logic
   - assign numbers and show chosen number
   - grid position and card position
-  - 
+  - have 2 buttons for flipping and shuffling
+- for step 1 no need for much JS, just buttons which can be done with CSS(?
+- figure out the functions needed for these
+- grid system: coordinates
+- might not need the traditional deck (just ~10 cards for simplicity?)
+- Designs:
+  - colors representing each Powell Ranger
+  - simple cartoon helmet in different colors on the back of the card
 
 ## Diagrams
 ![Card diagram](./assets/apr16_img.png)
