@@ -54,7 +54,12 @@
 1:45pm:
 - Creating logic for flipping top card of the deck using a combo of JS and CSS
 - Javascript will save the state of the card: flipped or not. if flipped, it will conditionally render the correct CSS.
-- Therefore, there will be two types of CSS styling for the top card. 
+- Therefore, there will be two types of CSS styling for the top card.
+
+3:30pm:
+- Shuffling and flipping has JS/CSS issues
+- Prachi branch off trying grid shuffle
+- Trying to fix errors with shuffle and flip
 
 ## Accomplished/Progress:
 
