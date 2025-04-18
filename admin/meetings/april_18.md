@@ -1,24 +1,21 @@
 # April 18 notes
 
 ## Agenda:
-<<<<<<< HEAD
 - 10:30am - 6:00pm
 
 ## Attendance:
 10:30am:
 - Nadine
 - Minnie
+11:00am:
 - Austin
 - Albert
-12:30pm
-=======
-- 10:30 - 
-- 5:00 - 
-
-## Attendance:
-- Minnie
-- Nadine
->>>>>>> 0c2137db9f86a33b8a617d172c0da2d9eadc4e5a
+- Inchul
+12:00pm:
+- Samantha
+- Srujam
+- Prachi
+- Svetlana
 
 ## Notes:
 10:30am:
@@ -29,12 +26,19 @@
 - Flip animation:
   - Only top card gets flipped over
 - Card design:
-  - Back design - collage of Powell Ranger helmet heads (team logo)
-  - Suit design - 4 suits, programming language logos (CSS, JavaScript, HTML, TypeScript)
-  - Royals design - members 
+  - Back design - Powell Ranger helmet head (team logo)
+  - Suit design - 4 suits, programming language logos on helmet (CSS, JavaScript, HTML, TypeScript)
+  - Royals design - members
   - Aces design - helmet
+11:30am:
+- Started working on card deck designs
+- Created repository folders and files for backend and frontend
+- Create template for webpage in html
+12:00pm:
+- 
 
 ## Accomplished/Progress:
 
 
 ## Diagrams
+![Card Design Planning](./assets/apr18_img.jpg)
