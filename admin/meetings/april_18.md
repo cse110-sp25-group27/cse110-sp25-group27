@@ -1,6 +1,7 @@
 # April 18 notes
 
 ## Agenda:
+<<<<<<< HEAD
 - 10:30am - 6:00pm
 
 ## Attendance:
@@ -10,6 +11,14 @@
 - Austin
 - Albert
 12:30pm
+=======
+- 10:30 - 
+- 5:00 - 
+
+## Attendance:
+- Minnie
+- Nadine
+>>>>>>> 0c2137db9f86a33b8a617d172c0da2d9eadc4e5a
 
 ## Notes:
 10:30am:
