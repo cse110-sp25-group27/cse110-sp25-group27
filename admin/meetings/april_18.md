@@ -51,6 +51,11 @@
 - Get shuffle and flip css logic
 - Add music to flip and shuffle
 
+1:45pm:
+- Creating logic for flipping top card of the deck using a combo of JS and CSS
+- Javascript will save the state of the card: flipped or not. if flipped, it will conditionally render the correct CSS.
+- Therefore, there will be two types of CSS styling for the top card. 
+
 ## Accomplished/Progress:
 
 
