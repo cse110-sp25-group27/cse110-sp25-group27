@@ -19,6 +19,9 @@
 - Prachi
 - Svetlana
 
+12:54pm:
+- Skyler
+
 ## Notes:
 10:30am:
 - Discussed flip animation and shuffle animation logistics and design
@@ -39,7 +42,14 @@
 - Create template for webpage in html
   
 12:00pm:
-- 
+- Powell Easter egg
+  - Images of Powell hidden (only found through inspect)
+  - Joker design - Powell
+ 
+1:00pm:
+- Overlaying cards with placeholder cards
+- Get shuffle and flip css logic
+- Add music to flip and shuffle
 
 ## Accomplished/Progress:
 
