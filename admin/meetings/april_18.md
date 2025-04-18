@@ -61,3 +61,4 @@
 
 ## Diagrams
 ![Card Design Planning](./assets/apr18_img.jpg)
+![Table Design Planning](./assets/table_idea.jpg)
