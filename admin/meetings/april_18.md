@@ -7,10 +7,12 @@
 10:30am:
 - Nadine
 - Minnie
+
 11:00am:
 - Austin
 - Albert
 - Inchul
+  
 12:00pm:
 - Samantha
 - Srujam
@@ -30,10 +32,12 @@
   - Suit design - 4 suits, programming language logos on helmet (CSS, JavaScript, HTML, TypeScript)
   - Royals design - members
   - Aces design - helmet
+    
 11:30am:
 - Started working on card deck designs
 - Created repository folders and files for backend and frontend
 - Create template for webpage in html
+  
 12:00pm:
 - 
 
