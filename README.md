@@ -11,3 +11,4 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [April 11](./admin/meetings/apr_11.md)
 - [April 16](./admin/meetings/april_16.md)
 - [April 18](./admin/meetings/april_18.md)
+- [April 25, Brainstorming](./admin/meetings/052525-brainstorm.md)
