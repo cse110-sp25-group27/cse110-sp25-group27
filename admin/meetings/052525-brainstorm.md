@@ -16,6 +16,7 @@
 ## Agenda
 - 12:00 - 1:00 Planning
 - 1:00 - 2:00 Diagramming
+- 2:00 - 3:00 Working on Script/Slides
   
 
 ## Potential Ideas
