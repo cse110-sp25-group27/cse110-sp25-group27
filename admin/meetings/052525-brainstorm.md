@@ -16,6 +16,7 @@
 ## Agenda
 - 12:00 - 1:00 Planning
 - 1:00 - 2:00 Diagramming
+- 2:00 - 3:00 Working on Script/Slides
   
 
 ## Potential Ideas
@@ -123,4 +124,8 @@ Template:
 
 ## Pitch Info:
 - [Script](https://docs.google.com/document/d/1frNQLencdNPto1KAU3DPXPPrneLjCmtShK2WsuwWQyE/edit?usp=sharing)
+<<<<<<< HEAD
 <!-- - [Slide deck](https://docs.google.com/presentation/d/14qZtvhnvE7C2iP6solzUMNHd88taN2e07dKAXSGsT9A/edit?usp=sharing) -->
+=======
+- [Slide deck](https://docs.google.com/presentation/d/14qZtvhnvE7C2iP6solzUMNHd88taN2e07dKAXSGsT9A/edit?usp=sharing)
+>>>>>>> 991e0c2f41f5493441623e012bf3d534647a10a8
