@@ -118,9 +118,9 @@ Template:
 
 ## Design Link (Figma): 
 - [Link](https://www.figma.com/board/wFNepGeWLDSPz1ug7QIfQh/Untitled?node-id=0-1&t=lrY6vYBnfURLDbgT-1)
-<img src='../../specs/brainstorm/Box Office Flow.png' width='100%' >
+<img src='../../specs/brainstorm/Box Office Flow_v2.png' width='100%' >
 
 
 ## Pitch Info:
 - [Script](https://docs.google.com/document/d/1frNQLencdNPto1KAU3DPXPPrneLjCmtShK2WsuwWQyE/edit?usp=sharing)
-- [Slide deck](https://docs.google.com/presentation/d/14qZtvhnvE7C2iP6solzUMNHd88taN2e07dKAXSGsT9A/edit?usp=sharing)
+<!-- - [Slide deck](https://docs.google.com/presentation/d/14qZtvhnvE7C2iP6solzUMNHd88taN2e07dKAXSGsT9A/edit?usp=sharing) -->
