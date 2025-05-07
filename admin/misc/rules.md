@@ -25,7 +25,8 @@
 
 ## Roles / Responsibilities:
 - Frontend: Albert Ho, Inchul Kim, Nadine Apresto, Samantha Phan, Svetlana Bobiles
-- Backend: Srujam Dave, Austin Choi, Charlie Zhu, Skyler Nguyen, Minnie Zhang, Prachi Heda- Frontend and Backend teams meet weekly to check up on eachother's progress, blockers etc.
+- Backend: Srujam Dave, Austin Choi, Charlie Zhu, Skyler Nguyen, Minnie Zhang, Prachi Heda
+- Frontend and Backend teams meet weekly to check up on eachother's progress, blockers etc.
 - Frontend responsibilities: 
     - Design and Build user interfaces (2 people ideally)
     - Write HTML & CSS Files
