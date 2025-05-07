@@ -2,15 +2,17 @@
 
 ## Purpose:
 - Learn about software engineering
-- Become familiar with basic web techologies
+- Become familiar with basic web technologies
 - Learn to be acccustomed to a group dynamic and effectively splitting up work/collab
-
 - Achieving these goals benefits the team overall bc it gives us practice and exposure to how software engineering jobs work
 
 
 ## Objectives:
 - Work as a team to create a fully functional project, using good software practices
-- We will create a full stack CRUD project that aims solve the issue of "personalizing" movie reviews. 
+- We will create a full stack CRUD project that aims to solve the issue of "personalizing" movie reviews. 
+- Incorporate good communication practices between the roles.
+- Become more well rounded software developers
+- Develop coding expertise, communication, project management, and critical thinking
 
 
 ## Common Values / Standards
@@ -25,11 +27,15 @@
 - Frontend: Albert Ho, Inchul Kim, Nadine Apresto, Samantha Phan, Svetlana Bobiles
 - Backend: Srujam Dave, Austin Choi, Charlie Zhu, Skyler Nguyen, Minnie Zhang, Prachi Heda- Frontend and Backend teams meet weekly to check up on eachother's progress, blockers etc.
 - Frontend responsibilities: 
-    - Design and Build interfaces (2 people ideally)
+    - Design and Build user interfaces (2 people ideally)
     - Write HTML & CSS Files
+    - Build and Style the webpage that users will see 
 
 - Backend responsibilities:
     - Write Javascript files
+    - Database mangagement(CRUD)
+    - Animation for cards
+    
 - Team Leads will facilitate steady progress within each of the two person sub-teams.
 
 
@@ -50,11 +56,12 @@
 - Any messages for the TA should be sent witihin the CSE110 chat (direct messaged)
 - Messages should avoid having communication that isn't related to the project (unless otherwise specified)
 - Messages should be clear and concise
-- Always communicate issues early
+- Always communicate issues 24-48 hours ahead of time.
 
 
 ## Rule Conflict Resolution:
 - Conflicts should be discussed with the team leads and the members of "interest"
 - Member should talk out why they had to break the rule and what could have been done to avoid the conflict
-- There will be no 
-- 
+- There will be no ostracization / humilitation
+- Main goal as always is to promote mutual understanding and restore trust in all parties involved.
+- If necessary, can revise the rules to better ensure teamwork and productivity are achieved.
