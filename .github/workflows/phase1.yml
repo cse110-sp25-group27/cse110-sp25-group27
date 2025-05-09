@@ -6,15 +6,27 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Unit Test
+      - name: Run unit tests
         run: npm test ./__tests__/sum.test.js
 
-#codacy to be implemented with coverage tests
+      - name: Generate Markdown documentation
+        run: npm run generate-docs
+
+      - name: Commit updated Markdown docs
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add docs/documentation.md
+          git commit -m "Update Markdown documentation [skip ci]" || echo "No changes to commit"
+          git push origin HEAD
+
+      # Codacy to be implemented later with coverage tests
       # - name: Codacy Coverage Reporter
       #   uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699
       #   with:
