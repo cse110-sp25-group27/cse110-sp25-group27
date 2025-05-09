@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-   "generate-docs": "documentation build '**/*.js' -f md -o docs/documentation.md"
+   "generate-docs": "documentation build code-to-unit-test/**/*.js -f md -o docs/documentation.md"
   },
   "type": "module",
   "jest": {
