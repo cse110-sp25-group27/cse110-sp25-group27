@@ -1,13 +1,21 @@
-name: Phase 1 CI/CD Pipeline # name of the test
+name: Phase 1 CI/CD Pipeline
 
-on: [push] # the Github Action will activate "on" the event that you "push" to the repo
+on: [push]
 
-jobs: # the things being executed
-  tests: # the name of your status check, will become important when you do branch protection
-    runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
+jobs:
+  tests:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # using version 4 of Actions
+      - uses: actions/checkout@v4
+
       - name: Install Dependencies
         run: npm install
+
       - name: Unit Test
-        run: npm test ./__tests__/sum.test.js # the actual testing line
+        run: npm test ./__tests__/sum.test.js
+
+#codacy to be implemented with coverage tests
+      # - name: Codacy Coverage Reporter
+      #   uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699
+      #   with:
+      #     project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
