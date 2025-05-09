@@ -18,13 +18,11 @@ jobs:
       - name: Generate Markdown documentation
         run: npm run generate-docs
 
-      - name: Commit updated Markdown docs
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add docs/documentation.md
-          git commit -m "Update Markdown documentation [skip ci]" || echo "No changes to commit"
-          git push origin HEAD
+      - name: Upload Markdown documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: markdown-docs
+          path: docs/documentation.md
 
       # Codacy to be implemented later with coverage tests
       # - name: Codacy Coverage Reporter
