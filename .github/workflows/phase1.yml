@@ -11,8 +11,3 @@ jobs: # the things being executed
         run: npm install
       - name: Unit Test
         run: npm test ./__tests__/sum.test.js # the actual testing line
-
-      - name: Codacy Coverage Reporter
-      - uses: codacy/codacy-coverage-reporter-action@v1
-      - with:
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
