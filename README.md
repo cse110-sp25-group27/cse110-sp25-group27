@@ -1,6 +1,4 @@
 # 🎟️ Box Office: Interactive Movie Reviews
-Team Name: Powell Rangers
-Group: 27
 
 ## Statement of Purpose
 We are the Powell Rangers.
