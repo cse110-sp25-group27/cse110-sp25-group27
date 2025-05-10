@@ -1,4 +1,5 @@
 # 🎟️ Box Office: Interactive Movie Reviews
+Powell Rangers
 
 ## Statement of Purpose
 We are the Powell Rangers.
