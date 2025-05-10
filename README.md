@@ -5,14 +5,14 @@ We are the Powell Rangers.
 Our goal is to create a more interactive and visually engaging alternative to traditional movie review sites like Rotten Tomatoes. Rather than building another text-heavy review platform, we want to capture the excitement of the cinema experience by combining the ideas of a mailbox, Letterboxd, and the classic box office one sees at a classic theatre. We recognize while there are movie review sites, a problem is that none of them gives a good user experience and design that would be easy enough for people of all ages to use with a visually appealing design. Most movie review sites aim to cater towards critics and industry people while adding common movie watchers as their last target audience. Furthermore, while the movie review websites are presented to the public, the Box Office would be able to provide each user with a more personalized and private platform for them to journal, customize, and review their own movie records. Therefore, our solution would be creating an interactive user-friendly movie review site with everyday people being the target audience in contrast to modern movie review sites.
 Users will be able to create, edit, and display movie reviews in the form of personalized ticket stubs. In addition, the users will be able to record what day they watched the movie, a major contrast compared to other sites. Through simple interactions like hovering and clicking, users can explore movie posters, view detailed reviews, and add their own ratings. Inspired by elements of theaters — ticket booths, film reels, and cinema colors — our platform will make reviewing movies feel as memorable as watching them.
 
-##Inspiration and Digital Concept
+## Inspiration and Digital Concept
 Cinema: Movie posters, ticket stubs, box office attendees, popcorns.
 Letterboxd meets Mailbox: A fusion of visual review logs and personalized collections.
 Interactive Elements: Hovering to preview a movie, clicking to view full user ratings and reviews.
 Color Palette: Red, black, white, and yellow, classic cinema aesthetics. 
 Existing Problems: apps are either too basic or have too much going on (lack of personalization), existing apps contain reviews that have biases or fake
 
-##User Personas
+## User Personas
 - Persona 1: Amy (13, Casual Movie Watcher)
 Wants a fun, simple way to track watched movies.
 Prefers quick visual interactions rather than writing essays.
