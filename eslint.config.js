@@ -2,6 +2,14 @@ import pluginJest from 'eslint-plugin-jest';
 
 export default [
   {
+    files: ['code-to-unit-test/**/*.js'],
+    rules: {
+      'no-unused-vars': 'warn',
+      'eqeqeq': 'error',
+      'semi': ['error', 'always'],
+    },
+  },
+  {
     files: ['**/__tests__/**/*.{js,jsx}', '**/*.{test,spec}.{js,jsx}'],
     plugins: { jest: pluginJest },
     languageOptions: {
