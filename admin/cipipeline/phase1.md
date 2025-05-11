@@ -25,4 +25,4 @@ To be done:
 - Since it requires the exact the location/directory of the js files that it will be generating documentation from, we will specify the backends folder which is expected to hold our future js codes for the project, and the documentation will be generated off of that.
 
 # Diagram of Pipeline
-TBD
+![alt text](./phase1.drawio.png)
