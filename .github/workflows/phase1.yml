@@ -24,6 +24,9 @@ jobs:
           name: markdown-docs
           path: docs/documentation.md
 
+      - run: npm install
+      - run: npx eslint .
+
       # Codacy to be implemented later with coverage tests
       # - name: Codacy Coverage Reporter
       #   uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699
