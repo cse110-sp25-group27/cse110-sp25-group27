@@ -1,6 +1,6 @@
 # Powell Rangers Team Contract
 
-https://github.com/cse110-sp25-group27/cse110-sp25-group27/blob/main/admin/misc/rules.md
+Contract Signature repo: [https://github.com/cse110-sp25-group27/cse110-sp25-group27/tree/main/admin/misc](https://github.com/cse110-sp25-group27/cse110-sp25-group27/tree/main/admin/misc)
 
 ## Purpose:
 - Learn about software engineering
