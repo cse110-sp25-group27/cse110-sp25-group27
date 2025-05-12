@@ -1,5 +1,7 @@
 # Powell Rangers Team Contract
 
+https://github.com/cse110-sp25-group27/cse110-sp25-group27/blob/main/admin/misc/rules.md
+
 ## Purpose:
 - Learn about software engineering
 - Become familiar with basic web technologies
