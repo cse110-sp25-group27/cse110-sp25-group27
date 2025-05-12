@@ -8,26 +8,36 @@
 </head>
 <body>
 
-    <section class="poster-container">
-        <div class="left-posters">
-            <img src="assets/blank_ticket_small.png" alt="Current movie poster">
-        </div>
+    <!-- Now showing -->
+    <div class="image-container">
+        <img src="/frontend/assets/boxoffice_banner.png" alt="BoxOffice Banner" height="200" width="600" class="banner">
+            <div class="scrolling-text">
+                <p>TEMP MOVIE TITLE</p>
+            </div>
+    </div>
 
-        <button type = "button" id = "left-arrow"></button>
+    <!-- movie posters -->
+    <section class = "poster-carousel">
+        
+        <section class = "poster-container">
+            <img src = "/frontend/assets/ticket.png" alt = "Previous movie poster" height = "200" width = "125">
+            <img src = "/frontend/assets/ticket.png" alt = "Current movie poster" height = "200" width = "125">
+            <img src = "/frontend/assets/ticket.png" alt = "Next movie poster" height = "200" width = "125">
+        </section>
 
-        <div id = "current">
-            <img src="assets/blank_ticket_small.png" alt="Current movie poster">
-        </div>
+        <!-- gold left/right button-->
+        <button class="nav-btn">
+            <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster button" height = "50" width = "70">
+        </button>
+            
+        <button class="nav-btn">
+            <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster button" height = "50" width = "70">
+        </button>
+    </div>
 
-        <button type="button" id="right-arrow"></button>
-
-        <div class = "right-posters">
-            <img src="assets/blank_ticket_small.png" alt="Current movie poster">
-        </div>
-    </section>
-
+    <!-- Ticket Booth with Powell and option to add ticket-->
     <section class="powell-ticket-booth">
-        <img id="powell" src="" alt="">
+        <img id="powell" src="/frontend/assets/ticket_booth.png" alt="Ticket booth" height  = "400" width = auto>
 
         <div class = "text-bubble">
             <p>
