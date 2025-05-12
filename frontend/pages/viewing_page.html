@@ -1,8 +1,43 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-    <meta charset = "UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewingPage</title>
 </head>
 <body>
-    <div class = "banner"></div>
+    <!--start the banner in red-->
+    <!--height and width temporarily set for editing purposes-->
+    <div class="banner">
+        <img src="/frontend/assets/boxoffice_banner.png" alt="banner for boxoffice" style="width: 100%;">
+        <button class = "back-btn">  
+        </button>
+    </div>
+
+    <!--for movie poster: front of card-->
+    <div class="poster-carousel">
+         <!--gold left/right button-->
+        <button class="nav-btn">
+            <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster" height="200" width="auto">
+        </button>
+
+        <div class="poster-container">
+            <div id="previous-poster">
+                <img src="/frontend/assets/ticket.png" alt="Previous poster" height="400" width="auto">
+            </div>
+            <div id="current-poster">
+                <img src="/frontend/assets/ticket.png" alt="Current poster" height="400" width="auto">
+            </div>
+            <div id="next-poster">
+                <img src="/frontend/assets/ticket.png" alt="Next poster" height="400" width="auto">
+            </div>
+        </div>
+
+        <button class="nav-btn">
+            <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster" height="200" width="auto">
+        </button>
+    </div>
+
+    
 </body>
+</html>
