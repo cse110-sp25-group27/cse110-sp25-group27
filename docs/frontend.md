@@ -3,6 +3,8 @@
 ## Navigation
 
 1. [May 10](#may-10-meeting)
+2. [May 12](#may-12-meeting)
+3. [May 14](#may-14-meeting)
 
 ## May 10 Meeting
 
@@ -86,3 +88,32 @@
 > Next group meeting for end of week
 
 - Finish all HTML files
+
+## May 14 Meeting
+
+### Agenda - 5/12
+
+### Attendance - 5/12
+
+- Inchul
+- Nadine
+- Samantha
+- Albert
+- Svetlana
+
+### Notes - 5/12
+
+- created new folder differentiating the edit and viewing back module
+- stars are filled in based on hover (filling in the ones before)
+- sizing of images should be set dimensions, done before css
+  - square: 500x500?
+  - rectangles: 1000x500?
+- following the articles and template like Lab 6
+
+### Accomplished - 5/12
+- implemented skeleton template for the backend team to fill in (like lab6)
+  - front_module.HTML
+  - back_modeul.HTML
+  - backTemplate.HTML
+
+### Goals to Accomplish by Next Meeting - 5/12
