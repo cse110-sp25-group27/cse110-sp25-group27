@@ -48,7 +48,26 @@ function saveReviewsToStorage(reviews) {
 	localStorage.setItem('reviews', JSON.stringify(reviews));	
 }
 
-//creates a review object with all the data entered
+/**
+ * Creates a review object using the data provided from a form.
+ *
+ * @param {FormData} form - A FormData object containing review details. Expected keys:
+ *   - 'title': {string} The title of the review.
+ *   - 'watchedOn': {string} The date the item was watched.
+ *   - 'rating': {string|number} The rating given, which will be parsed as an integer.
+ *   - 'imageData': {string} Base64 or URL string for the image.
+ *   - 'notes': {string} Optional notes about the item.
+ *
+ * @returns {Object} A review object with the following properties:
+ *   - {string} id - A unique identifier for the review.
+ *   - {string} title - The title from the form.
+ *   - {string} watchedOn - The date the item was watched.
+ *   - {number} rating - The parsed integer rating.
+ *   - {string} imageData - Image data or image URL.
+ *   - {string} notes - Any notes about the review.
+ *   - {string} createdAt - ISO string timestamp for when the object was created.
+ *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
+ */
 function createReviewObject(form){
     return{
         id : crypto.randomUUID(),       //id of the review card
@@ -63,9 +82,26 @@ function createReviewObject(form){
 }
 
 /**
- * Adds the necessary event handlers to <form> and the clear storage
- * <button>.
- * Form for adding reviews; may change depending on frontend
+ * Initializes all event handlers for form interactions in the review application.
+ * 
+ * This includes:
+ * - Handling form submission to create a new review card, update the DOM, and save to localStorage.
+ * - Handling "Clear" button to remove all reviews from localStorage and the page.
+ * - Handling "Delete" button to remove a review by matching its title.
+ * - Handling "Edit" button to pre-fill an update form with review data for a selected title.
+ * - Handling update form submission to modify a review, update localStorage, and re-render the DOM.
+ * 
+ * Expects the following DOM elements to exist:
+ * - <form> main review form
+ * - <main> container where <review-card> elements are appended
+ * - Button with class `danger` to clear all reviews
+ * - Button with id `delete-button` and input with id `delete-title-input`
+ * - Button with id `edit-button` and input with id `edit-title-input`
+ * - Form with id `update-form` for editing reviews
+ * 
+ * Side effects:
+ * - Manipulates localStorage
+ * - Updates the DOM by adding/removing/replacing <review-card> elements
  */
 function initFormHandler() {
 	const form = document.querySelector('form');
@@ -94,7 +130,7 @@ function initFormHandler() {
         document.querySelector('main').innerHTML = '';
 	});
 
-    //receieve user input of review to be edited/deleted
+    //receive user input of review to be edited/deleted
     document.getElementById('delete-button').addEventListener('click', () =>{
         const titleTBD = document.getElementById('delete-title-input').value.trim().toLowerCase();
         if (!titleTBD) return;
@@ -193,7 +229,16 @@ function initFormHandler() {
 
 }
 
-//update reviews in storage
+/**
+ * Updates an existing review in localStorage by matching its ID.
+ * 
+ * @param {Object} updatedReview - The updated review object.
+ * @param {string} updatedReview.id - The unique identifier of the review to update.
+ * Other expected properties: title, watchedOn, rating, imageData, notes, createdAt, updatedAt.
+ * 
+ * Side effects:
+ * - Replaces the existing review with the same ID in localStorage.
+ */
 function updateReview(updatedReview) {
 	const reviews = getReviewsFromStorage().map(r =>
 		r.id === updatedReview.id ? updatedReview : r
@@ -201,7 +246,14 @@ function updateReview(updatedReview) {
 	saveReviewsToStorage(reviews);
 }
 
-//delete a specific review in storage
+/**
+ * Deletes a review from localStorage by its unique ID.
+ * 
+ * @param {string} id - The unique identifier of the review to delete.
+ * 
+ * Side effects:
+ * - Removes the review with the given ID from localStorage.
+ */
 function deleteReviewById(id) {
 	const reviews = getReviewsFromStorage().filter(r => r.id !== id);
 	saveReviewsToStorage(reviews);
