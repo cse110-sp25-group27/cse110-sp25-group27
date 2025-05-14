@@ -57,8 +57,8 @@ function createReviewObject(form){
         rating : parseInt(form.get('rating')),
         imageData : form.get('imageData'),
         notes : form.get('notes'),
-        createdAt : new Date().toISOString,
-        updatedAt : new Date().toISOString
+        createdAt : new Date().toISOString(),
+        updatedAt : new Date().toISOString()
     }
 }
 
@@ -94,16 +94,18 @@ function initFormHandler() {
         document.querySelector('main').innerHTML = '';
 	});
 
-    //receieve user input of review to be deleted
+    //receieve user input of review to be edited/deleted
     document.getElementById('delete-button').addEventListener('click', () =>{
-        const titleTBD = document.getElementById('delete-title-input');
+        const titleTBD = document.getElementById('delete-title-input').value.trim().toLowerCase();
         if (!titleTBD) return;
 
         const reviews = getReviewsFromStorage();
 
-        const reviewTBD = reviews.find(r => r.title.toLowerCase() == titleTBD);
+        const reviewTBD = reviews.find(r => r.title.toLowerCase() === titleTBD);
+
         if(! reviewTBD){
             alert('movie review not found');
+
             return;
         }
 
@@ -116,12 +118,82 @@ function initFormHandler() {
             }
         }
 
-        alert('Review for {$reviewTBD.title} deleted.');
+        alert(`Review for ${reviewTBD.title} deleted.`);
 
     });
+
+    //user edit: fetch stored data
+    document.getElementById('edit-button').addEventListener('click', () =>{
+        const titleTBE = document.getElementById('edit-title-input').value.trim().toLowerCase();
+
+        if (!titleTBE) return;
+
+        const reviews = getReviewsFromStorage();
+
+        const reviewTBE = reviews.find(r => r.title.toLowerCase() === titleTBE);
+        if(! reviewTBE){
+            alert('movie review not found');
+            return;
+        }
+
+        const formData = document.getElementById('update-form');
+        formData.elements['title'].value = reviewTBE.title;
+        formData.elements['watchedOn'].value = reviewTBE.watchedOn;
+        formData.elements['rating'].value = reviewTBE.rating;
+        formData.elements['imageData'].value = reviewTBE.imageData;
+        formData.elements['notes'].value = reviewTBE.notes;
+
+        formData.dataset.reviewId = reviewTBE.id;
+        formData.dataset.createdAt = reviewTBE.createdAt;
+
+
+    });
+
+    //user edit: update data
+    document.getElementById('update-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const reviewId = form.dataset.reviewId;
+        const createdAt = form.dataset.createdAt;
+        const allReviews = getReviewsFromStorage();
+        const oldReview = allReviews.find(r => r.id === reviewId);
+
+        if (!oldReview) {
+            alert("Original review no longer exists.");
+            return;
+        }
+
+        const updatedReview = {
+            id: reviewId,
+            createdAt: createdAt,
+            updatedAt: new Date().toISOString(),
+
+            //new data is used, otherwise fallback to old value
+            title: formData.get('title') || oldReview.title,
+            watchedOn: formData.get('watchedOn') || oldReview.watchedOn,
+            rating: parseInt(formData.get('rating')) || oldReview.rating,
+            imageData: formData.get('imageData') || oldReview.imageData,
+            notes: formData.get('notes') || oldReview.notes
+        };
+
+        updateReview(updatedReview);
+
+        // Clean up UI
+        form.style.display = 'none';
+        form.reset();
+
+        // Re-render reviews
+        document.querySelector('main').innerHTML = '';
+        addReviewsToDocument(getReviewsFromStorage());
+
+        alert(`Review for ${updatedReview.title} updated.`);
+    });
+
 }
 
-//update reviews
+//update reviews in storage
 function updateReview(updatedReview) {
 	const reviews = getReviewsFromStorage().map(r =>
 		r.id === updatedReview.id ? updatedReview : r
@@ -129,7 +201,7 @@ function updateReview(updatedReview) {
 	saveReviewsToStorage(reviews);
 }
 
-//delete a specific review
+//delete a specific review in storage
 function deleteReviewById(id) {
 	const reviews = getReviewsFromStorage().filter(r => r.id !== id);
 	saveReviewsToStorage(reviews);
