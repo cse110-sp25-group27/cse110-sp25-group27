@@ -6,7 +6,7 @@
 - Prachi Heda
 - Minnie Zhang
 - Albert Ho
-- Add name here please
+- Nadine Apresto
 
 ## Sprint Goals Recap
 - Conduct frontend, backend, and full team meetings
@@ -30,6 +30,10 @@
 ## Incomplete/Pending Work
 - Need to refactor Custom HTML Element
     - Instead of one custom element, we will need two elements to correspond to front and back module templates created by the frontend team. 
+- Still working on the CSS styling for the HTML pages
+    - Left incomplete for now because we want to focus on the HTML and JS first before completing the styling to avoid any implementation issues.
+- Still working on fixing up and finalizing the HTML for the landing and viewing pages
+    - Frontend needs to meet to finish and review the HTML for landing and viewing pages to check if we have everything we need.
 
 
 
@@ -42,6 +46,9 @@
 - Burndown Chart Analysis: [Summary of burndown performance]
 
 ## Feedback & Discussions
+- 
 
 
 ## Next Steps
+- Frontend needs to meet (preferably at least once in-person this week) to discuss and finalize HTML files
+- 

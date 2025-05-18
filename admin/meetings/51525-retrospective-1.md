@@ -5,6 +5,7 @@
 - Prachi Heda
 - Minnie Zhang
 - Albert Ho
+- Nadine Apresto
 
 ## Sprint Overview
 - The goal of this week was to get started on the project: conduct frontend and backend team meetings so everyone is on the same page, setup the initial CI/CD pipeline, and initiate communication between the teams so all features can be implemented
