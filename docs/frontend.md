@@ -138,7 +138,7 @@
 - Nadine
 - Svetlana
 
-### Notes - 5/14
+### Notes - 5/19
 
 - consolidated template.html to one page (back_module template for the html elements is now just template.html)
 - template styling will allow one form for backend implementation and styling will display two "cards" using CSS, but using one form for user input
@@ -146,12 +146,12 @@
 - adjustments for the cards and positioning
 - issues with positioning of the articles and buttons
 
-### Accomplished - 5/14
+### Accomplished - 5/19
 
 - fully implemented template, front_module, back_module htmls
 - temp styling for landing and viewing pages
 
-### Need to Work On - 5/14
+### Need to Work On - 5/19
 
 - make sure backend CRUD operations generate html articles correctly
 - ensure that the css styling for the cards is working

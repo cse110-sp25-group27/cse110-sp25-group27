@@ -4,7 +4,6 @@ body {
     gap: 1;
     flex-direction: column;
     background-color: #86212B; 
-    font-family: 'Limelight';
 }
 
 .banner {
@@ -78,7 +77,7 @@ button:hover{
   0% {
     transform: translateX(100%);
   }
-  
+
   100% {
     transform: translateX(-100%);
   }
