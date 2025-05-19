@@ -1,0 +1,87 @@
+
+body {
+    display: flex;
+    gap: 1;
+    flex-direction: column;
+    background-color: #86212B; 
+    font-family: 'Limelight';
+}
+
+.banner {
+    background-color: #621617;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+}
+
+.poster-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.banner img {
+    width: 40vw;
+    height: 25vh;
+}
+
+.poster-container img {
+    width: 20vw;
+    height: 60vh;
+}
+
+.nav-btn img {
+    width: 10vw;
+    height: 10vh;
+}
+
+.carousel-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    display: flex;
+
+}
+
+/*Try to fix click animation so whole box doesn't show but instead just the arrow*/
+button:active{
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+.scrolling-text {
+  position: absolute;
+  bottom: 623px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: fit-content;
+  min-width: 543px;
+}
+
+.scrolling-text p {
+  animation: scroll 10s linear infinite;
+  font-family: 'Limelight';
+  font-size: 1.5rem;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
