@@ -20,7 +20,7 @@ body {
   width: 100%;
 }
 
-@media (min-width: 800px) {
+@media (width >= 800px) {
   .banner {
     width: 60vw;
     max-width: 900px;
@@ -39,7 +39,7 @@ body {
 .scrolling-text p {
   animation: scroll 10s linear infinite;
   font-size: 1.5rem;
-  font-family: 'Limelight';
+  font-family: Limelight;
   min-width: 100%;
 }
 
@@ -47,6 +47,7 @@ body {
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -100,20 +101,18 @@ body {
   border: transparent;
 }
 
-.add-button-container{
+/* .add-button-container{
   
-}
+} */
 
 #add-ticket-button{
   background-image: url('/frontend/assets/filmstrip_btn.png');
-
   background-color: transparent;
   border: transparent;
 }
 
 
 button:active {
-  -webkit-filter: drop-shadow(5px 5px 5px #222);
   filter: drop-shadow(5px 5px 5px #222);
 }
 
@@ -133,11 +132,9 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   position: absolute;
   transform: translate(80%, -210%);
-  -webkit-animation: float 5s ease-in-out infinite;
-          animation: float 5s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
@@ -148,7 +145,7 @@ button:hover {
   padding: 30px;
   border-radius: 11px;
   position: relative;
-  box-shadow: 10px 10px rgb(72, 86, 80);
+  box-shadow: 10px 10px rgb(72 86 80);
   font-family: "Baloo 2", cursive;
 }
 

@@ -49,12 +49,9 @@ body {
     background: none;
     border: none;
     display: flex;
-
 }
 
-/*Try to fix click animation so whole box doesn't show but instead just the arrow*/
 button:active{
-  -webkit-filter: drop-shadow(5px 5px 5px #222);
   filter: drop-shadow(5px 5px 5px #222);
 }
 
@@ -73,7 +70,7 @@ button:hover{
 
 .scrolling-text p {
   animation: scroll 10s linear infinite;
-  font-family: 'Limelight';
+  font-family: Limelight;
   font-size: 1.5rem;
 }
 
@@ -81,6 +78,7 @@ button:hover{
   0% {
     transform: translateX(100%);
   }
+  
   100% {
     transform: translateX(-100%);
   }

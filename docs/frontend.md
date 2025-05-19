@@ -130,34 +130,41 @@
 
 ## May 19 Meeting
 
-### Attendance
+### Attendance - 5/19
+
 - Albert 
 - Inchul
 - Samantha
 - Nadine
 - Svetlana
 
-### Notes 
-- adjusted template.html to one page (back_module template for the html elements is now just template.html)
-- template styling will allow one form for backend implementation and styling will display two "cards" by , but using one form
+### Notes - 5/14
+
+- consolidated template.html to one page (back_module template for the html elements is now just template.html)
+- template styling will allow one form for backend implementation and styling will display two "cards" using CSS, but using one form for user input
 - beginning on styling
 - adjustments for the cards and positioning
 - issues with positioning of the articles and buttons
 
-### Accomplished
+### Accomplished - 5/14
+
 - fully implemented template, front_module, back_module htmls
 - temp styling for landing and viewing pages
 
-### Need to work on
+### Need to Work On - 5/14
+
 - make sure backend CRUD operations generate html articles correctly
 - ensure that the css styling for the cards is working
 - ensure that the data is displaying correctly on the pages
 - ensure that none of the modules are breaking and there are no issues with positioning
 - implementing stacked cards in landing page
+- ensure webpages are adaptive to different screens of different sizings 
 
 ### Questions and Clarifications
+
 - Q: One form? A: Yes, all the data is collected on one form so that the CRUD operations will work with one retrieval function
 - Q: Accessing viewing from landing page? A: Click on text option from Powell and it will direct you to the viewing page. To go backwards, right now, there is a link directing you backwards. However, once fully implemented, onve you edit, it will direct you back automatically.
 
-### Questions from Frontend to Team
+### Questions from Frontend to Backend
+
 - To implement the styling for the stacked ticket stubs, should frontend hard code the "stacked look" in CSS, or will backend be able to help out with the implementation in JS?
