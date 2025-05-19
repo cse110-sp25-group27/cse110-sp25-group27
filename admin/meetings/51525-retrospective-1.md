@@ -6,8 +6,13 @@
 - Minnie Zhang
 - Albert Ho
 - Samantha Phan
+- Nadine Apresto
 - Svetlana Bobiles
 - Inchul Kim
+- Charlie Zhu
+- Austin Choi
+- Skyler Nguyen
+- Srujam Daves
 
 
 - ## Sprint Overview
@@ -19,6 +24,10 @@
         - Back: date watched, moive title, moive review, moive rating
           - Backtemplate-module template: Form for the user to fill out their review
     - Backend goal: 
+      - Decide how to handle duplicates, produce general logic for CRUD operations, create and fill in skeletons for our custom elements
+        - Duplicates are NOT going to be allowed, decision process highlighted within our ADR folder.
+        - Our general CRUD logic is held within the localstorage.js file on the crud branch
+        - The reviewcard.js file in the same branch will serve as the skeleton to be filled out when frontend decides on their design
     
 
 ## What Went Well
@@ -27,6 +36,9 @@
   - Working towards goals of finishing card template html
   - Meeting up with everyone giving their own input on each aspect of the things need to be done
 - Backend: 
+  - Having nuanced conversations about what features we wanted as well as understanding when there was conflict
+  - Made good progress in developing the features needed for CRUD operations to occur
+  - Every member's opinion was considered and heard
 
 ## What Didn’t Go Well
 - Frontend: 
@@ -35,6 +47,9 @@
     - Meetings were online so the design aspect was hard to work on and took longer to communicate our ideas
     - Some ideas were out of scope (implementing other libraries)
 - Backend: 
+    - Was hard finding a common time to meet that worked with everyone's schedule
+    - Communciation with the frontend team was at times hazy and needed to wait to come to a good conclusion
+    - Internet issues with meeting online sometimes hindered the progress on our part
 
 ## Lessons Learned
 - [Insights or takeaways from this sprint that can guide future work]
@@ -43,6 +58,8 @@
     - Read and understand documentation to the fullest extent
     - Understand how to use tools in respect to project's scope
 - Backend: 
+    - Need more frequent checkins with frontend team to make sure everyone is on the same page
+    - Understanding and patience are paramount to success
 
 ## Action Items
 - [List of actionables or process changes the team agrees to try]
@@ -50,6 +67,8 @@
     - Communicate better with backend on what is needed in order for them to succeeded
     - Reading up on materials for some ideas such as meta query before trying to implement them while reading
 - Backend: 
+    - Setup specific and agreed upon times during the week to quickly check in with frontends progress
+    - Finish labs at least a day before they are due so our we will be prepared to use the topics in our project
 
 
 ## Follow-up / Next Steps
@@ -61,4 +80,10 @@
     - Team 2 (Samantha and Nadine):
         - HTML/CSS for viewing page and back module
         - Check-in: Middle of sprint (Wednesday and Thursday)
-- Backend: 
+- Backend:
+   - Team 1 (Skyler and Charlie):
+        - Fill in assigned test cases and look into filling out our skeleton js file
+        - Check-in: Middle of sprint (Wednesday and Thursday)
+    - Team 2 (Srujam, Minnie, and Austin):
+        - Polish CRUD file, do assigned test cases for functionality, if time, look into filling in skeleton js file
+        - Check-in: Middle of sprint (Wednesday and Thursday)
