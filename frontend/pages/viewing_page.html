@@ -1,43 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViewingPage</title>
+    <link rel="stylesheet" href="/frontend/styles/viewing_page.css">
+    <title>Viewing Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+    </style>
 </head>
 <body>
-    <!--start the banner in red-->
-    <!--height and width temporarily set for editing purposes-->
+    <!--Temp text to navigate through landing and viewing page-->
+    <p><a href="/frontend/pages/landing_page.html">To Landing Page</a></p>
+    
+    <!--Start the banner in red-->
+    <!--Height and width temporarily set for editing purposes-->
     <div class="banner">
-        <img src="/frontend/assets/boxoffice_banner.png" alt="banner for boxoffice" style="width: 100%;">
-        <button class = "back-btn">  
-        </button>
+        <img src="/frontend/assets/boxoffice_banner.png" alt="BoxOffice Banner">
+        
+        <div class="scrolling-text">
+            <p>NOW SHOWING...</p>
+        </div>
     </div>
 
-    <!--for movie poster: front of card-->
-    <div class="poster-carousel">
-         <!--gold left/right button-->
-        <button class="nav-btn">
-            <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster" height="200" width="auto">
-        </button>
+    <!--For movie poster: front of card-->
+    <section class="poster-carousel">
 
-        <div class="poster-container">
+        <!--Poster container for user to "scroll" through using the buttons-->
+        <section class="poster-container">
             <div id="previous-poster">
-                <img src="/frontend/assets/ticket.png" alt="Previous poster" height="400" width="auto">
+                <img src="/frontend/assets/ticket.png" alt="Previous poster">
             </div>
             <div id="current-poster">
-                <img src="/frontend/assets/ticket.png" alt="Current poster" height="400" width="auto">
+                <img src="/frontend/assets/ticket.png" alt="Current poster">
             </div>
             <div id="next-poster">
-                <img src="/frontend/assets/ticket.png" alt="Next poster" height="400" width="auto">
+                <img src="/frontend/assets/ticket.png" alt="Next poster">
             </div>
+        </section>
+
+        <div class="carousel-button-container">
+            <!--Gold left button-->
+            <button class="nav-btn">
+                <img src="/frontend/assets/gold_left_arrow.png" alt="Button to previous poster">
+            </button>
+            <!--Gold right button-->
+            <button class="nav-btn">
+                <img src="/frontend/assets/gold_right_arrow.png" alt="Button to next poster">
+            </button>
         </div>
+    </section>
 
-        <button class="nav-btn">
-            <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster" height="200" width="auto">
-        </button>
-    </div>
-
-    
 </body>
 </html>

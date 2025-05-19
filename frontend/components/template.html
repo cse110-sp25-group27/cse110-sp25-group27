@@ -1,0 +1,51 @@
+<form id="new-review">
+    <div id="card-front">
+            <fieldset>
+            <label for="movie-title">Movie Title</label>
+            <input type="text" id="movie-title" name="movie-title"><br>
+            
+            <input type= "image" id = "movie-poster" name = "movie-poster">
+
+            <label for = "username">User Name</label>
+            <input type="text" id="username" name="username">
+        </fieldset>
+    </div>
+    
+    <!--Style the html to "split" the forms into two "cards" where the user can scroll down from the front to back-->
+
+    <div id="card-back">
+        <fieldset>
+            <label for="movie-title">Movie Title</label>
+            <input type="text" id="movie-title" name="movie-title"><br>
+            
+            <label for = "release-date"> Release Date</label>
+            <input type = "date" id = "release-date" name = "release-date">
+        </fieldset>
+
+        <fieldset>
+            <label for = "username">Ticket Reserved for:</label>
+            <input type ="text" id = "username" name = "username"><br>
+            
+            <label for = "date-input">Watch Date:</label>
+            <input type = "date" id="date-input" name="watch-date"><br>
+
+            <label for = "time-input">Time Watched:</label>
+            <input type = "time" id = "time-input" name="watch-time"><br>
+
+            <label for="watch-count">Watch Count:</label>
+            <input type="number" id="watch-count" name="watch-count" min="1"><br>
+        </fieldset>
+        
+        <!--Hover over the stars that you want to rate the movie, once you click it will update the rating-->
+
+        <fieldset>
+            <legend>Rating</legend>
+            <label for="rating-0">0<input type="radio" id="rating-0" value="0" name="rating" /> </label>
+            <label for="rating-1">1<input type="radio" id="rating-1" value="1" name="rating" /> </label>
+            <label for="rating-2">2<input type="radio" id="rating-2" value="2" name="rating" /> </label>
+            <label for="rating-3">3<input type="radio" id="rating-3" value="3" name="rating" /> </label>
+            <label for="rating-4">4<input type="radio" id="rating-4" value="4" name="rating" /> </label>
+            <label for="rating-5">5<input type="radio" id="rating-5" value="5" name="rating" /> </label>
+        </fieldset>
+    </div>
+</form>

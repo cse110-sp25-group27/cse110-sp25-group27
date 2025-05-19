@@ -5,6 +5,9 @@
 1. [May 10](#may-10-meeting)
 2. [May 12](#may-12-meeting)
 3. [May 14](#may-14-meeting)
+4. [May 19](#may-19-meeting)
+
+---
 
 ## May 10 Meeting
 
@@ -22,8 +25,8 @@
 ### Notes - 5/10
 
 - Ticket stub design
-  - "Admit One" ticket stub style with movie poster in front
-  - Backside of ticket stub has the text movie information and user review 
+- "Admit One" ticket stub style with movie poster in front
+- Backside of ticket stub has the text movie information and user review 
 - Background will be the front of an old theater
 - Landing page will show an old theater with a scrolling "now showing" of past reviewed movies
 
@@ -31,8 +34,8 @@
 
 - Ticket stub design (back and front)
 - Landing page assets:
-  - Powell as ticket seller in ticket booth
-  - Movie theater with "BoxOffice" labeling
+- Powell as ticket seller in ticket booth
+- Movie theater with "BoxOffice" labeling
 - Highfidelity wireframes of landing page, viewing pages, and editing pages
 
 ### Images - 5/10
@@ -40,6 +43,8 @@
 ![Powell Ticket Seller](/frontend/assets/meeting_refs/PowellTicketSeller.png)
 ![BoxOffice Theater](/frontend/assets/meeting_refs/BoxOffice.png)
 ![Highfidelity Wireframes](/frontend/assets/meeting_refs/hifidelity_wireframes.png)
+
+---
 
 ## May 12 Meeting
 
@@ -67,7 +72,7 @@
 
 - When pushing new edits:
   
-1. Make a new branch: `git branch -b <branchname>`
+1. Make a new branch: `git checkout -b <branchname>`
 2. Add edits to commit: `git add .`
 3. Commit: `git commit -am <message>`
 4. Stage commit and push: `git push --set-upstream origin <branchname>`
@@ -79,21 +84,25 @@
 > Next group meeting for Wednesday's meeting 1-2pm
 
 - Discuss structure of the movie card
-  - Title
-  - ImgLink
-  - ImgAtr
-  - Rating
-  - Etc.
+- Title
+- ImgLink
+- ImgAtr
+- Rating
+- Etc.
 
 > Next group meeting for end of week
 
 - Finish all HTML files
 
+---
+
 ## May 14 Meeting
 
-### Agenda - 5/12
+### Agenda - 5/14
 
-### Attendance - 5/12
+- 2pm to 3pm, before general meeting at 3pm to 4pm
+
+### Attendance - 5/14
 
 - Inchul
 - Nadine
@@ -101,19 +110,61 @@
 - Albert
 - Svetlana
 
-### Notes - 5/12
+### Notes - 5/14
 
 - created new folder differentiating the edit and viewing back module
 - stars are filled in based on hover (filling in the ones before)
 - sizing of images should be set dimensions, done before css
-  - square: 500x500?
-  - rectangles: 1000x500?
+- square: 500x500?
+- rectangles: 1000x500?
 - following the articles and template like Lab 6
 
-### Accomplished - 5/12
-- implemented skeleton template for the backend team to fill in (like lab6)
-  - front_module.HTML
-  - back_modeul.HTML
-  - backTemplate.HTML
+### Accomplished - 5/14
 
-### Goals to Accomplish by Next Meeting - 5/12
+- implemented skeleton template for the backend team to fill in (like lab 6)
+- front_module.HTML
+- back_modeul.HTML
+- backTemplate.HTML
+
+---
+
+## May 19 Meeting
+
+### Attendance - 5/19
+
+- Albert 
+- Inchul
+- Samantha
+- Nadine
+- Svetlana
+
+### Notes - 5/19
+
+- consolidated template.html to one page (back_module template for the html elements is now just template.html)
+- template styling will allow one form for backend implementation and styling will display two "cards" using CSS, but using one form for user input
+- beginning on styling
+- adjustments for the cards and positioning
+- issues with positioning of the articles and buttons
+
+### Accomplished - 5/19
+
+- fully implemented template, front_module, back_module htmls
+- temp styling for landing and viewing pages
+
+### Need to Work On - 5/19
+
+- make sure backend CRUD operations generate html articles correctly
+- ensure that the css styling for the cards is working
+- ensure that the data is displaying correctly on the pages
+- ensure that none of the modules are breaking and there are no issues with positioning
+- implementing stacked cards in landing page
+- ensure webpages are adaptive to different screens of different sizings 
+
+### Questions and Clarifications
+
+- Q: One form? A: Yes, all the data is collected on one form so that the CRUD operations will work with one retrieval function
+- Q: Accessing viewing from landing page? A: Click on text option from Powell and it will direct you to the viewing page. To go backwards, right now, there is a link directing you backwards. However, once fully implemented, onve you edit, it will direct you back automatically.
+
+### Questions from Frontend to Backend
+
+- To implement the styling for the stacked ticket stubs, should frontend hard code the "stacked look" in CSS, or will backend be able to help out with the implementation in JS?
