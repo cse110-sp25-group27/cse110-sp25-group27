@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BoxOffice</title>
     <link rel="icon" type="image/x-icon" href="assets/PowellRangersLOGO.png">
+    <link rel="stylesheet" href="/frontend/styles/landing_page.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+    </style>
 </head>
 <body>
+    <p><a href="/frontend/pages/viewing_page.html">To Viewing Page</a></p>
 
     <!-- Now showing -->
-    <div class="image-container">
-        <img src="/frontend/assets/boxoffice_banner.png" alt="BoxOffice Banner" height="200" width="600" class="banner">
+    <div class="banner-container">
+        <img src="/frontend/assets/boxoffice_banner.png" alt="BoxOffice Banner"class="banner">
             <div class="scrolling-text">
-                <p>TEMP MOVIE TITLE</p>
+                <p> HARRY POTTER AND THE TEMP MOVIE TITLE VERY VERY 
+                    LONG LOOK AT ME MOVIE WOO HOO EVEN LONGER
+                </p>
             </div>
     </div>
 
@@ -20,19 +27,30 @@
     <section class = "poster-carousel">
         
         <section class = "poster-container">
-            <img src = "/frontend/assets/ticket.png" alt = "Previous movie poster" height = "200" width = "125">
-            <img src = "/frontend/assets/ticket.png" alt = "Current movie poster" height = "200" width = "125">
-            <img src = "/frontend/assets/ticket.png" alt = "Next movie poster" height = "200" width = "125">
-        </section>
+            
+            <img src = "/frontend/assets/ticket.png" alt = "Previous movie poster">
+            <img src = "/frontend/assets/ticket.png" alt = "Previous movie poster">
+            <img src = "/frontend/assets/ticket.png" alt = "Previous movie poster">
+            <img src = "/frontend/assets/ticket.png" alt = "Previous movie poster">
+            
+            <img src = "/frontend/assets/ticket.png" alt = "Current movie poster">
+
+            <img src = "/frontend/assets/ticket.png" alt = "Next movie poster">
+            <img src = "/frontend/assets/ticket.png" alt = "Next movie poster">
+            <img src = "/frontend/assets/ticket.png" alt = "Next movie poster">
+            <img src = "/frontend/assets/ticket.png" alt = "Next movie poster">
+    </section>
 
         <!-- gold left/right button-->
-        <button class="nav-btn">
-            <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster button" height = "50" width = "70">
-        </button>
-            
-        <button class="nav-btn">
-            <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster button" height = "50" width = "70">
-        </button>
+        <div class = "carousel-button-container">
+            <button class="nav-btn">
+                <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster button" height = "50" width = "70">
+            </button>
+                
+            <button class="nav-btn">
+                <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster button" height = "50" width = "70">
+            </button>
+        </div>
     </div>
 
     <!-- Ticket Booth with Powell and option to add ticket-->
@@ -44,10 +62,14 @@
                 Welcome! <br> <br>
                 Would you like to add a ticket stub?
             </p>
-            <div class = "button-container">
-                <button type="button">Yes</button>
-                <button type="button">No</button>
-            </div>
+
+            <div class = "add-button-container">
+                <button type = "button" id = "add-ticket-button"> 
+                    <img src = "/frontend/assets/filmstrip_btn.png" alt = "img of film" height = 70px width = 90px>
+                </button>
+            </div> 
         </div>
+
     </section>
+</body>
 </html>
