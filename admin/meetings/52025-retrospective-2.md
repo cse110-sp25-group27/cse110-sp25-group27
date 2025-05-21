@@ -53,6 +53,7 @@
 - Backend: 
     - Code styling is important to ensure smooth testing and merging
     - Should ensure that code that is going to be merged should be tested
+    - Need to continue adding JSDOCS comments
 
 ## Action Items
 - [List of actionables or process changes the team agrees to try]
@@ -63,6 +64,7 @@
 - Backend: 
     - Read up more on documentation of Puppeteer testing to help test functionality for frontend
     - Implement files to test expected behavior after being more acquainted with the documentation
+    - Work with frontend team to create required event handlers
 
 
 ## Follow-up / Next Steps
@@ -76,8 +78,17 @@
         - Check-in: Middle of sprint (Wednesday and Thursday)
     - Additional check-in: Frontend meeting on Mondays at 12pm
 - Backend:
+    - Prachi
+        - Make code style documentation
+        - Close any completed issues
+        - Size remaining issues
+        - Update project board
+        - Check on jsdocs documentation generation in pipeline
+        - Pipeline for unit tests should point to updated testing file 
    - Team 1 (Skyler and Charlie):
-        - Fill in assigned test cases and look into filling out our skelepuppeteer documentationMiddle of sprint (Wednesday and Thursday)
+        - Look into issues with CRUD, finish assigned test cases.
+        - Read Puppeteer documentation and implement tests from lab 7
+        - Check-in: Middle of sprint (Wednesday and Thursday)
     - Team 2 (Srujam, Minnie, and Austin):
-        - Polish CRUD file, do assigned test cases for functionality, if time, look into filling in skeleton js file
+        - Debug CRUD file, write assigned test cases for functionality
         - Check-in: Middle of sprint (Wednesday and Thursday)
