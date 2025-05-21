@@ -1,33 +1,26 @@
 class ReviewCardFront extends HTMLElement {
   constructor() {
     super();
-
     const shadowEl = this.attachShadow({ mode: "open" });
-
     const articleEl = document.createElement("article");
     articleEl.innerHTML = `
       <p class="movie-title"></p>
       <img src="" alt="Movie Poster">
       <p class="user"></p>
     `;
-
     const styleEl = document.createElement("style");
-    //to be changed
     styleEl.textContent = `
       * {
         font-family: sans-serif;
         margin: 0;
         padding: 0;
       }
-
       a {
         text-decoration: none;
       }
-
       a:hover {
         text-decoration: underline;
       }
-
       article {
         align-items: center;
         border: 1px solid rgb(223, 225, 229);
@@ -39,29 +32,24 @@ class ReviewCardFront extends HTMLElement {
         width: 178px;
         box-sizing: border-box;
       }
-
       .movie-title {
         font-size: 16px;
         font-weight: bold;
         color: black;
       }
-
       img {
         width: 100%;
         height: auto;
         border-radius: 8px;
         object-fit: cover;
       }
-
       .user {
         color: #70757A;
         font-size: 12px;
-      }
-    `;
-
-    shadowEl.appendChild(styleEl);
-    shadowEl.appendChild(articleEl);
+      }`;
+    shadowEl.append(styleEl, articleEl);
   }
+
 
   /**
    * Sets the data for the card.

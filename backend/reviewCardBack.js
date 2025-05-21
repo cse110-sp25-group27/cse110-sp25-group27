@@ -1,20 +1,15 @@
 class ReviewCardBack extends HTMLElement {
   constructor() {
     super();
-
     const shadowEl = this.attachShadow({ mode: "open" });
-
     const articleEl = document.createElement("article");
-
     const styleEl = document.createElement("style");
-    // to be changed
     styleEl.textContent = `
       * {
         font-family: sans-serif;
         margin: 0;
         padding: 0;
       }
-
       article {
         border: 1px solid rgb(223, 225, 229);
         border-radius: 8px;
@@ -24,45 +19,33 @@ class ReviewCardBack extends HTMLElement {
         width: 220px;
         box-sizing: border-box;
       }
-
       .movie-title a {
         font-size: 16px;
         font-weight: bold;
         color: black;
         text-decoration: none;
       }
-
       .movie-title a:hover {
         text-decoration: underline;
       }
-
-      .release-date,
-      .location-watched,
-      .date,
-      .time,
-      .user,
+      .release-date, .location-watched, .date, .time, .user,
       .user-review {
         font-size: 12px;
         color: #70757A;
       }
-
       time {
         font-size: 12px;
         color: #70757A;
       }
-
       .rating {
         display: flex;
         align-items: center;
         column-gap: 5px;
       }
-
       .rating img {
         width: 78px;
         object-fit: scale-down;
-      }
-    `;
-
+      }`;
     shadowEl.appendChild(styleEl);
     shadowEl.appendChild(articleEl);
   }
