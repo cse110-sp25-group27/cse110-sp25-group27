@@ -1,4 +1,5 @@
-import { localStorage } from '../backend/localStorage';
+//import { localStorage } from '../backend/localStorage.js';
+import { initFormHandler, getReviewsFromStorage, deleteReviewById, addReviewsToDocument, saveReviewsToStorage, createReviewObject, updateReview } from '../backend/localStorage.js';
 
 // testing assigments: 
 //Prachi: getReviewsFromStorage()
@@ -8,11 +9,11 @@ import { localStorage } from '../backend/localStorage';
 //skyler : initFormHandler()
 
 
-//I wrote my unit tets for my functions, but I can't get the exports to work, so npm run test will just give errors atm
+//I wrote my unit test for my functions, but I can't get the exports to work, so npm run test will just give errors atm
 describe('localStorage helpers', () => {
 
     //-------------------------------------------------------------------
-    // TEST (creatReviewObject)
+    // TEST (createReviewObject)
     //-------------------------------------------------------------------
     test('createReviewObject returns a fully populated object', () => {
         //custom form, not sure if the image link is the way it is needed
@@ -91,5 +92,101 @@ describe('localStorage helpers', () => {
         //double check and make sure movie A wasn't altered in any way
         const aRecord = stored.find((r) => r.id === 'a');
         expect(aRecord.rating).toBe(3);
+    });
+});
+
+describe('initFormHandler', () => {
+    //-------------------------------------------------------------------
+    // TEST (initFormHandler)
+    //-------------------------------------------------------------------
+
+    beforeEach(() => {
+    // Set up HTML structure
+        document.body.innerHTML = `
+        <form>
+            <input name="title" value="Test Movie" />
+            <input name="watchedOn" value="2024-01-01" />
+            <input name="rating" value="5" />
+            <input name="imageData" value="test.jpg" />
+            <textarea name="notes">Great!</textarea>
+            <button type="submit">Add</button>
+        </form>
+        <main></main>
+        <button class="danger">Clear</button>
+
+        <input id="delete-title-input" />
+        <button id="delete-button">Delete</button>
+
+        <input id="edit-title-input" />
+        <button id="edit-button">Edit</button>
+
+        <form id="update-form" style="display: block;">
+            <input name="title" />
+            <input name="watchedOn" />
+            <input name="rating" />
+            <input name="imageData" />
+            <textarea name="notes"></textarea>
+            <button type="submit">Update</button>
+        </form>
+        `;
+        localStorage.clear();
+        initFormHandler();
+    });
+
+    test('adds a review to localStorage and DOM on form submit', () => {
+        const form = document.querySelector('form');
+        form.dispatchEvent(new Event('submit'));
+
+        const reviews = getReviewsFromStorage();
+        expect(reviews.length).toBe(1);
+        expect(document.querySelectorAll('review-card').length).toBe(1);
+        expect(reviews[0].title).toBe('Test Movie');
+    });
+
+    test('clears reviews from localStorage and DOM on clear button click', () => {
+        // Add a review first
+        document.querySelector('form').dispatchEvent(new Event('submit'));
+        document.querySelector('button.danger').click();
+
+        expect(getReviewsFromStorage().length).toBe(0);
+        expect(document.querySelector('main').innerHTML).toBe('');
+    });
+
+    test('deletes a review by title', () => {
+        // Add a review
+        document.querySelector('form').dispatchEvent(new Event('submit'));
+        document.getElementById('delete-title-input').value = 'Test Movie';
+        document.getElementById('delete-button').click();
+
+        expect(getReviewsFromStorage().length).toBe(0);
+        expect(document.querySelectorAll('review-card').length).toBe(0);
+    });
+
+    test('prefills edit form with existing review data', () => {
+        // Add a review
+        document.querySelector('form').dispatchEvent(new Event('submit'));
+
+        document.getElementById('edit-title-input').value = 'Test Movie';
+        document.getElementById('edit-button').click();
+
+        const updateForm = document.getElementById('update-form');
+        expect(updateForm.elements['title'].value).toBe('Test Movie');
+        expect(updateForm.elements['notes'].value).toBe('Great!');
+    });
+
+    test('updates an existing review correctly', () => {
+        // Add a review
+        document.querySelector('form').dispatchEvent(new Event('submit'));
+
+        const review = getReviewsFromStorage()[0];
+        const updateForm = document.getElementById('update-form');
+        updateForm.dataset.reviewId = review.id;
+        updateForm.dataset.createdAt = review.createdAt;
+
+        pdateForm.elements['title'].value = 'Updated Movie';
+        updateForm.dispatchEvent(new Event('submit'));
+
+        const updated = getReviewsFromStorage()[0];
+        expect(updated.title).toBe('Updated Movie');
     });
 });

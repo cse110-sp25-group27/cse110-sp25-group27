@@ -259,4 +259,5 @@ function deleteReviewById(id) {
 	saveReviewsToStorage(reviews);
 }
 
+export { initFormHandler, getReviewsFromStorage, deleteReviewById, addReviewsToDocument, saveReviewsToStorage, createReviewObject, updateReview };
 
