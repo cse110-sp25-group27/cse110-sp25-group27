@@ -69,8 +69,10 @@ function saveReviewsToStorage(reviews) {
  *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
  */
 function createReviewObject(form){
+    let currentID = parseInt(localStorage.getItem('idCounter') || 0);
+    localStorage.setItem('idCounter', currentID + 1);
     return{
-        id : crypto.randomUUID(),       //id of the review card
+        id : currentID,       
         title : form.get('title'),
         watchedOn : form.get('watchedOn'),
         rating : parseInt(form.get('rating')),
@@ -104,6 +106,10 @@ function createReviewObject(form){
  * - Updates the DOM by adding/removing/replacing <review-card> elements
  */
 function initFormHandler() {
+    if (localStorage.getItem('idCounter') === null) {
+        localStorage.setItem('idCounter', '0');
+    }
+
 	const form = document.querySelector('form');
 
 	form.addEventListener('submit', (e) =>{
