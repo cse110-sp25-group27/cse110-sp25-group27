@@ -13,7 +13,7 @@ jobs:
         run: npm install
 
       - name: Run unit tests
-        run: npm test ./__tests__/sum.test.js
+        run: npm test ./__tests__/localStorage.test.js
 
       - name: Generate Markdown documentation
         run: npm run generate-docs
