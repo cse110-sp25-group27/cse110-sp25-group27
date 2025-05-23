@@ -1,6 +1,8 @@
 //import { localStorage } from '../backend/localStorage.js';
 import { initFormHandler, getReviewsFromStorage, deleteReviewById, addReviewsToDocument, saveReviewsToStorage, createReviewObject, updateReview } from '../backend/localStorage.js';
-
+beforeAll(() => {
+  globalThis.alert = () => {};
+});
 // testing assigments: 
 //Prachi: getReviewsFromStorage()
 //charlie: deleteReviewById(id), addReviewsToDocument(reviews)
@@ -16,27 +18,28 @@ describe('localStorage helpers', () => {
     // TEST (createReviewObject)
     //-------------------------------------------------------------------
     test('createReviewObject returns a fully populated object', () => {
-        //custom form, not sure if the image link is the way it is needed
-        const fd = new FormData();
-        fd.append('id', '123456');
-        fd.append('title', 'Inception');
-        fd.append('watchedOn', '2025-05-18');
-        fd.append('rating', '5');
-        fd.append('imageData', 'https://cdn.displate.com/artwork/270x380/2024-06-26/b3c00a5001f88b1d84655efd1b4b8590_f560fcf2e65fd265ddaa78cae2510e25.jpg');
-        fd.append('notes', 'A movie of all time');
+    // Mock idCounter in localStorage
+    localStorage.setItem('idCounter', '0'); 
 
-        const obj = createReviewObject(fd);
+    const fd = new FormData();
+    fd.append('title', 'Inception');
+    fd.append('watchedOn', '2025-05-18');
+    fd.append('rating', '5');
+    fd.append('imageData', 'https://cdn.displate.com/artwork/270x380/2024-06-26/b3c00a5001f88b1d84655efd1b4b8590_f560fcf2e65fd265ddaa78cae2510e25.jpg');
+    fd.append('notes', 'A movie of all time');
 
-        expect(obj).toEqual(
-            expect.objectContaining({
-                id: '123456',
-                title: 'Inception',
-                watchedOn: '2025-05-18',
-                rating: 5,
-                imageData: 'https://cdn.displate.com/artwork/270x380/2024-06-26/b3c00a5001f88b1d84655efd1b4b8590_f560fcf2e65fd265ddaa78cae2510e25.jpg',
-                notes: 'A movie of all time',
-            }),
-        );
+    const obj = createReviewObject(fd);
+
+    expect(obj).toEqual(
+        expect.objectContaining({
+            id: 0,
+            title: 'Inception',
+            watchedOn: '2025-05-18',
+            rating: 5,
+            imageData: 'https://cdn.displate.com/artwork/270x380/2024-06-26/b3c00a5001f88b1d84655efd1b4b8590_f560fcf2e65fd265ddaa78cae2510e25.jpg',
+            notes: 'A movie of all time',
+        }),
+    );
 
         expect(() => new Date(obj.createdAt)).not.toThrow();
         expect(obj.createdAt).toBe(obj.updatedAt);
@@ -183,7 +186,7 @@ describe('initFormHandler', () => {
         updateForm.dataset.reviewId = review.id;
         updateForm.dataset.createdAt = review.createdAt;
 
-        pdateForm.elements['title'].value = 'Updated Movie';
+        updateForm.elements['title'].value = 'Updated Movie';
         updateForm.dispatchEvent(new Event('submit'));
 
         const updated = getReviewsFromStorage()[0];
