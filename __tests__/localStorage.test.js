@@ -207,3 +207,24 @@ describe("initFormHandler", () => {
     expect(updated.title).toBe("Updated Movie");
   });
 });
+
+//Minnie: addReviewsToDocument test
+test("addReviewsToDocument correctly creates review-card elements in DOM", () =>{
+  const dummyReview = [
+    {
+      title: "Mock Movie",
+      watchedOn: "2024-01-01",
+      rating: 1,
+      imageData: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square.jpg",
+      notes: "Nice movie",
+    },
+  ];
+
+  document.body.innerHTML = `<main></main>`;
+  addReviewsToDocument(dummyReview);
+
+  const cards = document.querySelectorAll("review-card");
+  
+  expect(cards.length).toBe(1);
+  expect(cards[0].data).toEqual(dummyReview[0]);
+});
