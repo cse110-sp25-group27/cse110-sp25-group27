@@ -32,6 +32,7 @@
   - Testing to see if the CRUD operations are working
   - Ensure that the HTML and CSS are functional after injection for testing
 - Code style document
+- Debugged CRUD operations with current number of test cases
 
 
 ## Incomplete/Pending Work
