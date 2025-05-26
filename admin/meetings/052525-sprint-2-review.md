@@ -31,7 +31,7 @@
 - Injecting JSON for testing HTML
   - Testing to see if the CRUD operations are working
   - Ensure that the HTML and CSS are functional after injection for testing
-- 
+- Code style document
 
 
 ## Incomplete/Pending Work
@@ -44,11 +44,13 @@
   - Format CSS and HTML to make page visually appealing
   - Ensure that there are no breaks or JS errors
   - Operations do not cause other parts to break
-- 
+- more unit tests, starting e2e tests
+- JS file for event handlers such as buttons in the frontend 
 
 ## Demos (Feature Walkthrough)
 - Frontend: Landing/Viewing pages, show template or pages that the user can interact with. Cards laid out and arrows to traverse and move to different cards. JS operations and clicking is still in progress as there is no communication between HTML and JS yet.
 - Backend: N/A, need to test the functionality of the CRUD operations and make sure the no duplicate rule works
+  - update: 7 working tests for crud functionality
 
 ## Sprint Metric
 - Velocity: [Number of Story Points Completed]
@@ -81,6 +83,9 @@
   - Adapt CRUD operations to information and pages
   - Ensure that the operations display information like planned
   - Get interactions working with page navigation
+- Backend needs to continue writing unit tests, as there is a lot to cover
+  - In our first iteration of 7 tests, we did identify bugs with the CRUD operations
+  - we need to continue uncovering these issues
 - Continued communication between both teams
   - Make sure everything is working correctly
   - Updates on bugs and potential issues
