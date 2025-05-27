@@ -1,12 +1,12 @@
 //import { localStorage } from '../backend/localStorage.js';
 import {
-  initFormHandler,
+  initFormHandler, //
   getReviewsFromStorage,
   deleteReviewById,
-  addReviewsToDocument,
+  addReviewsToDocument, //
   saveReviewsToStorage,
-  createReviewObject,
-  updateReview,
+  createReviewObject, //
+  updateReview, //
 } from "../backend/localStorage.js";
 beforeAll(() => {
   globalThis.alert = () => {};
@@ -227,4 +227,36 @@ test("addReviewsToDocument correctly creates review-card elements in DOM", () =>
   
   expect(cards.length).toBe(1);
   expect(cards[0].data).toEqual(dummyReview[0]);
+});
+
+//Srujam: deleteReviewById test
+test("deleteReviewById correctly deletes review from localStorage", () => {
+  const testReviews = [
+    {
+      id: "delByIdTest1",
+      title: "delByIdTest1",
+      watchedOn: "05/27/2025",
+      rating: 5,
+      imageData: "",
+      notes: "",
+      createdAt: "2025-01-01T00:00:00.000Z",
+      updatedAt: "2025-01-01T00:00:00.000Z",
+    },
+    {
+      id: "delByIdTest2",
+      title: "delByIdTest2",
+      watchedOn: "05/22/2025",
+      rating: 4,
+      imageData: "",
+      notes: "",
+      createdAt: "2025-01-01T00:00:00.000Z",
+      updatedAt: "2025-01-01T00:00:00.000Z",
+    }
+  ];
+  localStorage.setItem("reviews", JSON.stringify(testReviews));
+  deleteReviewById("delByIdTest1");
+
+  const reviewsAfterDel = JSON.parse(localStorage.getItem("reviews"));
+  expect(reviewsAfterDel.length).toBe(1);
+  expect(reviewsAfterDel[0].id).toBe("delByIdTest2");
 });
