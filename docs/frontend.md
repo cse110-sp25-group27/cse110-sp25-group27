@@ -6,7 +6,7 @@
 2. [May 12](#may-12-meeting)
 3. [May 14](#may-14-meeting)
 4. [May 19](#may-19-meeting)
-
+5. [May 28](#may-28-meeting)
 ---
 
 ## May 10 Meeting
@@ -168,3 +168,17 @@
 ### Questions from Frontend to Backend
 
 - To implement the styling for the stacked ticket stubs, should frontend hard code the "stacked look" in CSS, or will backend be able to help out with the implementation in JS?
+
+
+## May 28 Meeting
+
+### Notes
+- When you click on dialogue, open up the form
+  - Form will allow the user to fill out the form
+  - Scrolling within the container
+  - Once you fill out the form, it will update with the card
+    - Cards will continue to appear when updated, allowing you to scroll
+    - If there are less than a certain amount of cards, no scroll
+    - Otherwise, scrolling enabled
+  - By default there is padding between the banner and office box
+    - Once populated with posters, replace padding with cards
