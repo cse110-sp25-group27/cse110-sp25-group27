@@ -37,6 +37,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [Design](./specs/adrs/05102025-Design.md)
 - [DuplicateEntry](./specs/adrs/05142025-DuplicateEntry.md)
 - [FormSubmission](./specs/adrs/05142025-FormSubmission.md)
+- [GridLayout](./specs/adrs/05302025-GridLayout.md)
 
 ## Movie Box Documentation
 
