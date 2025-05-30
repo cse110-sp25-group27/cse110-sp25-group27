@@ -105,7 +105,6 @@ class ReviewCard extends HTMLElement {
                              *  id : string,
                              *  title : string,
                              *  watchedDate : string,
-                             *  watchedTime : string,
                              *  watchCount : number (default at 1),
                              *  rating : number 1-5,
                              *  imageData : string (base 64/url),
@@ -125,10 +124,10 @@ class ReviewCard extends HTMLElement {
     article.innerHTML = `
       <img src="${data.imageData}" alt="Movie Poster">
       <p class="title">${data.title}</p>
-      <p class="username">Ticket Reserved for: ${data.username || "Anonymous"}</p>
-      <time>Watched: ${data.watchDate || "N/A"} at ${data.watchTime || "N/A"}</time>
+      <time>Watched: ${data.watchDate || "N/A"}</time>
       <p>Release Date: ${data.releaseDate || "N/A"}</p>
-      <div class="rating">Rating: ${data.rating}/5
+      <div class="rating">
+          Rating: ${data.rating}/5
       		<span>${data.rating}</span>
           <img src="/assets/${data.rating}_star.png" alt="${data.rating} stars">
           <span>${data.numRatings}</span>
