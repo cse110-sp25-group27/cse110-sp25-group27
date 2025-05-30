@@ -11,19 +11,22 @@
 - ## Sprint Overview
     - The goal of the week was to integrate backend with frontend, ensure CRUD operations are working.
     - Frontend:
-      - 
+      - Get working "new review" form
     - Backend:
       - 
 
 ## What Went Well
 - Frontend: 
+  - Finished new movie review form
+    - Will be on landing page
+    - Speech bubble will expand and show form
   - 
 - Backend: 
   - 
 
 ## What Didn’t Go Well
 - Frontend: 
-    - 
+    - Conflicting schedules pushed back sprint days
 - Backend: 
     - 
 
