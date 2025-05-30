@@ -1,8 +1,8 @@
 # Frontend Code Style Guide (HTML + CSS)
 
 1. File Naming
-- Use kebab-case for all files.
-  - index.html, main.css, user-profile.html
+- Use kebab_case for all files.
+  - index.html, main.css, user_profile.html
 - Use lowercase for all element names and attributes.
 - Always close tags (even self-closing ones in XHTML-style projects).
 - Use semantic tags wherever possible:
@@ -18,8 +18,8 @@
 
 # Backend (JavaScript) Code Style Guide
 1. File Naming
-- Use kebab-case for files.
-  - user-controller.js, auth-service.js
+- Use camelCase for files.
+  - userController.js, authService.js
 - Organize files by purpose (e.g., controllers/, services/, routes/)
 
 2. Variable Naming

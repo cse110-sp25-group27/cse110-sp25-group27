@@ -38,6 +38,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [DuplicateEntry](./specs/adrs/05142025-DuplicateEntry.md)
 - [FormSubmission](./specs/adrs/05142025-FormSubmission.md)
 - [GridLayout](./specs/adrs/05302025-GridLayout.md)
+- [CardLayout](./specs/adrs/05302025-CardLayout.md)
 
 ## Movie Box Documentation
 
@@ -66,6 +67,8 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [phase2 video](./admin/cipipeline/phase2.mp4)
 
 [**JS Documentation**](./docs/documentation.md)
+
+[**Code Styling Documentation**](./docs/code_style.md)
 
 **Repo Formatting (Tree diagram):**
 ```
