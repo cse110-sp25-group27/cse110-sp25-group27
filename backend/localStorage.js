@@ -19,7 +19,7 @@
  * is returned.
  * @returns {Array<Object>} 
  */
-function getReviewsFromStorage() {
+export function getReviewsFromStorage() {
 	return JSON.parse(localStorage.getItem('reviews')) || [];
 }
 
@@ -30,7 +30,7 @@ function getReviewsFromStorage() {
  * to <main>
  * @param {Array<Object>} reviews An array of recipes
  */
-function addReviewsToDocument(reviews) {
+export function addReviewsToDocument(reviews) {
 	const main = document.querySelector('main');
 	for(const review of reviews){
 		const reviewCard = document.createElement('review-card');
@@ -44,7 +44,7 @@ function addReviewsToDocument(reviews) {
  * saves that string to 'reviews' in localStorage
  * @param {Array<Object>} reviews 
  */
-function saveReviewsToStorage(reviews) {
+export function saveReviewsToStorage(reviews) {
 	localStorage.setItem('reviews', JSON.stringify(reviews));	
 }
 
@@ -63,24 +63,55 @@ function saveReviewsToStorage(reviews) {
  *   - {string} title - The title from the form.
  *   - {string} watchedOn - The date the item was watched.
  *   - {number} rating - The parsed integer rating.
- *   - {string} imageData - Image data or image URL.
- *   - {string} notes - Any notes about the review.
+ *   - {number} watchCount - The number of times the item was watched.
+ *   - {string} imageData - file converted to base 64 string.
+ *   - {string} notes - Notes section of the review.
  *   - {string} createdAt - ISO string timestamp for when the object was created.
  *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
  */
-function createReviewObject(form){
-    let currentID = parseInt(localStorage.getItem('idCounter') || 0);
-    localStorage.setItem('idCounter', currentID + 1);
-    return{
-        id : currentID,       
-        title : form.get('title'),
-        watchedOn : form.get('watchedOn'),
-        rating : parseInt(form.get('rating')),
-        imageData : form.get('imageData'),
-        notes : form.get('notes'),
-        createdAt : new Date().toISOString(),
-        updatedAt : new Date().toISOString()
-    }
+export function createReviewObject(form){
+    return new Promise((resolve, reject)=>{
+        let currentID = parseInt(localStorage.getItem('idCounter') || 0);
+        localStorage.setItem('idCounter', currentID + 1);
+        const file = form.get('movie-poster');
+
+        if(!file || file.size === 0){
+            resolve({
+                id : currentID,       
+                title : form.get('movie-title'),
+                watchedOn : form.get('watch-date'),
+                watchCount: parseInt(form.get('watch-count')) || 1,
+                rating : parseInt(form.get('rating')),
+                imageData : "",
+                notes : form.get('review'),
+                releaseDate: form.get('release-date'),
+                createdAt : new Date().toISOString(),
+                updatedAt : new Date().toISOString()
+            });
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            resolve({
+                id : currentID,       
+                title : form.get('movie-title'),
+                watchedOn : form.get('watch-date'),
+                watchCount: parseInt(form.get('watch-count')) || 1,
+                rating : parseInt(form.get('rating')),
+                imageData : e.target.result,
+                notes : form.get('review'),
+                releaseDate: form.get('release-date'),
+                createdAt : new Date().toISOString(),
+                updatedAt : new Date().toISOString()
+            });
+        };
+
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+
+    });
+
 }
 
 /**
@@ -105,28 +136,38 @@ function createReviewObject(form){
  * - Manipulates localStorage
  * - Updates the DOM by adding/removing/replacing <review-card> elements
  */
-function initFormHandler() {
+export function initFormHandler() {
     if (localStorage.getItem('idCounter') === null) {
         localStorage.setItem('idCounter', '0');
     }
 
-	const form = document.querySelector('form');
+	const form = document.querySelector('#new-review');
 
-	form.addEventListener('submit', (e) =>{
+	form.addEventListener('submit', async (e) =>{
 		e.preventDefault();
-
         const formData = new FormData(form);
 
-        const reviewObject = createReviewObject(formData);
+        const title = formData.get('movie-title')?.toLowerCase();
+        const exist = getReviewsFromStorage().some(r =>r.title.toLowerCase() == title);
+        if(exist){
+            alert(`A review for "${title}" already exists.`);
+            return;
+        }
 
-        const reviewCard = document.createElement('review-card');
+        try{
+            const reviewObject = await createReviewObject(formData);
+            const reviewCard = document.createElement('review-card');
+            reviewCard.data = reviewObject;
+            document.querySelector('main').appendChild(reviewCard);
 
-        reviewCard.data = reviewObject;
-        document.querySelector('main').appendChild(reviewCard);
-
-        const curr = getReviewsFromStorage();
-        curr.push(reviewObject);
-        saveReviewsToStorage(curr);
+            const curr = getReviewsFromStorage();
+            curr.push(reviewObject);
+            saveReviewsToStorage(curr);
+        }
+        catch(err){
+            console.error("Error reading image file:", err);
+            alert("Failed to process image upload.");
+        }
 
 	});
 	const clear = document.querySelector('button.danger');
@@ -146,15 +187,14 @@ function initFormHandler() {
         const reviewTBD = reviews.find(r => r.title.toLowerCase() === titleTBD);
 
         if(! reviewTBD){
-            alert('movie review not found');
-
+            alert("movie review not found");
             return;
         }
 
         deleteReviewById(reviewTBD.id);
         const cards = document.querySelectorAll('review-card');
         for(const c of cards){
-            if(c.data.title.toLowerCase() == titleTBD){
+            if(c.data.title.toLowerCase() === titleTBD){
                 c.remove();
                 break;
             }
@@ -174,16 +214,18 @@ function initFormHandler() {
 
         const reviewTBE = reviews.find(r => r.title.toLowerCase() === titleTBE);
         if(! reviewTBE){
-            alert('movie review not found');
+            alert("movie review not found");
             return;
         }
 
         const formData = document.getElementById('update-form');
-        formData.elements['title'].value = reviewTBE.title;
-        formData.elements['watchedOn'].value = reviewTBE.watchedOn;
+        formData.elements['movie-title'].value = reviewTBE.title;
+        formData.elements['watch-date'].value = reviewTBE.watchedOn;
+        formData.elements['watch-count'].value = reviewTBE.watchCount;
         formData.elements['rating'].value = reviewTBE.rating;
-        formData.elements['imageData'].value = reviewTBE.imageData;
-        formData.elements['notes'].value = reviewTBE.notes;
+        formData.elements['movie-poster'].value = reviewTBE.imageData;
+        formData.elements['release-date'].value = reviewTBE.releaseDate;
+        formData.elements['review'].value = reviewTBE.notes;
 
         formData.dataset.reviewId = reviewTBE.id;
         formData.dataset.createdAt = reviewTBE.createdAt;
@@ -192,7 +234,7 @@ function initFormHandler() {
     });
 
     //user edit: update data
-    document.getElementById('update-form').addEventListener('submit', (e) => {
+    document.getElementById('update-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
@@ -207,17 +249,40 @@ function initFormHandler() {
             return;
         }
 
+        const file = formData.get('movie-poster');
+
+        let imageData = oldReview.imageData;
+        if(file && file.size > 0){
+            try{
+                imageData = await new Promise((resolve, reject) =>{
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = () =>{
+                        alert("Failed to read the image file.");
+                        finishUpdate(null);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+            catch(err){
+                alert(err);
+                return;
+            }
+        }
+
         const updatedReview = {
             id: reviewId,
             createdAt: createdAt,
             updatedAt: new Date().toISOString(),
 
-            //new data is used, otherwise fallback to old value
-            title: formData.get('title') || oldReview.title,
-            watchedOn: formData.get('watchedOn') || oldReview.watchedOn,
+            title: formData.get('movie-title') || oldReview.title,
+            watchedOn: formData.get('watch-date') || oldReview.watchedOn,
+            watchCount: parseInt(formData.get('watch-count')) || oldReview.watchCount || 1,
             rating: parseInt(formData.get('rating')) || oldReview.rating,
-            imageData: formData.get('imageData') || oldReview.imageData,
-            notes: formData.get('notes') || oldReview.notes
+            imageData: imageData || oldReview.imageData,
+            releaseDate: formData.get('release-date') || oldReview.releaseDate,
+            notes: formData.get('review') || oldReview.notes,
+            
         };
 
         updateReview(updatedReview);
@@ -231,6 +296,7 @@ function initFormHandler() {
         addReviewsToDocument(getReviewsFromStorage());
 
         alert(`Review for ${updatedReview.title} updated.`);
+
     });
 
 }
@@ -240,12 +306,12 @@ function initFormHandler() {
  * 
  * @param {Object} updatedReview - The updated review object.
  * @param {string} updatedReview.id - The unique identifier of the review to update.
- * Other expected properties: title, watchedOn, rating, imageData, notes, createdAt, updatedAt.
+ * Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.
  * 
  * Side effects:
  * - Replaces the existing review with the same ID in localStorage.
  */
-function updateReview(updatedReview) {
+export function updateReview(updatedReview) {
 	const reviews = getReviewsFromStorage().map(r =>
 		r.id === updatedReview.id ? updatedReview : r
 	);
@@ -260,7 +326,7 @@ function updateReview(updatedReview) {
  * Side effects:
  * - Removes the review with the given ID from localStorage.
  */
-function deleteReviewById(id) {
+export function deleteReviewById(id) {
 	const reviews = getReviewsFromStorage().filter(r => r.id !== id);
 	saveReviewsToStorage(reviews);
 }
