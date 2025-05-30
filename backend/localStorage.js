@@ -19,7 +19,7 @@
  * is returned.
  * @returns {Array<Object>} 
  */
-function getReviewsFromStorage() {
+export function getReviewsFromStorage() {
 	return JSON.parse(localStorage.getItem('reviews')) || [];
 }
 
@@ -30,7 +30,7 @@ function getReviewsFromStorage() {
  * to <main>
  * @param {Array<Object>} reviews An array of recipes
  */
-function addReviewsToDocument(reviews) {
+export function addReviewsToDocument(reviews) {
 	const main = document.querySelector('main');
 	for(const review of reviews){
 		const reviewCard = document.createElement('review-card');
@@ -44,7 +44,7 @@ function addReviewsToDocument(reviews) {
  * saves that string to 'reviews' in localStorage
  * @param {Array<Object>} reviews 
  */
-function saveReviewsToStorage(reviews) {
+export function saveReviewsToStorage(reviews) {
 	localStorage.setItem('reviews', JSON.stringify(reviews));	
 }
 
@@ -69,7 +69,7 @@ function saveReviewsToStorage(reviews) {
  *   - {string} createdAt - ISO string timestamp for when the object was created.
  *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
  */
-function createReviewObject(form){
+export function createReviewObject(form){
     return new Promise((resolve, reject)=>{
         let currentID = parseInt(localStorage.getItem('idCounter') || 0);
         localStorage.setItem('idCounter', currentID + 1);
@@ -136,7 +136,7 @@ function createReviewObject(form){
  * - Manipulates localStorage
  * - Updates the DOM by adding/removing/replacing <review-card> elements
  */
-function initFormHandler() {
+export function initFormHandler() {
     if (localStorage.getItem('idCounter') === null) {
         localStorage.setItem('idCounter', '0');
     }
@@ -311,7 +311,7 @@ function initFormHandler() {
  * Side effects:
  * - Replaces the existing review with the same ID in localStorage.
  */
-function updateReview(updatedReview) {
+export function updateReview(updatedReview) {
 	const reviews = getReviewsFromStorage().map(r =>
 		r.id === updatedReview.id ? updatedReview : r
 	);
@@ -326,7 +326,7 @@ function updateReview(updatedReview) {
  * Side effects:
  * - Removes the review with the given ID from localStorage.
  */
-function deleteReviewById(id) {
+export function deleteReviewById(id) {
 	const reviews = getReviewsFromStorage().filter(r => r.id !== id);
 	saveReviewsToStorage(reviews);
 }
