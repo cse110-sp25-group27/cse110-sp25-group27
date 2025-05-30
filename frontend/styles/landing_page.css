@@ -131,10 +131,6 @@ button:hover {
 .text-bubble {
   display: flex;
   flex-direction: column;
-<<<<<<< Updated upstream
-  align-items: center;
-=======
->>>>>>> Stashed changes
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
@@ -168,9 +164,5 @@ button:hover {
 }
 
 .text-bubble.expanded #form-container {
-<<<<<<< Updated upstream
-  max-height: 1000px; /* large enough to fit content */
-=======
   max-height: 1000px; 
->>>>>>> Stashed changes
 }
