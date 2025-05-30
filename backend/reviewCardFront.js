@@ -74,7 +74,6 @@ class ReviewCardFront extends HTMLElement {
     article.innerHTML = `
       <p class="movie-title">${data.title}</p>
       <img src="${data.imageData}" alt="Poster of ${data.title}">
-      <p class="user">Reviewed by: ${username}</p>
     `;
   }
 }
