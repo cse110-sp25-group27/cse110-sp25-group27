@@ -1,13 +1,10 @@
 <form id="new-review">
     <div id="card-front">
-            <fieldset>
+        <fieldset>
             <label for="movie-title">Movie Title</label>
-            <input type="text" id="movie-title" name="movie-title"><br>
-            
-            <input type= "image" id = "movie-poster" name = "movie-poster">
-
-            <label for = "username">User Name</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="movie-title" name="movie-title"><br>  
+            <label for="movie-poster">Upload Movie Poster</label>
+            <input type="file" id="movie-poster" name="movie-poster" accept="image/*">
         </fieldset>
     </div>
     
@@ -15,22 +12,13 @@
 
     <div id="card-back">
         <fieldset>
-            <label for="movie-title">Movie Title</label>
-            <input type="text" id="movie-title" name="movie-title"><br>
-            
             <label for = "release-date"> Release Date</label>
             <input type = "date" id = "release-date" name = "release-date">
         </fieldset>
 
         <fieldset>
-            <label for = "username">Ticket Reserved for:</label>
-            <input type ="text" id = "username" name = "username"><br>
-            
             <label for = "date-input">Watch Date:</label>
             <input type = "date" id="date-input" name="watch-date"><br>
-
-            <label for = "time-input">Time Watched:</label>
-            <input type = "time" id = "time-input" name="watch-time"><br>
 
             <label for="watch-count">Watch Count:</label>
             <input type="number" id="watch-count" name="watch-count" min="1"><br>
@@ -51,4 +39,6 @@
             <label for="rating-5">5<input type="radio" id="rating-5" value="5" name="rating" /> </label>
         </fieldset>
     </div>
+
+    <button type="submit" form="new-review" value="Submit">Submit</button>
 </form>
