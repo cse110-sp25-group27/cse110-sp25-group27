@@ -76,7 +76,6 @@ function createReviewObject(form){
         id : currentID,       
         title : form.get('movie-title'),
         watchDate : form.get('watch-date'),
-        watchTime: form.get('watch-time'),
         watchCount: parseInt(form.get('watch-count')) || 1,
         rating : parseInt(form.get('rating')),
         imageData : form.get('movie-poster'),

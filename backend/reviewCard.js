@@ -104,10 +104,14 @@ class ReviewCard extends HTMLElement {
                              * {
                              *  id : string,
                              *  title : string,
-                             *  watchedOn : string (ISO),
+                             *  watchedDate : string,
+                             *  watchedTime : string,
+                             *  watchCount : number (default at 1),
                              *  rating : number 1-5,
                              *  imageData : string (base 64/url),
                              *  notes : string,
+                             *  releaseDate : string,
+                             *  username : string,
                              *  createdAt : string (ISO),
                              *  updatedAt : string (ISO)
                              * }
@@ -118,7 +122,21 @@ class ReviewCard extends HTMLElement {
     const article = this.shadowRoot.querySelector("article");
     
     //TO BE CONTINUED
-    //article.innerHTML = ``;
+    article.innerHTML = `
+      <img src="${data.imageData}" alt="Movie Poster">
+      <p class="title">${data.title}</p>
+      <p class="username">Ticket Reserved for: ${data.username || "Anonymous"}</p>
+      <time>Watched: ${data.watchDate || "N/A"} at ${data.watchTime || "N/A"}</time>
+      <p>Release Date: ${data.releaseDate || "N/A"}</p>
+      <div class="rating">Rating: ${data.rating}/5
+      		<span>${data.rating}</span>
+          <img src="/assets/${data.rating}_star.png" alt="${data.rating} stars">
+          <span>${data.numRatings}</span>
+      </div>
+      <p class="notes">
+        ${data.notes || ""}
+      </p>
+      `;
   }
 }
 
