@@ -21,6 +21,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [April 25, Brainstorming](./admin/meetings/052525-brainstorm.md)
 - [May 21](./admin/meetings/may_21_TA.md)
 - [May 28](./admin/meetings/may_28.md)
+- [May 30](./admin/meetings/may_30_TA.md)
 
 **Status Video 1:**
 - [Status Video 1 Compressed File](./admin/videos/statusvideo1.zip)
