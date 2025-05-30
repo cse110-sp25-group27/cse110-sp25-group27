@@ -63,8 +63,9 @@ function saveReviewsToStorage(reviews) {
  *   - {string} title - The title from the form.
  *   - {string} watchedOn - The date the item was watched.
  *   - {number} rating - The parsed integer rating.
+ *   - {number} watchCount - The number of times the item was watched.
  *   - {string} imageData - Image data or image URL.
- *   - {string} notes - Any notes about the review.
+ *   - {string} notes - Notes section of the review.
  *   - {string} createdAt - ISO string timestamp for when the object was created.
  *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
  */
@@ -73,11 +74,15 @@ function createReviewObject(form){
     localStorage.setItem('idCounter', currentID + 1);
     return{
         id : currentID,       
-        title : form.get('title'),
-        watchedOn : form.get('watchedOn'),
+        title : form.get('movie-title'),
+        watchDate : form.get('watch-date'),
+        watchTime: form.get('watch-time'),
+        watchCount: parseInt(form.get('watch-count')) || 1,
         rating : parseInt(form.get('rating')),
-        imageData : form.get('imageData'),
-        notes : form.get('notes'),
+        imageData : form.get('movie-poster'),
+        notes : form.get('review'),
+        username: form.get('username'),
+        releaseDate: form.get('release-date'),
         createdAt : new Date().toISOString(),
         updatedAt : new Date().toISOString()
     }
@@ -110,7 +115,7 @@ function initFormHandler() {
         localStorage.setItem('idCounter', '0');
     }
 
-	const form = document.querySelector('form');
+	const form = document.querySelector('#new-review');
 
 	form.addEventListener('submit', (e) =>{
 		e.preventDefault();
@@ -179,11 +184,15 @@ function initFormHandler() {
         }
 
         const formData = document.getElementById('update-form');
-        formData.elements['title'].value = reviewTBE.title;
-        formData.elements['watchedOn'].value = reviewTBE.watchedOn;
+        formData.elements['movie-title'].value = reviewTBE.title;
+        formData.elements['watch-date'].value = reviewTBE.watchDate;
+        formData.elements['watch-time'].value = reviewTBE.watchTime;
+        formData.elements['watch-count'].value = reviewTBE.watchCount;
         formData.elements['rating'].value = reviewTBE.rating;
-        formData.elements['imageData'].value = reviewTBE.imageData;
-        formData.elements['notes'].value = reviewTBE.notes;
+        formData.elements['movie-poster'].value = reviewTBE.imageData;
+        formData.elements['release-date'].value = reviewTBE.releaseDate;
+        formData.elements['review'].value = reviewTBE.notes;
+        formData.elements['username'].value = reviewTBE.username;
 
         formData.dataset.reviewId = reviewTBE.id;
         formData.dataset.createdAt = reviewTBE.createdAt;
@@ -213,11 +222,16 @@ function initFormHandler() {
             updatedAt: new Date().toISOString(),
 
             //new data is used, otherwise fallback to old value
-            title: formData.get('title') || oldReview.title,
-            watchedOn: formData.get('watchedOn') || oldReview.watchedOn,
+            title: formData.get('movie-title') || oldReview.title,
+            watchDate: formData.get('watch-date') || oldReview.watchDate,
+            watchTime: formData.get('watch-time') || oldReview.watchTime || '',
+            watchCount: parseInt(formData.get('watch-count')) || oldReview.watchCount || 1,
             rating: parseInt(formData.get('rating')) || oldReview.rating,
-            imageData: formData.get('imageData') || oldReview.imageData,
-            notes: formData.get('notes') || oldReview.notes
+            imageData: formData.get('movie-poster') || oldReview.imageData,
+            releaseDate: formData.get('release-date') || oldReview.releaseDate,
+            notes: formData.get('review') || oldReview.notes,
+            username: formData.get('username') || oldReview.username
+            
         };
 
         updateReview(updatedReview);
@@ -240,7 +254,7 @@ function initFormHandler() {
  * 
  * @param {Object} updatedReview - The updated review object.
  * @param {string} updatedReview.id - The unique identifier of the review to update.
- * Other expected properties: title, watchedOn, rating, imageData, notes, createdAt, updatedAt.
+ * Other expected properties: title, watchDate, watchTime, watchCount, rating, imageData, review, createdAt, updatedAt.
  * 
  * Side effects:
  * - Replaces the existing review with the same ID in localStorage.
