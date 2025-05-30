@@ -131,10 +131,10 @@ button:hover {
 .text-bubble {
   display: flex;
   flex-direction: column;
+<<<<<<< Updated upstream
   align-items: center;
-  position: absolute;
-  transform: translate(80%, -210%);
-  animation: float 5s ease-in-out infinite;
+=======
+>>>>>>> Stashed changes
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
@@ -144,8 +144,33 @@ button:hover {
   background-color: #ece5ce;
   padding: 30px;
   border-radius: 11px;
-  position: relative;
   box-shadow: 10px 10px rgb(72 86 80);
   font-family: "Baloo 2", cursive;
+  transition: all 0.4s ease;
 }
 
+
+#form-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.text-bubble.expanded #form-container {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#form-container {
+  transition: opacity 0.4s ease, max-height 0.4s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.text-bubble.expanded #form-container {
+<<<<<<< Updated upstream
+  max-height: 1000px; /* large enough to fit content */
+=======
+  max-height: 1000px; 
+>>>>>>> Stashed changes
+}

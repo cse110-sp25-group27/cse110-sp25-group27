@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,56 +10,65 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
     </style>
+    <script src="../scripts/landingPageScript.js" defer></script>
 </head>
+
 <body>
     <p><a href="/frontend/pages/viewing_page.html">To Viewing Page</a></p>
 
     <!-- Now showing -->
     <div class="banner-container">
-        <img src="/frontend/assets/boxoffice_banner.png" alt="BoxOffice Banner"class="banner">
-            <div class="scrolling-text">
-                <p> HARRY POTTER AND THE TEMP MOVIE TITLE VERY VERY 
-                    LONG LOOK AT ME MOVIE WOO HOO EVEN LONGER
-                </p>
-            </div>
+        <img src="/frontend/assets/boxoffice_banner.png" alt="BoxOffice Banner" class="banner">
+        <div class="scrolling-text">
+            <p> HARRY POTTER AND THE TEMP MOVIE TITLE VERY VERY
+                LONG LOOK AT ME MOVIE WOO HOO EVEN LONGER
+            </p>
+        </div>
     </div>
 
     <!-- movie posters -->
-    <section class = "poster-carousel">
-        
+    <section class="poster-carousel">
+
         <main>
             <!--Add posters here-->
         </main>
 
         <!-- gold left/right button-->
-        <div class = "carousel-button-container">
+        <div class="carousel-button-container">
             <button class="nav-btn">
-                <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster button" height = "50" width = "70">
+                <img src="/frontend/assets/gold_left_arrow.png" alt="Previous poster button" height="50" width="70">
             </button>
-                
+
             <button class="nav-btn">
-                <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster button" height = "50" width = "70">
+                <img src="/frontend/assets/gold_right_arrow.png" alt="Next poster button" height="50" width="70">
             </button>
         </div>
-    </div>
+    </section>
 
     <!-- Ticket Booth with Powell and option to add ticket-->
     <section class="powell-ticket-booth">
-        <img id="powell" src="/frontend/assets/ticket_booth.png" alt="Ticket booth" height  = "400" width = auto>
+        <img id="powell" src="/frontend/assets/ticket_booth.png" alt="Ticket booth" height="400" width=auto>
 
-        <div class = "text-bubble">
+        <div class="text-bubble" id="text-bubble">
             <p>
-                Welcome! <br> <br>
+                Welcome! <br><br>
                 Would you like to add a ticket stub?
             </p>
 
-            <div class = "add-button-container">
-                <button type = "button" id = "add-ticket-button"> 
-                    <img src = "/frontend/assets/filmstrip_btn.png" alt = "img of film" height = 70px width = 90px>
+            <div class="add-button-container">
+                <button type="button" id="add-ticket-button">
+                    <img src="/frontend/assets/filmstrip_btn.png" alt="img of film" height="70px" width="90px">
                 </button>
-            </div> 
+            </div>
+
+            <div id="form-container" class="hidden">
+
+            </div>
         </div>
 
     </section>
+
+
 </body>
+
 </html>
