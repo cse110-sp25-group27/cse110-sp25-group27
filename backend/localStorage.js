@@ -75,7 +75,7 @@ export function createReviewObject(form){
         localStorage.setItem('idCounter', currentID + 1);
         const file = form.get('movie-poster');
 
-        if(!file || file.size == 0){
+        if(!file || file.size === 0){
             resolve({
                 id : currentID,       
                 title : form.get('movie-title'),
@@ -194,7 +194,7 @@ export function initFormHandler() {
         deleteReviewById(reviewTBD.id);
         const cards = document.querySelectorAll('review-card');
         for(const c of cards){
-            if(c.data.title.toLowerCase() == titleTBD){
+            if(c.data.title.toLowerCase() === titleTBD){
                 c.remove();
                 break;
             }
