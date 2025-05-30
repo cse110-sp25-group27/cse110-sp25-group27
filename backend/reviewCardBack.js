@@ -77,7 +77,6 @@ class ReviewCardBack extends HTMLElement {
       </p>
       <p class="release-date">${data.releaseDate}</p> 
       <time>${data.watchedOn}</time>
-      <p class="user">Ticket Reserved for ${username}</p>
       <p class="location-watched">${data.locationWatched}</p>
       <p class="date">Date: ${new Date(data.watchedOn).toLocaleDateString()}</p>
       <p class="time">Time: ${new Date(data.watchedOn).toLocaleTimeString()}</p>
