@@ -36,7 +36,9 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b coverage-update || git checkout coverage-update
+          git fetch origin
+          # Create or switch to coverage-update branch tracking remote
+          git checkout -B coverage-update origin/coverage-update || git checkout -b coverage-update
           git pull --rebase origin coverage-update || echo "No remote branch yet"
           git add docs/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
