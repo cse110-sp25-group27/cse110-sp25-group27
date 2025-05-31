@@ -15,7 +15,10 @@
     "transform": {},
     "verbose": true,
     "setupFiles": ["./unit-testing/testSetup.js"],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "codeCoverage": true,
+    "coverageDirectory": "docs/coverage_report",
+    "coverageReporters": ["text", "html", "lcov"]
   },
   "keywords": [],
   "author": "",
