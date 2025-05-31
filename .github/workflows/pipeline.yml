@@ -1,4 +1,19 @@
-name: CI/CD Pipeline
+- name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage
+          path: coverage-files/
+
+      - name: Debug coverage files after download
+        run: |
+          echo "=== Coverage files after artifact download ==="
+          ls -la coverage-files/
+          if [ -f "coverage-files/lcov.info" ]; then
+            echo "✅ Found lcov.info"
+          else
+            echo "❌ lcov.info not found"
+            find coverage-files/ -name "*.info" || echo "No .info files found"
+          finame: CI/CD Pipeline
 
 on:
   push:
@@ -15,7 +30,7 @@ permissions:
 
 jobs:
   tests:
-    name: tests
+    name: Run Tests and Generate Coverage
     runs-on: ubuntu-latest
     outputs:
       docs-exists: ${{ steps.check-docs.outputs.docs-exists }}
@@ -38,6 +53,17 @@ jobs:
       - name: Run unit tests with coverage
         run: npm run test -- --coverage
 
+      - name: Debug coverage files location
+        run: |
+          echo "=== Checking coverage files after test run ==="
+          ls -la docs/coverage_report/ 2>/dev/null || echo "No docs/coverage_report/ directory"
+          if [ -f "docs/coverage_report/lcov.info" ]; then
+            echo "✅ Found lcov.info in docs/coverage_report/"
+            head -5 docs/coverage_report/lcov.info
+          else
+            echo "❌ lcov.info not found in expected location"
+          fi
+
       - name: Generate Markdown documentation
         run: npm run generate-docs
 
@@ -54,9 +80,11 @@ jobs:
             echo "❌ docs/index.html not found"
             exit 1
           fi
+          
+          echo "=== Checking for coverage files in docs ==="
+          find docs/ -name "*.info" -o -name "lcov.info" -o -name "coverage-final.json" 2>/dev/null || echo "No coverage files in docs/"
 
       - name: Upload docs artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: docs
@@ -64,19 +92,18 @@ jobs:
           retention-days: 1
 
       - name: Upload coverage artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: coverage/
+          path: docs/coverage_report/
           retention-days: 1
 
   deploy:
     name: Deploy docs to coverage-update branch
     runs-on: ubuntu-latest
     needs: tests
-    # Only run on main branch pushes, not PRs
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.tests.outputs.docs-exists == 'true'
+    # Run on pushes to any branch (for testing) or when merging to main
+    if: github.event_name == 'push' && needs.tests.outputs.docs-exists == 'true'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -128,17 +155,19 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Deploy docs from GitHub Actions - $(date)"
+            # Use current branch name in commit message for debugging
+            CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD@{upstream} 2>/dev/null || echo "unknown")
+            git commit -m "Deploy docs from GitHub Actions - Branch: ${{ github.ref_name }} - $(date)"
             git push origin coverage-update --force
-            echo "✅ Successfully deployed to coverage-update branch"
+            echo "✅ Successfully deployed to coverage-update branch from ${{ github.ref_name }}"
           fi
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
     runs-on: ubuntu-latest
     needs: tests
-    # Only run on main branch pushes, not PRs
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Run on pushes to any branch (for testing) or when merging to main
+    if: github.event_name == 'push'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -166,8 +195,4 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          # Try multiple possible paths for the coverage report
-          coverage-reports: |
-            coverage/lcov.info
-            docs/coverage_report/lcov.info
-            coverage/coverage-final.json
+          coverage-reports: coverage-files/lcov.info
