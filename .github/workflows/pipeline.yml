@@ -68,7 +68,7 @@ jobs:
           ref: coverage-update
 
       - name: Disable Jekyll on Pages
-        run: touch coverage_report/.nojekyll
+        run: touch ./docs/coverage_report/.nojekyll
 
       - name: Deploy docs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
