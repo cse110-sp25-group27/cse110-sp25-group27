@@ -71,8 +71,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/coverage_report
-          publish_branch: ./coverage-update
+          publish_dir: ./coverage_report
+          publish_branch: coverage-update
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
@@ -85,4 +85,4 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: docs/coverage_report/lcov.info
+          coverage-reports: ./coverage_report/lcov.info
