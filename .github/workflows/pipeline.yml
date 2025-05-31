@@ -28,14 +28,25 @@ jobs:
       - name: Generate Markdown documentation
         run: npm run generate-docs
 
-      - name: Commit and push docs/ to main
+      - name: Commit and push docs/ to coverage-update branch
         shell: bash
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b coverage-update || git checkout coverage-update
           git add docs/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+          git push -u origin coverage-update
+
+      - name: Create Pull Request for docs and coverage update
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update docs and coverage [skip ci]"
+          title: "Update docs and coverage"
+          body: "Automated update of docs and coverage reports."
+          base: main
+          head: coverage-update
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
