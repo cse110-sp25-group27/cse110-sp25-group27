@@ -46,9 +46,21 @@ jobs:
             git checkout -b coverage-update origin/coverage-update
           fi
           git reset --hard origin/coverage-update
-          git add docs/coverage_report/
-          git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
-          git push origin coverage-update --force
+          if [ -d "docs/coverage_report" ]; then
+            git add docs/coverage_report/
+          else
+            echo "docs/coverage_report folder not found; skipping git add"
+          fi
+          if git diff-index --quiet HEAD --; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update docs and coverage [skip ci]"
+            git push origin coverage-update --force
+          fi
+      
+      - name: Debug list docs/coverage_report contents
+        run: |
+          ls -la docs/coverage_report || echo "docs/coverage_report does not exist"
 
 
 
