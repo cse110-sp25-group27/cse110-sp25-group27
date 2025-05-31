@@ -55,6 +55,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Add .nojekyll file
+        run: touch docs/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -76,8 +79,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug lcov file
+        run: find . -name lcov.info
+
       - name: Upload coverage to Codacy
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ./docs/coverage_report/lcov.info
+          coverage-reports: ./docs/coverage_report/lcov.info  # Update path if needed
