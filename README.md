@@ -27,6 +27,16 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [May 28](./admin/meetings/may_28.md)
 - [May 30 TA](./admin/meetings/may_30_TA.md)
 
+**Sprint Notes:**
+- [Sprint 1 Review](./admin/meetings/51525-sprint-1-review.md)
+- [Sprint 2 Review](./admin/meetings/51525-sprint-2-review.md)
+- [Sprint 3 Review](./admin/meetings/51525-sprint-3-review.md)
+
+**Retrospective Notes:**
+- [Retrospective 1](./admin/meetings/52025-retrospective-1.md)
+- [Retrospective 2](./admin/meetings/52025-retrospective-2.md)
+- [Retrospective 3](./admin/meetings/52025-retrospective-3.md)
+
 **Status Video 1:**
 - [Status Video 1 Compressed File](./admin/videos/statusvideo1.zip)
 - [Status Video 1 YouTube Link](https://youtu.be/NZEfHYE5-Vs?si=rzmtmBIWv8Kk1MVd)
