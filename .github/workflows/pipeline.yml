@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   tests:
-    name: tests
+    name: Run Tests and Generate Coverage
     runs-on: ubuntu-latest
     outputs:
       docs-exists: ${{ steps.check-docs.outputs.docs-exists }}
@@ -23,8 +23,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run ESLint
         run: npx eslint . --max-warnings=0 --config eslint.config.js
@@ -42,32 +48,47 @@ jobs:
           ls -la docs/
           if [ -f "docs/index.html" ]; then
             echo "docs-exists=true" >> $GITHUB_OUTPUT
+            echo "✅ docs/index.html found"
           else
             echo "docs-exists=false" >> $GITHUB_OUTPUT
+            echo "❌ docs/index.html not found"
             exit 1
           fi
 
       - name: Upload docs artifact
-        uses: actions/upload-artifact@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
         with:
           name: docs
-          path: docs
+          path: docs/
+          retention-days: 1
+
+      - name: Upload coverage artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 1
 
   deploy:
     name: Deploy docs to coverage-update branch
     runs-on: ubuntu-latest
     needs: tests
+    # Only run on main branch pushes, not PRs
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.tests.outputs.docs-exists == 'true'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Needed for pushing branches
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download docs artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docs
-          path: docs
+          path: docs/
 
       - name: Setup Git user
         run: |
@@ -75,48 +96,78 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Prepare docs for deployment
-        run: touch docs/.nojekyll
+        run: |
+          touch docs/.nojekyll
+          echo "Docs directory contents:"
+          ls -la docs/
 
       - name: Switch to deployment branch
         run: |
           if git ls-remote --exit-code origin coverage-update; then
+            echo "Branch exists, checking out..."
+            git fetch origin coverage-update
             git checkout coverage-update
           else
+            echo "Creating new orphan branch..."
             git checkout --orphan coverage-update
-            git rm -rf .
-            git clean -fdx
           fi
 
       - name: Clean branch and copy docs
         run: |
-          git rm -rf .
+          # Remove all files except .git
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          
+          # Copy docs content to root
           cp -r docs/* .
+          
+          # Add all files
           git add .
 
       - name: Commit and push docs to coverage-update branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Deploy docs from GitHub Actions"
+            git commit -m "Deploy docs from GitHub Actions - $(date)"
             git push origin coverage-update --force
+            echo "✅ Successfully deployed to coverage-update branch"
           fi
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
     runs-on: ubuntu-latest
     needs: tests
+    # Only run on main branch pushes, not PRs
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Debug lcov file
-        run: find . -name lcov.info
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+
+      - name: Debug coverage files
+        run: |
+          echo "=== Looking for coverage files ==="
+          find . -name "*.info" -o -name "lcov.info" -o -name "coverage-final.json"
+          echo "=== Coverage directory structure ==="
+          if [ -d "coverage" ]; then
+            ls -la coverage/
+          fi
+          if [ -d "docs" ]; then
+            echo "=== Docs directory structure ==="
+            ls -la docs/
+          fi
 
       - name: Upload coverage to Codacy
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ./docs/coverage_report/lcov.info  # Update path if needed
+          # Try multiple possible paths for the coverage report
+          coverage-reports: |
+            coverage/lcov.info
+            docs/coverage_report/lcov.info
+            coverage/coverage-final.json
