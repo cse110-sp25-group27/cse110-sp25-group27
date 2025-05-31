@@ -15,7 +15,6 @@ permissions:
 
 jobs:
   tests:
-    name: Run Tests and Generate Coverage
     runs-on: ubuntu-latest
     outputs:
       docs-exists: ${{ steps.check-docs.outputs.docs-exists }}
@@ -31,6 +30,9 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
+
+      - name: Run Jest tests
+        run: npm test 
 
       - name: Run ESLint
         run: npx eslint . --max-warnings=0 --config eslint.config.js
@@ -156,22 +158,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: <PATH_TO_REPORT>
+
       - name: Download coverage artifact
         uses: actions/download-artifact@v4
         with:
           name: coverage
           path: coverage-files/
-
-      - name: Debug coverage files after download
-        run: |
-          echo "=== Coverage files after artifact download ==="
-          ls -la coverage-files/
-          if [ -f "coverage-files/lcov.info" ]; then
-            echo "✅ Found lcov.info"
-          else
-            echo "❌ lcov.info not found"
-            find coverage-files/ -name "*.info" || echo "No .info files found"
-          fi
 
       - name: Upload coverage to Codacy
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
