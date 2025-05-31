@@ -45,30 +45,51 @@ jobs:
           fi
 
   deploy:
-    name: Deploy docs to GitHub Pages
+    name: Deploy docs to coverage-update branch
     runs-on: ubuntu-latest
     needs: tests
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Add .nojekyll file
-        run: touch docs/.nojekyll
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./docs
+          fetch-depth: 0  # Required for pushing branches
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Setup Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Prepare docs for deployment
+        run: |
+          ls -la docs/
+          touch docs/.nojekyll
+
+      - name: Switch to deployment branch
+        run: |
+          if git ls-remote --exit-code origin coverage-update; then
+            git checkout coverage-update
+          else
+            git checkout --orphan coverage-update
+            git rm -rf .
+            git clean -fdx
+          fi
+
+      - name: Clean branch and copy docs
+        run: |
+          git rm -rf .
+          cp -r docs/* .
+          git add .
+
+      - name: Commit and push docs to coverage-update branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Deploy docs from GitHub Actions"
+            git push origin coverage-update --force
+          fi
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
