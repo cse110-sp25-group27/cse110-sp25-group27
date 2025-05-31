@@ -87,7 +87,6 @@ jobs:
     name: Deploy docs to coverage-update branch
     runs-on: ubuntu-latest
     needs: tests
-    # Run on pushes to any branch (for testing) or when merging to main
     if: github.event_name == 'push' && needs.tests.outputs.docs-exists == 'true'
     steps:
       - name: Checkout repository
@@ -96,21 +95,16 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download docs artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: docs/
-
       - name: Setup Git user
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Prepare docs for deployment
-        run: |
-          echo "Docs directory contents:"
-          ls -la docs/
+      - name: Download docs artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: downloaded-docs/   # <-- download into a separate folder
 
       - name: Switch to deployment branch
         run: |
@@ -121,27 +115,28 @@ jobs:
           else
             echo "Creating new orphan branch..."
             git checkout --orphan coverage-update
-            # For new branch, we'll need to add .nojekyll
             touch .nojekyll
           fi
 
-      - name: Update docs content
+      - name: Clear old docs files
         run: |
-          # Copy/update docs content, preserving any existing structure
-          cp -r docs/* .
-          
-          # Ensure .nojekyll exists
-          touch .nojekyll
-          
-          # Add all changes
-          git add .
+          # Remove old docs files except .git directory
+          git rm -r --ignore-unmatch docs || true
+
+      - name: Copy new docs content
+        run: |
+          cp -r downloaded-docs/* docs/
+
+      - name: Add docs and .nojekyll
+        run: |
+          touch docs/.nojekyll
+          git add docs .nojekyll
 
       - name: Commit and push docs to coverage-update branch
         run: |
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            # Use current branch name in commit message for debugging
             git commit -m "Deploy docs from GitHub Actions - Branch: ${{ github.ref_name }} - $(date)"
             git push origin coverage-update --force
             echo "✅ Successfully deployed to coverage-update branch from ${{ github.ref_name }}"
