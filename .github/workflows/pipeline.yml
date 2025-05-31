@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint . --max-warnings=0 --config eslint.config.js
+
+      - name: Run unit tests with coverage
+        run: npm run test -- --coverage
+
+      - name: Generate Markdown documentation
+        run: npm run generate-docs
+
+      - name: Copy coverage HTML report to docs/
+        run: |
+          mkdir -p docs/coverage_report
+          cp -r coverage/lcov-report/* docs/coverage_report/
+
+      - name: Commit and push docs/ to main
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
+          git push origin main
+
+  codacy-coverage-reporter:
+    runs-on: ubuntu-latest
+    name: codacy-coverage-reporter
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info

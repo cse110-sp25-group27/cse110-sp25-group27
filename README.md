@@ -1,44 +1,54 @@
 # The POWELL RANGERS
 
-<img src='./admin/branding/PowellRangersLOGO.png' width='100%' >
+<img src='admin/branding/PowellRangersLOGO.png' width='100%' >
 
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
 
 **Learn more about us:**
-- [Team Page](./admin/team.md)
+- [Team Page](admin/team.md)
 
 ## Internal Docs
 
 **Team Meeting Notes:**
 - Frontend:
-  - [Frontend, May 10](./admin/meetings/frontend_may_10.md)
-  - [General Frontend](./docs/frontend.md)
+  - [Frontend, May 10](admin/meetings/frontend_may_10.md)
+  - [General Frontend](docs/frontend.md)
 - Backend:
-  - [General Backend](./docs/backend.md)
+  - [General Backend](docs/backend.md)
 
 **Meetings Notes:**
-- [April 11](./admin/meetings/apr_11.md)
-- [April 16](./admin/meetings/april_16.md)
-- [April 16 TA](./admin/meetings/april_16_TA.md)
-- [April 18](./admin/meetings/april_18.md)
-- [April 25, Brainstorming](./admin/meetings/052525-brainstorm.md)
-- [May 21](./admin/meetings/may_21_TA.md)
-- [May 23 TA](./admin/meetings/may_23_TA.md)
-- [May 28](./admin/meetings/may_28.md)
-- [May 30 TA](./admin/meetings/may_30_TA.md)
+- [April 11](admin/meetings/apr_11.md)
+- [April 16](admin/meetings/april_16.md)
+- [April 16 TA](admin/meetings/april_16_TA.md)
+- [April 18](admin/meetings/april_18.md)
+- [April 25, Brainstorming](admin/meetings/042525-brainstorm.md)
+- [May 21 TA](admin/meetings/may_21_TA.md)
+- [May 23 TA](admin/meetings/april_23_TA.md)
+- [May 28](admin/meetings/may_28.md)
+- [May 30 TA](admin/meetings/may_30_TA.md)
+
+**Sprint Notes:**
+- [Sprint 1 Review](admin/meetings/51525-sprint-1-review.md)
+- [Sprint 2 Review](admin/meetings/052525-sprint-2-review.md)
+- [Sprint 3 Review](admin/meetings/53025-sprint-3-review.md)
+
+**Retrospective Notes:**
+- [Retrospective 1](admin/meetings/51525-retrospective-1.md)
+- [Retrospective 2](admin/meetings/52025-retrospective-2.md)
+- [Retrospective 3](admin/meetings/53025-retrospective-3.md)
 
 **Status Video 1:**
-- [Status Video 1 Compressed File](./admin/videos/statusvideo1.zip)
+- [Status Video 1 Compressed File](admin/videos/statusvideo1.zip)
 - [Status Video 1 YouTube Link](https://youtu.be/NZEfHYE5-Vs?si=rzmtmBIWv8Kk1MVd)
 
 **Team ADRs:**
-- [ConfirmationButtons](./specs/adrs/05082025-ConfirmationButtons.md)
-- [ButtonsForDialogue](./specs/adrs/05102025-ButtonsforDialogue.md)
-- [Design](./specs/adrs/05102025-Design.md)
-- [DuplicateEntry](./specs/adrs/05142025-DuplicateEntry.md)
-- [FormSubmission](./specs/adrs/05142025-FormSubmission.md)
-- [GridLayout](./specs/adrs/05302025-GridLayout.md)
-- [CardLayout](./specs/adrs/05302025-CardLayout.md)
+- [ConfirmationButtons](/specs/adrs/05082025-ConfirmationButtons.md)
+- [ButtonsForDialogue](/specs/adrs/05102025-ButtonsforDialogue.md)
+- [Design](/specs/adrs/05102025-Design.md)
+- [DuplicateEntry](/specs/adrs/05142025-DuplicateEntry.md)
+- [FormSubmission](/specs/adrs/05142025-FormSubmission.md)
+- [GridLayout](/specs/adrs/05302025-GridLayout.md)
+- [CardLayout](/specs/adrs/05302025-CardLayout.md)
 
 ## Movie Box Documentation
 
@@ -61,14 +71,14 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 5. Edit/Update any changes
 
 **CI/CD Documentation:**
-- [phase1](./admin/cipipeline/phase1.md)
-- [phase1 video](./admin/cipipeline/phase1.mp4)
-- [phase2](./admin/cipipeline/phase2.md)
-- [phase2 video](./admin/cipipeline/phase2.mp4)
+- [phase1](admin/cipipeline/phase1.md)
+- [phase1 video](admin/cipipeline/phase1.mp4)
+- [phase2](admin/cipipeline/phase2.md)
+- [phase2 video](admin/cipipeline/phase2.mp4)
 
-[**JS Documentation**](./docs/documentation.md)
+[**JS Documentation**](/docs/documentation.md)
 
-[**Code Styling Documentation**](./docs/code_style.md)
+[**Code Styling Documentation**](/docs/code_style.md)
 
 **Repo Formatting (Tree diagram):**
 ```
