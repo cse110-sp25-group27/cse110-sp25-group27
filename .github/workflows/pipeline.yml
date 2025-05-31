@@ -85,12 +85,18 @@ jobs:
         with:
           ref: coverage-update
 
+      - name: Ensure docs/coverage_report exists
+        run: |
+          ls -la docs/coverage_report
+          touch docs/coverage_report/.nojekyll
+
       - name: Deploy docs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/coverage_report
           publish_branch: coverage-update
+
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
