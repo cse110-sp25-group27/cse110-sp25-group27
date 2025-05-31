@@ -1,16 +1,18 @@
 /**
+ * Defines the structure for a movie review object.
  * {
- *  id : string,
- *  title : string,
- *  watchedOn : string (ISO),
- *  rating : number 1-5,
- *  imageData : string (base 64/url),
- *  notes : string,
- *  createdAt : string (ISO),
- *  updatedAt : string (ISO)
+ *  id: string, // Unique identifier
+ *  title: string, // Movie title
+ *  imageData: string, // Base64 encoded image data or image URL
+ *  releaseDate: string, // Release date of the movie
+ *  watchedOn: string, // Date the movie was watched (ISO format)
+ *  watchCount: number, // How many times the user has watched this movie
+ *  notes: string, // User's review/notes
+ *  rating: number, // User's rating (0-5)
+ *  createdAt: string, // Timestamp of creation (ISO format)
+ *  updatedAt: string // Timestamp of last update (ISO format)
  * }
  */
-
 
 /**
  * Reads 'reviews' from localStorage and returns an array of
@@ -143,14 +145,16 @@ export function initFormHandler() {
 
 	const form = document.querySelector('#new-review');
 
-	form.addEventListener('submit', async (e) =>{
+	form.addEventListener('submit', async (e) => {
 		e.preventDefault();
         const formData = new FormData(form);
 
         const title = formData.get('movie-title')?.toLowerCase();
-        const exist = getReviewsFromStorage().some(r =>r.title.toLowerCase() == title);
+        const existingReviews = getReviewsFromStorage();
+        const exist = existingReviews.some(r => r.title.toLowerCase() == title);
         if(exist){
-            alert(`A review for "${title}" already exists.`);
+            alert(`A review for "${formData.get('movie-title')}" already exists.`);
+            form.reset();
             return;
         }
 
@@ -163,141 +167,23 @@ export function initFormHandler() {
             const curr = getReviewsFromStorage();
             curr.push(reviewObject);
             saveReviewsToStorage(curr);
+            form.reset();
         }
         catch(err){
-            console.error("Error reading image file:", err);
-            alert("Failed to process image upload.");
+            console.error("Error reading image file or creating review:", err);
+            alert("Failed to process image upload or create review.");
         }
-
-	});
-	const clear = document.querySelector('button.danger');
-
-	clear.addEventListener('click', ()=>{
-        localStorage.clear();
-        document.querySelector('main').innerHTML = '';
 	});
 
-    //receive user input of review to be edited/deleted
-    document.getElementById('delete-button').addEventListener('click', () =>{
-        const titleTBD = document.getElementById('delete-title-input').value.trim().toLowerCase();
-        if (!titleTBD) return;
+	const clearButton = document.querySelector('button.danger');
 
-        const reviews = getReviewsFromStorage();
-
-        const reviewTBD = reviews.find(r => r.title.toLowerCase() === titleTBD);
-
-        if(! reviewTBD){
-            alert("movie review not found");
-            return;
+	clearButton.addEventListener('click', () => {
+        if (confirm("Are you sure you want to delete ALL reviews? This cannot be undone.")) {
+            localStorage.clear();
+            localStorage.setItem('idCounter', '0');
+            document.querySelector('main').innerHTML = '';
         }
-
-        deleteReviewById(reviewTBD.id);
-        const cards = document.querySelectorAll('review-card');
-        for(const c of cards){
-            if(c.data.title.toLowerCase() === titleTBD){
-                c.remove();
-                break;
-            }
-        }
-
-        alert(`Review for ${reviewTBD.title} deleted.`);
-
-    });
-
-    //user edit: fetch stored data
-    document.getElementById('edit-button').addEventListener('click', () =>{
-        const titleTBE = document.getElementById('edit-title-input').value.trim().toLowerCase();
-
-        if (!titleTBE) return;
-
-        const reviews = getReviewsFromStorage();
-
-        const reviewTBE = reviews.find(r => r.title.toLowerCase() === titleTBE);
-        if(! reviewTBE){
-            alert("movie review not found");
-            return;
-        }
-
-        const formData = document.getElementById('update-form');
-        formData.elements['movie-title'].value = reviewTBE.title;
-        formData.elements['watch-date'].value = reviewTBE.watchedOn;
-        formData.elements['watch-count'].value = reviewTBE.watchCount;
-        formData.elements['rating'].value = reviewTBE.rating;
-        formData.elements['movie-poster'].value = reviewTBE.imageData;
-        formData.elements['release-date'].value = reviewTBE.releaseDate;
-        formData.elements['review'].value = reviewTBE.notes;
-
-        formData.dataset.reviewId = reviewTBE.id;
-        formData.dataset.createdAt = reviewTBE.createdAt;
-
-
-    });
-
-    //user edit: update data
-    document.getElementById('update-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-
-        const reviewId = form.dataset.reviewId;
-        const createdAt = form.dataset.createdAt;
-        const allReviews = getReviewsFromStorage();
-        const oldReview = allReviews.find(r => r.id === reviewId);
-
-        if (!oldReview) {
-            alert("Original review no longer exists.");
-            return;
-        }
-
-        const file = formData.get('movie-poster');
-
-        let imageData = oldReview.imageData;
-        if(file && file.size > 0){
-            try{
-                imageData = await new Promise((resolve, reject) =>{
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.onerror = () =>{
-                        alert("Failed to read the image file.");
-                        finishUpdate(null);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-            catch(err){
-                alert(err);
-                return;
-            }
-        }
-
-        const updatedReview = {
-            id: reviewId,
-            createdAt: createdAt,
-            updatedAt: new Date().toISOString(),
-
-            title: formData.get('movie-title') || oldReview.title,
-            watchedOn: formData.get('watch-date') || oldReview.watchedOn,
-            watchCount: parseInt(formData.get('watch-count')) || oldReview.watchCount || 1,
-            rating: parseInt(formData.get('rating')) || oldReview.rating,
-            imageData: imageData || oldReview.imageData,
-            releaseDate: formData.get('release-date') || oldReview.releaseDate,
-            notes: formData.get('review') || oldReview.notes,
-            
-        };
-
-        updateReview(updatedReview);
-
-        // Clean up UI
-        form.style.display = 'none';
-        form.reset();
-
-        // Re-render reviews
-        document.querySelector('main').innerHTML = '';
-        addReviewsToDocument(getReviewsFromStorage());
-
-        alert(`Review for ${updatedReview.title} updated.`);
-
-    });
+	});
 
 }
 
