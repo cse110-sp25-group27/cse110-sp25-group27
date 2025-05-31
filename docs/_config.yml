@@ -1,5 +1,0 @@
-# docs/_config.yml
-title: My Project Documentation
-sass:
-  sass_dir: frontend/styles
-  style: compressed

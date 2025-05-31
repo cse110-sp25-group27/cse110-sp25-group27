@@ -36,27 +36,22 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          rm -rf coverage_report || echo "No coverage_report folder to remove"
-          git reset --hard
-          git clean -fd
-          git fetch origin
+          current_branch=$(git branch --show-current)
+          echo "Current branch: $current_branch"
           if git show-ref --quiet refs/heads/coverage-update; then
             git checkout coverage-update
           else
-            git checkout -b coverage-update origin/coverage-update
+            git checkout -b coverage-update
           fi
-          git reset --hard origin/coverage-update
-          if [ -d "docs/coverage_report" ]; then
-            git add docs/coverage_report/
-          else
-            echo "docs/coverage_report folder not found; skipping git add"
-          fi
+          git checkout $current_branch -- docs/
+          git add docs/
           if git diff-index --quiet HEAD --; then
             echo "No changes to commit"
           else
             git commit -m "Update docs and coverage [skip ci]"
             git push origin coverage-update --force
           fi
+
        
       - name: Debug list docs/coverage_report contents
         run: |
