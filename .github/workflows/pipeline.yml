@@ -1,19 +1,4 @@
-- name: Download coverage artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage
-          path: coverage-files/
-
-      - name: Debug coverage files after download
-        run: |
-          echo "=== Coverage files after artifact download ==="
-          ls -la coverage-files/
-          if [ -f "coverage-files/lcov.info" ]; then
-            echo "✅ Found lcov.info"
-          else
-            echo "❌ lcov.info not found"
-            find coverage-files/ -name "*.info" || echo "No .info files found"
-          finame: CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -156,7 +141,6 @@ jobs:
             echo "No changes to commit"
           else
             # Use current branch name in commit message for debugging
-            CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD@{upstream} 2>/dev/null || echo "unknown")
             git commit -m "Deploy docs from GitHub Actions - Branch: ${{ github.ref_name }} - $(date)"
             git push origin coverage-update --force
             echo "✅ Successfully deployed to coverage-update branch from ${{ github.ref_name }}"
@@ -176,19 +160,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage
-          path: coverage/
+          path: coverage-files/
 
-      - name: Debug coverage files
+      - name: Debug coverage files after download
         run: |
-          echo "=== Looking for coverage files ==="
-          find . -name "*.info" -o -name "lcov.info" -o -name "coverage-final.json"
-          echo "=== Coverage directory structure ==="
-          if [ -d "coverage" ]; then
-            ls -la coverage/
-          fi
-          if [ -d "docs" ]; then
-            echo "=== Docs directory structure ==="
-            ls -la docs/
+          echo "=== Coverage files after artifact download ==="
+          ls -la coverage-files/
+          if [ -f "coverage-files/lcov.info" ]; then
+            echo "✅ Found lcov.info"
+          else
+            echo "❌ lcov.info not found"
+            find coverage-files/ -name "*.info" || echo "No .info files found"
           fi
 
       - name: Upload coverage to Codacy
