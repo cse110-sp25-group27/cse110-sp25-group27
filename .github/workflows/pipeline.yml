@@ -48,7 +48,6 @@ jobs:
           fi
 
       - name: Upload docs artifact
-        if: steps.check-docs.outputs.docs-exists == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: docs
