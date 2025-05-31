@@ -1,10 +1,3 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -25,11 +18,6 @@ jobs:
       - name: Generate Markdown documentation
         run: npm run generate-docs
 
-      - name: Copy coverage HTML report to docs/
-        run: |
-          mkdir -p docs/coverage_report
-          cp -r coverage/lcov-report/* docs/coverage_report/
-
       - name: Commit and push docs/ to main
         run: |
           git config --global user.name "github-actions[bot]"
@@ -48,4 +36,4 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: coverage/lcov.info
+          coverage-reports: docs/coverage_report/lcov.info

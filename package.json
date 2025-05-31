@@ -13,7 +13,14 @@
   "type": "module",
   "jest": {
     "transform": {},
-    "verbose": true
+    "verbose": true,
+    "coverageDirectory": "docs/coverage_report",
+    "collectCoverage": true,
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ]
   },
   "keywords": [],
   "author": "",
