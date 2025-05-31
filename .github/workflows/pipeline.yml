@@ -9,38 +9,60 @@ on:
       - main
 
 permissions:
-  contents: write   # Allow push access using GITHUB_TOKEN
+  contents: write # Allow push access using GITHUB_TOKEN
+  pages: write
+  id-token: write
 
 jobs:
   tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Install Dependencies
         run: npm install
-
+      
       - name: Run ESLint
         run: npx eslint . --max-warnings=0 --config eslint.config.js
-
+      
       - name: Run unit tests with coverage
         run: npm run test -- --coverage
-
+      
       - name: Generate Markdown documentation
         run: npm run generate-docs
-
+      
       - name: Commit and push docs/ to coverage-update branch
         shell: bash
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b coverage-update || git checkout coverage-update
-          git add docs/
-          git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
-          git push -u origin coverage-update
-
+          rm -rf coverage_report || echo "No coverage_report folder to remove"
+          git reset --hard
+          git clean -fd
+          git fetch origin
+          if git show-ref --quiet refs/heads/coverage-update; then
+            git checkout coverage-update
+          else
+            git checkout -b coverage-update origin/coverage-update
+          fi
+          git reset --hard origin/coverage-update
+          if [ -d "docs/coverage_report" ]; then
+            git add docs/coverage_report/
+          else
+            echo "docs/coverage_report folder not found; skipping git add"
+          fi
+          if git diff-index --quiet HEAD --; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update docs and coverage [skip ci]"
+            git push origin coverage-update --force
+          fi
+      
+      - name: Debug list docs/coverage_report contents
+        run: |
+          ls -la docs/coverage_report || echo "docs/coverage_report does not exist"
+      
       - name: Create Pull Request for docs and coverage update
         uses: peter-evans/create-pull-request@v5
         with:
@@ -49,24 +71,86 @@ jobs:
           title: "Update docs and coverage"
           body: "Automated update of docs and coverage reports."
           base: main
-          head: coverage-update
+          branch: coverage-update
+          add-paths: docs/coverage_report/**
 
   deploy:
-    name: Deploy docs to GitHub Pages (coverage-update branch)
+    name: Deploy coverage report to GitHub Pages
     runs-on: ubuntu-latest
     needs: tests
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Deploy on pushes to main or coverage-update branches (not on PRs)
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/coverage-update') && github.event_name == 'push'
     steps:
-      - name: Checkout coverage-update branch
+      - name: Checkout current branch
         uses: actions/checkout@v4
+      
+      - name: Regenerate coverage if needed (only on main branch)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          npm install
+          npm run test -- --coverage
+          npm run generate-docs
+      - name: Prepare coverage report for deployment
+        run: |
+          echo "=== Current branch: ${{ github.ref }} ==="
+          echo "=== Checking docs/coverage_report structure ==="
+          ls -la docs/coverage_report/ || echo "No coverage_report directory"
+          
+          # Ensure the directory exists
+          if [ ! -d "docs/coverage_report" ]; then
+            echo "❌ docs/coverage_report directory not found!"
+            echo "Available directories in docs/:"
+            ls -la docs/ || echo "No docs directory found"
+            exit 1
+          fi
+          
+          # Check for index.html in the main coverage_report directory
+          if [ -f "docs/coverage_report/index.html" ]; then
+            echo "✅ Found index.html in docs/coverage_report/"
+            echo "File size: $(stat -c%s docs/coverage_report/index.html) bytes"
+            echo "First few lines:"
+            head -n 10 docs/coverage_report/index.html
+          else
+            echo "❌ No index.html in docs/coverage_report/"
+            echo "Contents of docs/coverage_report/:"
+            ls -la docs/coverage_report/
+            
+            # Check if it's in lcov-report subdirectory
+            if [ -f "docs/coverage_report/lcov-report/index.html" ]; then
+              echo "✅ Found index.html in lcov-report subdirectory"
+              echo "Copying lcov-report contents to root of coverage_report"
+              cp -r docs/coverage_report/lcov-report/* docs/coverage_report/
+              echo "✅ Copied successfully"
+            else
+              echo "❌ No index.html found in lcov-report either"
+              exit 1
+            fi
+          fi
+          
+          # Create .nojekyll to disable Jekyll processing
+          touch docs/coverage_report/.nojekyll
+          echo "✅ Created .nojekyll file"
+          
+          # Final verification
+          echo "=== Final directory structure ==="
+          ls -la docs/coverage_report/
+          echo "=== Files to be deployed ==="
+          find docs/coverage_report -type f -name "*.html" | head -10
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          ref: coverage-update
-
-      - name: Deploy docs to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          publish_branch: coverage-update
+          path: ./docs/coverage_report
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
@@ -74,9 +158,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: docs/coverage_report/lcov.info
+          coverage-reports: ./docs/coverage_report/lcov.info
