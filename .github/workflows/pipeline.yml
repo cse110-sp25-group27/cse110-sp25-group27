@@ -28,11 +28,6 @@ jobs:
       - name: Generate Markdown documentation
         run: npm run generate-docs
 
-      - name: Copy coverage HTML report to docs/
-        run: |
-          mkdir -p docs/coverage_report
-          cp -r coverage/lcov-report/* docs/coverage_report/
-
       - name: Commit and push docs/ to main
         shell: bash
         run: |
