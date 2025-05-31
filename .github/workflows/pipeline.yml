@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   tests:
-    name: Run tests and generate documentation
+    name: tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
