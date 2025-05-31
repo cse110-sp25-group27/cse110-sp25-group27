@@ -40,6 +40,9 @@ jobs:
       - name: Run unit tests with coverage
         run: npm run test -- --coverage
 
+      - name: Generate Markdown documentation
+        run: npm run generate-docs
+
       - name: Debug coverage files location
         run: |
           echo "=== Checking coverage files after test run ==="
@@ -162,7 +165,7 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: <PATH_TO_REPORT>
+          coverage-reports: ./docs/coverage_report/lcov.info
 
       - name: Download coverage artifact
         uses: actions/download-artifact@v4
