@@ -109,28 +109,37 @@ jobs:
 
       - name: Prepare docs for deployment
         run: |
-          touch docs/.nojekyll
           echo "Docs directory contents:"
           ls -la docs/
 
-      - name: Switch to deployment branch
+      - name: Switch to deployment branch and clean
         run: |
+          # Force checkout to avoid conflicts
           if git ls-remote --exit-code origin coverage-update; then
-            echo "Branch exists, checking out..."
+            echo "Branch exists, force checking out..."
             git fetch origin coverage-update
-            git checkout coverage-update
+            git checkout --force coverage-update
+            # Clean the branch completely
+            git reset --hard origin/coverage-update
           else
             echo "Creating new orphan branch..."
             git checkout --orphan coverage-update
           fi
+          
+          # Remove all files except .git and docs/ (which we'll replace)
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'docs' -exec rm -rf {} + 2>/dev/null || true
 
       - name: Clean branch and copy docs
         run: |
-          # Remove all files except .git
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          # Now remove everything including docs, then copy fresh docs
+          rm -rf docs/ 2>/dev/null || true
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} + 2>/dev/null || true
           
-          # Copy docs content to root
+          # Copy fresh docs content to root
           cp -r docs/* .
+          
+          # Add .nojekyll file
+          touch .nojekyll
           
           # Add all files
           git add .
