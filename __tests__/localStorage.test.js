@@ -8,13 +8,13 @@
 
 //import { localStorage } from '../backend/localStorage.js';
 import {
-  initFormHandler, //
-  getReviewsFromStorage,
-  deleteReviewById,
-  addReviewsToDocument, //
-  saveReviewsToStorage,
-  createReviewObject, //
-  updateReview, //
+  initFormHandler,
+  getReviewsFromStorage, //PASS
+  deleteReviewById, //PASS
+  addReviewsToDocument,
+  saveReviewsToStorage, //PASS
+  createReviewObject, //PASS
+  updateReview, //PASS
 } from "../backend/localStorage.js";
 beforeAll(() => {
   globalThis.alert = () => {};
@@ -72,7 +72,7 @@ describe("updateReview()", () => {
     beforeEach(() => localStorage.clear());
 
     it("replaces the review that has the same id", () => {
-        // 1. Seed storage with two reviews (helper in unit-testing/testSetup.js)
+        //Seed storage with two reviews (helper in unit-testing/testSetup.js)
         __seedReviews([
             { id: 0, title: "Old", rating: 1 },
             { id: 1, title: "Keep me", rating: 4 }
@@ -92,13 +92,8 @@ describe("updateReview()", () => {
     });
 
     it("leaves the array unchanged if id is not found", () => {
-        // Seed with one review (id 0)
         __seedReviews([{ id: 0, title: "Only one" }]);
-
-        // Try to update a non-existing id (99)
-        updateReview({ id: 99, title: "Ghost" });
-
-        // Should be identical to original
+        updateReview({ id: 99, title: "Fake" });
         expect(getReviewsFromStorage()).toEqual([
             { id: 0, title: "Only one" }
         ]);
@@ -131,5 +126,71 @@ describe("getReviewsFromStorage()", () => {
 
         expect(result).toEqual([]); 
         expect(Array.isArray(result)).toBe(true);
+    });
+});
+
+//-------------------------------------------------------------------
+// TEST (saveReviewsToStorage())
+//-------------------------------------------------------------------
+describe("saveReviewsToStorage()", () => {
+    beforeEach(() => localStorage.clear());
+
+    it("writes the exact JSON string to localStorage", () => {
+        const input = [
+            { id: 10, title: "Minions", rating: 5 },
+            { id: 11, title: "Minecraft Movie", rating: 4 }
+        ];
+
+        const expectedJSON = JSON.stringify(input);
+
+        saveReviewsToStorage(input);
+
+        expect(localStorage.getItem("reviews")).toBe(expectedJSON);
+    });
+
+    it("round-trips correctly via getReviewsFromStorage()", () => {
+        const original = [{ id: 12, title: "Power Rangers" }];
+
+        saveReviewsToStorage(original);
+        const roundTrip = getReviewsFromStorage();
+        expect(roundTrip).toEqual(original);
+    });
+});
+
+
+//-------------------------------------------------------------------
+// TEST (deleteReviewById())
+//-------------------------------------------------------------------
+describe("deleteReviewById()", () => {
+    beforeEach(() => localStorage.clear());
+
+    it("removes the matching review and keeps the rest", () => {
+        __seedReviews([
+            { id: 0, title: "First" },
+            { id: 1, title: "Delete" },
+            { id: 2, title: "Last" }
+        ]);
+
+        deleteReviewById(1);
+
+        expect(getReviewsFromStorage()).toEqual([
+            { id: 0, title: "First" },
+            { id: 2, title: "Last" }
+        ]);
+    });
+
+    it("leaves the array unchanged when id does not exist", () => {
+
+        __seedReviews([{ id: 0, title: "Powell The Movie" }]);
+        deleteReviewById(99);
+
+        expect(getReviewsFromStorage()).toEqual([
+            { id: 0, title: "Powell The Movie" }
+        ]);
+    });
+
+    it("handles an empty 'reviews' list gracefully", () => {
+        deleteReviewById(0);
+        expect(getReviewsFromStorage()).toEqual([]);
     });
 });
