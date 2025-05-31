@@ -40,10 +40,11 @@ jobs:
           git fetch origin
           git checkout -B coverage-update origin/coverage-update || git checkout -b coverage-update
           git stash pop || echo "No stash to pop"
-          git pull --rebase origin coverage-update || echo "No remote branch yet"
-          git add docs/
+          git rm -r --cached docs/coverage_report || echo "No old coverage files to remove"
+          git clean -fd docs/coverage_report || echo "No files to clean"
+          git add docs/coverage_report/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
-          git push -u origin coverage-update --force-with-lease
+          git push origin coverage-update --force
 
 
       - name: Create Pull Request for docs and coverage update
