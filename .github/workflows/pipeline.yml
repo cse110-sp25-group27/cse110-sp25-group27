@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write   # Allow push access using GITHUB_TOKEN
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -31,18 +34,20 @@ jobs:
           cp -r coverage/lcov-report/* docs/coverage_report/
 
       - name: Commit and push docs/ to main
+        shell: bash
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
-          git push origin main
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
 
   codacy-coverage-reporter:
+    name: Upload coverage report to Codacy
     runs-on: ubuntu-latest
-    name: codacy-coverage-reporter
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
