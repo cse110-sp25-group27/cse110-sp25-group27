@@ -36,13 +36,15 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git stash push -m "stash before checkout" || echo "No changes to stash"
           git fetch origin
-          # Create or switch to coverage-update branch tracking remote
           git checkout -B coverage-update origin/coverage-update || git checkout -b coverage-update
+          git stash pop || echo "No stash to pop"
           git pull --rebase origin coverage-update || echo "No remote branch yet"
           git add docs/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
-          git push -u origin coverage-update
+          git push -u origin coverage-update --force-with-lease
+
 
       - name: Create Pull Request for docs and coverage update
         uses: peter-evans/create-pull-request@v5
