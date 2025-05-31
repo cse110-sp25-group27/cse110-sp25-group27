@@ -18,5 +18,8 @@ export default [
       'jest/prefer-to-have-length': 'warn',
       'jest/valid-expect': 'error',
     },
+    ignores: [
+      "docs/coverage_report/**"
+    ]
   },
 ];
