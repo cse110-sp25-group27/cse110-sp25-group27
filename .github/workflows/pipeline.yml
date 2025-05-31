@@ -57,11 +57,10 @@ jobs:
             git commit -m "Update docs and coverage [skip ci]"
             git push origin coverage-update --force
           fi
-      
+       
       - name: Debug list docs/coverage_report contents
         run: |
           ls -la docs/coverage_report || echo "docs/coverage_report does not exist"
-
 
 
       - name: Create Pull Request for docs and coverage update
@@ -85,9 +84,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: coverage-update
-
-      - name: Disable Jekyll on Pages
-        run: touch ./docs/coverage_report/.nojekyll
 
       - name: Deploy docs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
