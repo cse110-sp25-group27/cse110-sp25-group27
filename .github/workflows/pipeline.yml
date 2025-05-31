@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   tests:
-    name: Run Tests and Generate Coverage
+    name: tests
     runs-on: ubuntu-latest
     outputs:
       docs-exists: ${{ steps.check-docs.outputs.docs-exists }}
