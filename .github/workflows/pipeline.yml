@@ -128,10 +128,12 @@ jobs:
           mkdir -p docs
           cp -r downloaded-docs/* docs/
 
+      - name: Add .nojekyll file
+        run: |
+          touch .nojekyll
 
       - name: Add docs and .nojekyll
         run: |
-          touch docs/.nojekyll
           git add docs .nojekyll
 
       - name: Commit and push docs to coverage-update branch
