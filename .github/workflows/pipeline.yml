@@ -81,13 +81,19 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - name: Checkout coverage-update branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: coverage-update
+          ref: main
       
-      - name: Ensure docs/coverage_report exists and prepare for deployment
+      - name: Regenerate coverage report for deployment
+        run: |
+          npm install
+          npm run test -- --coverage
+          npm run generate-docs
+      - name: Prepare coverage report for deployment
         run: |
           ls -la docs/coverage_report
           # Create a .nojekyll file to disable Jekyll processing
