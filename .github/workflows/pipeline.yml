@@ -40,7 +40,7 @@ jobs:
           git fetch origin
           git checkout coverage-update || git checkout -b coverage-update
           git reset --hard origin/coverage-update
-          git add coverage_report/
+          git add docs/coverage_report/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
           git push origin coverage-update --force
 
@@ -54,7 +54,7 @@ jobs:
           body: "Automated update of docs and coverage reports."
           base: main
           branch: coverage-update
-          add-paths: coverage_report/**
+          add-paths: docs/coverage_report/**
 
 
   deploy:
@@ -71,7 +71,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage_report
+          publish_dir: ./docs/coverage_report
           publish_branch: coverage-update
 
   codacy-coverage-reporter:
