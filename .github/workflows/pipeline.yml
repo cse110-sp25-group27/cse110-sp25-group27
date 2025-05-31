@@ -37,12 +37,19 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           rm -rf coverage_report || echo "No coverage_report folder to remove"
+          git reset --hard
+          git clean -fd
           git fetch origin
-          git checkout coverage-update || git checkout -b coverage-update
+          if git show-ref --quiet refs/heads/coverage-update; then
+            git checkout coverage-update
+          else
+            git checkout -b coverage-update origin/coverage-update
+          fi
           git reset --hard origin/coverage-update
           git add docs/coverage_report/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
           git push origin coverage-update --force
+
 
 
       - name: Create Pull Request for docs and coverage update
