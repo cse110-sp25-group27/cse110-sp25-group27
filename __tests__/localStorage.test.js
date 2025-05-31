@@ -1,12 +1,4 @@
 
-// testing assigments: 
-//Prachi: getReviewsFromStorage()
-//charlie: deleteReviewById(id), addReviewsToDocument(reviews)
-
-//austin: updateReview(updatedReview), createReviewObject(form)
-//skyler : initFormHandler()
-
-//import { localStorage } from '../backend/localStorage.js';
 import {
   initFormHandler,
   getReviewsFromStorage, //PASS
@@ -19,13 +11,6 @@ import {
 beforeAll(() => {
   globalThis.alert = () => {};
 });
-// testing assigments:
-//Prachi: getReviewsFromStorage()
-//charlie: deleteReviewById(id), addReviewsToDocument(reviews)
-
-//austin: updateReview(updatedReview), createReviewObject(form)
-//skyler : initFormHandler()
-
 
 //-------------------------------------------------------------------
 // TEST (createReviewObject)
