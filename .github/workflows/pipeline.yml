@@ -36,12 +36,10 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git stash push -m "stash before checkout" || echo "No changes to stash"
+          rm -rf coverage_report || echo "No coverage_report folder to remove"
           git fetch origin
-          git checkout -B coverage-update origin/coverage-update || git checkout -b coverage-update
-          git stash pop || echo "No stash to pop"
-          git rm -r --cached coverage_report || echo "No old coverage files to remove"
-          git clean -fd coverage_report || echo "No files to clean"
+          git checkout coverage-update || git checkout -b coverage-update
+          git reset --hard origin/coverage-update
           git add coverage_report/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
           git push origin coverage-update --force
