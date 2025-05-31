@@ -1,7 +1,14 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   tests:
+    name: Run tests and docs
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,8 +34,8 @@ jobs:
           git push origin main
 
   codacy-coverage-reporter:
+    name: Upload coverage report to Codacy
     runs-on: ubuntu-latest
-    name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@v4
 
