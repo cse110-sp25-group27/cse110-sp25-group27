@@ -81,47 +81,64 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    # Only deploy on pushes to main branch (not on PRs)
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Deploy on pushes to main or coverage-update branches (not on PRs)
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/coverage-update') && github.event_name == 'push'
     steps:
-      - name: Checkout main branch
+      - name: Checkout current branch
         uses: actions/checkout@v4
-        with:
-          ref: main
       
-      - name: Regenerate coverage report for deployment
+      - name: Regenerate coverage if needed (only on main branch)
+        if: github.ref == 'refs/heads/main'
         run: |
           npm install
           npm run test -- --coverage
           npm run generate-docs
       - name: Prepare coverage report for deployment
         run: |
-          echo "=== Checking docs structure ==="
-          ls -la docs/ || echo "No docs directory"
-          echo "=== Checking coverage_report structure ==="
+          echo "=== Current branch: ${{ github.ref }} ==="
+          echo "=== Checking docs/coverage_report structure ==="
           ls -la docs/coverage_report/ || echo "No coverage_report directory"
-          echo "=== Checking for index.html files ==="
-          find . -name "index.html" -type f
           
-          # Create a .nojekyll file to disable Jekyll processing
-          touch docs/coverage_report/.nojekyll
+          # Ensure the directory exists
+          if [ ! -d "docs/coverage_report" ]; then
+            echo "❌ docs/coverage_report directory not found!"
+            echo "Available directories in docs/:"
+            ls -la docs/ || echo "No docs directory found"
+            exit 1
+          fi
           
-          # Check if we have the main index.html
+          # Check for index.html in the main coverage_report directory
           if [ -f "docs/coverage_report/index.html" ]; then
-            echo "✓ Found main index.html"
-            head -n 5 docs/coverage_report/index.html
+            echo "✅ Found index.html in docs/coverage_report/"
+            echo "File size: $(stat -c%s docs/coverage_report/index.html) bytes"
+            echo "First few lines:"
+            head -n 10 docs/coverage_report/index.html
           else
-            echo "✗ Main index.html not found"
-            # Check if there's an lcov-report directory with index.html
+            echo "❌ No index.html in docs/coverage_report/"
+            echo "Contents of docs/coverage_report/:"
+            ls -la docs/coverage_report/
+            
+            # Check if it's in lcov-report subdirectory
             if [ -f "docs/coverage_report/lcov-report/index.html" ]; then
-              echo "Found index.html in lcov-report subdirectory, copying to root"
-              cp docs/coverage_report/lcov-report/index.html docs/coverage_report/
+              echo "✅ Found index.html in lcov-report subdirectory"
+              echo "Copying lcov-report contents to root of coverage_report"
               cp -r docs/coverage_report/lcov-report/* docs/coverage_report/
+              echo "✅ Copied successfully"
             else
-              echo "No index.html found anywhere in coverage_report"
-              ls -la docs/coverage_report/
+              echo "❌ No index.html found in lcov-report either"
+              exit 1
             fi
           fi
+          
+          # Create .nojekyll to disable Jekyll processing
+          touch docs/coverage_report/.nojekyll
+          echo "✅ Created .nojekyll file"
+          
+          # Final verification
+          echo "=== Final directory structure ==="
+          ls -la docs/coverage_report/
+          echo "=== Files to be deployed ==="
+          find docs/coverage_report -type f -name "*.html" | head -10
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
