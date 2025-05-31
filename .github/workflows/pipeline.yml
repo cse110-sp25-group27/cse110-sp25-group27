@@ -40,9 +40,9 @@ jobs:
           git fetch origin
           git checkout -B coverage-update origin/coverage-update || git checkout -b coverage-update
           git stash pop || echo "No stash to pop"
-          git rm -r --cached docs/coverage_report || echo "No old coverage files to remove"
-          git clean -fd docs/coverage_report || echo "No files to clean"
-          git add docs/coverage_report/
+          git rm -r --cached coverage_report || echo "No old coverage files to remove"
+          git clean -fd coverage_report || echo "No files to clean"
+          git add coverage_report/
           git commit -m "Update docs and coverage [skip ci]" || echo "No changes to commit"
           git push origin coverage-update --force
 
@@ -72,7 +72,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/coverage_report
-          publish_branch: coverage-update
+          publish_branch: ./coverage-update
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
