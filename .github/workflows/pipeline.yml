@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 jobs:
-  test-and-deploy:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
