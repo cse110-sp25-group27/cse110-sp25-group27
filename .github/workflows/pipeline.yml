@@ -1,12 +1,6 @@
 name: CI/CD Pipeline
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 permissions:
   contents: write
@@ -15,21 +9,13 @@ permissions:
 
 jobs:
   tests:
+    name: 
     runs-on: ubuntu-latest
     outputs:
       docs-exists: ${{ steps.check-docs.outputs.docs-exists }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
 
       - name: Run Jest tests
         run: npm test 
@@ -165,7 +151,7 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ./docs/coverage_report/lcov.info
+          coverage-reports: docs/coverage_report/lcov.info
 
       - name: Download coverage artifact
         uses: actions/download-artifact@v4
