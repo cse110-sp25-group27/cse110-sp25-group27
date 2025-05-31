@@ -54,6 +54,8 @@ jobs:
           body: "Automated update of docs and coverage reports."
           base: main
           branch: coverage-update
+          add-paths: coverage_report/**
+
 
   deploy:
     name: Deploy docs to GitHub Pages (coverage-update branch)
