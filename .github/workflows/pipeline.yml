@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   tests:
-    name: tests
+    name: Run Tests and Generate Coverage
     runs-on: ubuntu-latest
     outputs:
       docs-exists: ${{ steps.check-docs.outputs.docs-exists }}
@@ -112,36 +112,28 @@ jobs:
           echo "Docs directory contents:"
           ls -la docs/
 
-      - name: Switch to deployment branch and clean
+      - name: Switch to deployment branch
         run: |
-          # Force checkout to avoid conflicts
           if git ls-remote --exit-code origin coverage-update; then
-            echo "Branch exists, force checking out..."
+            echo "Branch exists, checking out..."
             git fetch origin coverage-update
-            git checkout --force coverage-update
-            # Clean the branch completely
-            git reset --hard origin/coverage-update
+            git checkout coverage-update
           else
             echo "Creating new orphan branch..."
             git checkout --orphan coverage-update
+            # For new branch, we'll need to add .nojekyll
+            touch .nojekyll
           fi
-          
-          # Remove all files except .git and docs/ (which we'll replace)
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'docs' -exec rm -rf {} + 2>/dev/null || true
 
-      - name: Clean branch and copy docs
+      - name: Update docs content
         run: |
-          # Now remove everything including docs, then copy fresh docs
-          rm -rf docs/ 2>/dev/null || true
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} + 2>/dev/null || true
-          
-          # Copy fresh docs content to root
+          # Copy/update docs content, preserving any existing structure
           cp -r docs/* .
           
-          # Add .nojekyll file
+          # Ensure .nojekyll exists
           touch .nojekyll
           
-          # Add all files
+          # Add all changes
           git add .
 
       - name: Commit and push docs to coverage-update branch
