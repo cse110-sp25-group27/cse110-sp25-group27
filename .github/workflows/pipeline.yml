@@ -70,7 +70,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage_report
+          publish_dir: ./docs/coverage_report
           publish_branch: coverage-update
 
   codacy-coverage-reporter:
