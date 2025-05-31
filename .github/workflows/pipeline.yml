@@ -53,7 +53,7 @@ jobs:
           title: "Update docs and coverage"
           body: "Automated update of docs and coverage reports."
           base: main
-          head: coverage-update
+          branch: coverage-update
 
   deploy:
     name: Deploy docs to GitHub Pages (coverage-update branch)
