@@ -2,6 +2,11 @@ import pluginJest from 'eslint-plugin-jest';
 
 export default [
   {
+    ignores: [
+      "docs/coverage_report/**"
+    ]
+  },
+  {
     files: ['**/__tests__/**/*.{js,jsx}', '**/*.{test,spec}.{js,jsx}'],
     plugins: { jest: pluginJest },
     languageOptions: {

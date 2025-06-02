@@ -8,12 +8,18 @@
   },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-   "generate-docs": "documentation build code-to-unit-test/**/*.js -f md -o docs/documentation.md"
+    "generate-docs": "documentation build code-to-unit-test/**/*.js -f md -o docs/documentation.md",
+    "posttest": "cp docs/coverage_report/lcov-report/index.html docs/index.html"
   },
   "type": "module",
   "jest": {
     "transform": {},
-    "verbose": true
+    "verbose": true,
+    "setupFiles": ["./unit-testing/testSetup.js"],
+    "testEnvironment": "node",
+    "codeCoverage": true,
+    "coverageDirectory": "docs/coverage_report",
+    "coverageReporters": ["text", "html", "lcov"]
   },
   "keywords": [],
   "author": "",
