@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "generate-docs": "documentation build backend/*.js frontend/scripts/**.js -f md -o docs/documentation.md",
-    "posttest": "cp docs/coverage_report/lcov-report/index.html docs/index.html"
+    "posttest": "cp docs/coverage_report/lcov-report/index.html docs/coverage_report/index.html"
   },
   "type": "module",
   "jest": {
