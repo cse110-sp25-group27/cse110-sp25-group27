@@ -84,10 +84,13 @@ jobs:
           retention-days: 1
 
   deploy:
-    name: Deploy coverage_report to coverage-update branch
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: tests
-    if: github.event_name == 'push' && needs.tests.outputs.docs-exists == 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4
@@ -98,11 +101,12 @@ jobs:
       - name: Upload artifact (entire root)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .   # Deploy the full repo root, including index.html and coverage_report/
+          path: .   # deploy the whole repo root
       
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
