@@ -4,6 +4,10 @@
 
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
 
+## About Box Office Project:
+- Box Office is an interactive and visually engaging movie review platform designed for everyday movie lovers — not just critics or industry insiders. Inspired by the charm of classic theaters, ticket booths, and cinema nostalgia, it lets users create personalized, ticket-stub-style movie reviews, track the exact day they watched films, and explore posters and ratings through intuitive, playful interactions. Unlike traditional text-heavy review sites, Box Office focuses on delivering a beautiful, user-friendly experience where people can privately journal, customize, and celebrate their movie-watching journeys.
+- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/)
+
 **Learn more about us:**
 - [Team Page](admin/team.md)
 
