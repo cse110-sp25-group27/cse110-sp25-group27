@@ -11,26 +11,30 @@
 *   [createReviewObject][7]
     *   [Parameters][8]
 *   [initFormHandler][9]
-*   [updateReview][10]
-    *   [Parameters][11]
-*   [deleteReviewById][12]
-    *   [Parameters][13]
-*   [data][14]
-    *   [Parameters][15]
-*   [data][16]
-    *   [Parameters][17]
+    *   [Parameters][10]
+*   [updateReview][11]
+    *   [Parameters][12]
+*   [deleteReviewById][13]
+    *   [Parameters][14]
+*   [data][15]
+    *   [Parameters][16]
+*   [data][17]
+    *   [Parameters][18]
 
 ## getReviewsFromStorage
 
+Defines the structure for a movie review object.
 {
-id : string,
-title : string,
-watchedOn : string (ISO),
-rating : number 1-5,
-imageData : string (base 64/url),
-notes : string,
-createdAt : string (ISO),
-updatedAt : string (ISO)
+id: string, // Unique identifier
+title: string, // Movie title
+imageData: string, // Base64 encoded image data or image URL
+releaseDate: string, // Release date of the movie
+watchedOn: string, // Date the movie was watched (ISO format)
+watchCount: number, // How many times the user has watched this movie
+notes: string, // User's review/notes
+rating: number, // User's rating (0-5)
+createdAt: string, // Timestamp of creation (ISO format)
+updatedAt: string // Timestamp of last update (ISO format)
 }
 
 ## getReviewsFromStorage
@@ -40,7 +44,7 @@ all of the reviews found (parsed, not in string form). If
 nothing is found in localStorage for 'reviews', an empty array
 is returned.
 
-Returns **[Array][18]<[Object][19]>**&#x20;
+Returns **[Array][19]<[Object][20]>**&#x20;
 
 ## addReviewsToDocument
 
@@ -51,7 +55,7 @@ to <main>
 
 ### Parameters
 
-*   `reviews` **[Array][18]<[Object][19]>** An array of recipes
+*   `reviews` **[Array][19]<[Object][20]>** An array of recipes
 
 ## saveReviewsToStorage
 
@@ -60,7 +64,7 @@ saves that string to 'reviews' in localStorage
 
 ### Parameters
 
-*   `reviews` **[Array][18]<[Object][19]>**&#x20;
+*   `reviews` **[Array][19]<[Object][20]>**&#x20;
 
 ## createReviewObject
 
@@ -68,13 +72,13 @@ Creates a review object using the data provided from a form.
 
 ### Parameters
 
-*   `form` **[FormData][20]** A FormData object containing review details. Expected keys:*   'title': {string} The title of the review.
+*   `form` **[FormData][21]** A FormData object containing review details. Expected keys:*   'title': {string} The title of the review.
     *   'watchedOn': {string} The date the item was watched.
     *   'rating': {string|number} The rating given, which will be parsed as an integer.
     *   'imageData': {string} Base64 or URL string for the image.
     *   'notes': {string} Optional notes about the item.
 
-Returns **[Object][19]** A review object with the following properties:*   {string} id - A unique identifier for the review.
+Returns **[Object][20]** A review object with the following properties:*   {string} id - A unique identifier for the review.
 *   {string} title - The title from the form.
 *   {string} watchedOn - The date the item was watched.
 *   {number} rating - The parsed integer rating.
@@ -86,29 +90,13 @@ Returns **[Object][19]** A review object with the following properties:*   {stri
 
 ## initFormHandler
 
-Initializes all event handlers for form interactions in the review application.
+Initializes event handlers for new review form submission.
 
-This includes:
+### Parameters
 
-*   Handling form submission to create a new review card, update the DOM, and save to localStorage.
-*   Handling "Clear" button to remove all reviews from localStorage and the page.
-*   Handling "Delete" button to remove a review by matching its title.
-*   Handling "Edit" button to pre-fill an update form with review data for a selected title.
-*   Handling update form submission to modify a review, update localStorage, and re-render the DOM.
-
-Expects the following DOM elements to exist:
-
-*   <form> main review form
-*   <main> container where <review-card> elements are appended
-*   Button with class `danger` to clear all reviews
-*   Button with id `delete-button` and input with id `delete-title-input`
-*   Button with id `edit-button` and input with id `edit-title-input`
-*   Form with id `update-form` for editing reviews
-
-Side effects:
-
-*   Manipulates localStorage
-*   Updates the DOM by adding/removing/replacing <review-card> elements
+*   `onReviewCreated` **function ([Object][20]): void?** Optional callback function
+    that receives the new review object.
+    If provided, DOM appending is skipped.
 
 ## updateReview
 
@@ -116,9 +104,9 @@ Updates an existing review in localStorage by matching its ID.
 
 ### Parameters
 
-*   `updatedReview` **[Object][19]** The updated review object.
+*   `updatedReview` **[Object][20]** The updated review object.
 
-    *   `updatedReview.id` **[string][21]** The unique identifier of the review to update.
+    *   `updatedReview.id` **[string][22]** The unique identifier of the review to update.
         Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.Side effects:*   Replaces the existing review with the same ID in localStorage.
 
 ## deleteReviewById
@@ -127,13 +115,13 @@ Deletes a review from localStorage by its unique ID.
 
 ### Parameters
 
-*   `id` **[string][21]** The unique identifier of the review to delete.Side effects:*   Removes the review with the given ID from localStorage.
+*   `id` **[string][22]** The unique identifier of the review to delete.Side effects:*   Removes the review with the given ID from localStorage.
 
 ## data
 
 ### Parameters
 
-*   `data` **[Object][19]** {
+*   `data` **[Object][20]** {
     id: string,
     title: string,
     titleLnk: string,
@@ -151,7 +139,7 @@ Sets the data for the card.
 
 ### Parameters
 
-*   `data` **[Object][19]** {
+*   `data` **[Object][20]** {
     id: string,          // review ID (not shown)
     title: string,
     watchedOn: string,
@@ -180,26 +168,28 @@ Sets the data for the card.
 
 [9]: #initformhandler
 
-[10]: #updatereview
+[10]: #parameters-3
 
-[11]: #parameters-3
+[11]: #updatereview
 
-[12]: #deletereviewbyid
+[12]: #parameters-4
 
-[13]: #parameters-4
+[13]: #deletereviewbyid
 
-[14]: #data
+[14]: #parameters-5
 
-[15]: #parameters-5
+[15]: #data
 
-[16]: #data-1
+[16]: #parameters-6
 
-[17]: #parameters-6
+[17]: #data-1
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[18]: #parameters-7
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[20]: https://developer.mozilla.org/docs/Web/API/FormData
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[21]: https://developer.mozilla.org/docs/Web/API/FormData
+
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String

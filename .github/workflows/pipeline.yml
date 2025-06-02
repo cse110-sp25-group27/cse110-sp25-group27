@@ -84,7 +84,7 @@ jobs:
           retention-days: 1
 
   deploy:
-    name: Deploy docs to coverage-update branch
+    name: Deploy coverage_report to coverage-update branch
     runs-on: ubuntu-latest
     needs: tests
     if: github.event_name == 'push' && needs.tests.outputs.docs-exists == 'true'
@@ -100,11 +100,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Download docs artifact
+      - name: Download coverage artifact
         uses: actions/download-artifact@v4
         with:
-          name: docs
-          path: downloaded-docs/   # <-- download into a separate folder
+          name: coverage
+          path: downloaded-coverage/  
 
       - name: Switch to deployment branch
         run: |
@@ -118,32 +118,30 @@ jobs:
             touch .nojekyll
           fi
 
-      - name: Clear old docs files
+      - name: Ensure docs directory exists
         run: |
-          # Remove old docs files except .git directory
-          git rm -r --ignore-unmatch docs || true
+          mkdir -p docs/coverage_report
 
-      - name: Copy new docs content
+      - name: Copy new coverage_report content
         run: |
-          mkdir -p docs
-          cp -r downloaded-docs/* docs/
+          cp -r downloaded-coverage/* docs/coverage_report/
 
       - name: Add .nojekyll file
         run: |
           touch .nojekyll
 
-      - name: Add docs and .nojekyll
+      - name: Add updated coverage_report only
         run: |
-          git add docs .nojekyll
+          git add docs/coverage_report .nojekyll
 
-      - name: Commit and push docs to coverage-update branch
+      - name: Commit and push updates to coverage-update branch
         run: |
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Deploy docs from GitHub Actions - Branch: ${{ github.ref_name }} - $(date)"
+            git commit -m "Deploy updated coverage_report from GitHub Actions - Branch: ${{ github.ref_name }} - $(date)"
             git push origin coverage-update --force
-            echo "✅ Successfully deployed to coverage-update branch from ${{ github.ref_name }}"
+            echo "✅ Successfully deployed updated coverage_report to coverage-update branch from ${{ github.ref_name }}"
           fi
 
   codacy-coverage-reporter:
