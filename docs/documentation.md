@@ -2,22 +2,204 @@
 
 ### Table of Contents
 
-*   [sum][1]
-    *   [Parameters][2]
+*   [getReviewsFromStorage][1]
+*   [getReviewsFromStorage][2]
+*   [addReviewsToDocument][3]
+    *   [Parameters][4]
+*   [saveReviewsToStorage][5]
+    *   [Parameters][6]
+*   [createReviewObject][7]
+    *   [Parameters][8]
+*   [initFormHandler][9]
+*   [updateReview][10]
+    *   [Parameters][11]
+*   [deleteReviewById][12]
+    *   [Parameters][13]
+*   [data][14]
+    *   [Parameters][15]
+*   [data][16]
+    *   [Parameters][17]
 
-## sum
+## getReviewsFromStorage
 
-Adds two numbers.
+{
+id : string,
+title : string,
+watchedOn : string (ISO),
+rating : number 1-5,
+imageData : string (base 64/url),
+notes : string,
+createdAt : string (ISO),
+updatedAt : string (ISO)
+}
+
+## getReviewsFromStorage
+
+Reads 'reviews' from localStorage and returns an array of
+all of the reviews found (parsed, not in string form). If
+nothing is found in localStorage for 'reviews', an empty array
+is returned.
+
+Returns **[Array][18]<[Object][19]>**&#x20;
+
+## addReviewsToDocument
+
+Takes in an array of reviews and for each reviews creates a
+new <review-card> element, adds the review data to that card
+using element.data = {...}, and then appends that new review
+to <main>
 
 ### Parameters
 
-*   `a` **[number][3]**&#x20;
-*   `b` **[number][3]**&#x20;
+*   `reviews` **[Array][18]<[Object][19]>** An array of recipes
 
-Returns **[number][3]**&#x20;
+## saveReviewsToStorage
 
-[1]: #sum
+Takes in an array of reviews, converts it to a string, and then
+saves that string to 'reviews' in localStorage
 
-[2]: #parameters
+### Parameters
 
-[3]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+*   `reviews` **[Array][18]<[Object][19]>**&#x20;
+
+## createReviewObject
+
+Creates a review object using the data provided from a form.
+
+### Parameters
+
+*   `form` **[FormData][20]** A FormData object containing review details. Expected keys:*   'title': {string} The title of the review.
+    *   'watchedOn': {string} The date the item was watched.
+    *   'rating': {string|number} The rating given, which will be parsed as an integer.
+    *   'imageData': {string} Base64 or URL string for the image.
+    *   'notes': {string} Optional notes about the item.
+
+Returns **[Object][19]** A review object with the following properties:*   {string} id - A unique identifier for the review.
+*   {string} title - The title from the form.
+*   {string} watchedOn - The date the item was watched.
+*   {number} rating - The parsed integer rating.
+*   {number} watchCount - The number of times the item was watched.
+*   {string} imageData - file converted to base 64 string.
+*   {string} notes - Notes section of the review.
+*   {string} createdAt - ISO string timestamp for when the object was created.
+*   {string} updatedAt - ISO string timestamp for when the object was last updated.
+
+## initFormHandler
+
+Initializes all event handlers for form interactions in the review application.
+
+This includes:
+
+*   Handling form submission to create a new review card, update the DOM, and save to localStorage.
+*   Handling "Clear" button to remove all reviews from localStorage and the page.
+*   Handling "Delete" button to remove a review by matching its title.
+*   Handling "Edit" button to pre-fill an update form with review data for a selected title.
+*   Handling update form submission to modify a review, update localStorage, and re-render the DOM.
+
+Expects the following DOM elements to exist:
+
+*   <form> main review form
+*   <main> container where <review-card> elements are appended
+*   Button with class `danger` to clear all reviews
+*   Button with id `delete-button` and input with id `delete-title-input`
+*   Button with id `edit-button` and input with id `edit-title-input`
+*   Form with id `update-form` for editing reviews
+
+Side effects:
+
+*   Manipulates localStorage
+*   Updates the DOM by adding/removing/replacing <review-card> elements
+
+## updateReview
+
+Updates an existing review in localStorage by matching its ID.
+
+### Parameters
+
+*   `updatedReview` **[Object][19]** The updated review object.
+
+    *   `updatedReview.id` **[string][21]** The unique identifier of the review to update.
+        Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.Side effects:*   Replaces the existing review with the same ID in localStorage.
+
+## deleteReviewById
+
+Deletes a review from localStorage by its unique ID.
+
+### Parameters
+
+*   `id` **[string][21]** The unique identifier of the review to delete.Side effects:*   Removes the review with the given ID from localStorage.
+
+## data
+
+### Parameters
+
+*   `data` **[Object][19]** {
+    id: string,
+    title: string,
+    titleLnk: string,
+    releaseDate: string,
+    watchedOn: string (ISO),
+    rating: number 1-5,
+    numRatings: number,
+    locationWatched: string,
+    reviewText: string
+    }
+
+## data
+
+Sets the data for the card.
+
+### Parameters
+
+*   `data` **[Object][19]** {
+    id: string,          // review ID (not shown)
+    title: string,
+    watchedOn: string,
+    rating: number,
+    imageData: string,
+    notes: string,
+    createdAt: string,
+    updatedAt: string
+    }
+
+[1]: #getreviewsfromstorage
+
+[2]: #getreviewsfromstorage-1
+
+[3]: #addreviewstodocument
+
+[4]: #parameters
+
+[5]: #savereviewstostorage
+
+[6]: #parameters-1
+
+[7]: #createreviewobject
+
+[8]: #parameters-2
+
+[9]: #initformhandler
+
+[10]: #updatereview
+
+[11]: #parameters-3
+
+[12]: #deletereviewbyid
+
+[13]: #parameters-4
+
+[14]: #data
+
+[15]: #parameters-5
+
+[16]: #data-1
+
+[17]: #parameters-6
+
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[20]: https://developer.mozilla.org/docs/Web/API/FormData
+
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
