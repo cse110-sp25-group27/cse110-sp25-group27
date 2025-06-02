@@ -83,7 +83,7 @@ jobs:
           path: docs/coverage_report/
           retention-days: 1
 
-    deploy:
+  deploy:
     name: Deploy coverage_report to coverage-update branch
     runs-on: ubuntu-latest
     needs: tests
