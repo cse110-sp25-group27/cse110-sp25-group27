@@ -1,3 +1,17 @@
+// ONBOARDING REDIRECT LOGIC - PLACE AT THE VERY TOP
+(function() {
+    if (localStorage.getItem('hasCompletedOnboarding') !== 'true') {
+        // Ensure we are not already on onboarding.html to prevent redirect loop
+        if (!window.location.pathname.endsWith('onboarding.html')) {
+            // Adjust the path if onboarding.html is not in the same directory as landing_page.html
+            // This assumes they are both in 'frontend/pages/' and scripts are in 'frontend/scripts/'
+            // If landing_page.html is at the root and onboarding.html is in 'frontend/pages/',
+            // the path would be './frontend/pages/onboarding.html'
+            window.location.href = 'onboarding.html'; // Simpler if both in same dir e.g. 'pages'
+        }
+    }
+})(); // Self-invoking function to run immediately
+
 // Import functions from localStorage.js and the ReviewCard component
 import { getReviewsFromStorage, saveReviewsToStorage, createReviewObject, addReviewsToDocument as originalAddReviewsToDocument, updateReview, deleteReviewById, initFormHandler } from '../../backend/localStorage.js';
 import '../../backend/reviewCard.js'; // This ensures ReviewCard custom element is defined

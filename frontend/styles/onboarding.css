@@ -1,0 +1,319 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-image: url('../assets/city_top.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #e0e0e0;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.onboarding-container {
+    max-width: 90%;
+    margin: 40px auto;
+    background: rgba(46, 41, 37, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #B08D57;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.onboarding-container h1 {
+    text-align: center;
+    font-family: 'Limelight', cursive;
+    color: #B08D57;
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+.onboarding-container p {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #D7D7D7;
+    font-size: 1.1em;
+}
+
+.movie-strip-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 10px;
+    margin-bottom: 30px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    border: 1px solid #444;
+    scrollbar-width: thin;
+    scrollbar-color: #B08D57 rgba(0,0,0,0.2);
+}
+
+.movie-strip-container::-webkit-scrollbar {
+    height: 10px;
+}
+.movie-strip-container::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.movie-strip-container::-webkit-scrollbar-thumb {
+    background-color: #B08D57;
+    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.2);
+}
+
+.movie-option-card {
+    flex: 0 0 260px;
+    height: 480px;
+    margin-right: 15px;
+    perspective: 1000px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+.movie-option-card:last-child {
+    margin-right: 0;
+}
+
+.movie-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1), background-color 0.3s ease;
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.movie-option-card.details-saved-indicator .movie-card-inner {
+    /* Change background of both front and back, or just a specific one if preferred */
+    /* This will apply to whichever face is visible */
+}
+
+.movie-option-card.is-flipped .movie-card-inner {
+    transform: rotateY(180deg);
+}
+
+.movie-card-front,
+.movie-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    color: #D7D7D7;
+    border: 1px solid #555;
+}
+
+.movie-card-front {
+    background-color: #2E2925;
+    align-items: center;
+}
+
+.movie-option-card.details-saved-indicator .movie-card-front {
+    background-color: #3c4c34;
+    border-color: #27ae60;
+}
+
+.movie-card-back {
+    background-color: #3a332e;
+    transform: rotateY(180deg);
+    justify-content: flex-start;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #B08D57 #3a332e;
+}
+.movie-card-back::-webkit-scrollbar { height: 8px; width: 8px; }
+.movie-card-back::-webkit-scrollbar-track { background: #3a332e; }
+.movie-card-back::-webkit-scrollbar-thumb { background-color: #B08D57; border-radius: 4px; }
+
+.movie-option-card.details-saved-indicator .movie-card-back {
+    background-color: #4a5943;
+    border-color: #27ae60;
+}
+
+.movie-card-front img.poster {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border: 1px solid #444;
+}
+
+.movie-card-front h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.15em;
+    color: #E0E0E0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.movie-card-front .release-date {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+.movie-card-front .select-button {
+    padding: 10px 15px;
+    background-color: #B08D57;
+    color: #2E2925;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 15px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.movie-card-front .select-button:hover {
+    background-color: #a07d47;
+}
+
+.movie-card-front .select-button.details-entered {
+    background-color: #27ae60;
+    color: white;
+}
+.movie-card-front .select-button.details-entered:hover {
+    background-color: #229954;
+}
+
+.movie-card-back h4 {
+    text-align: center;
+    color: #B08D57;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+.movie-card-back .form-scroll-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.movie-card-back .details-form label,
+.movie-card-back label {
+    display: block;
+    font-size: 0.8em;
+    color: #bbb;
+    margin-top: 8px;
+    margin-bottom: 3px;
+}
+
+.movie-card-back input[type="date"],
+.movie-card-back input[type="number"],
+.movie-card-back textarea {
+    width: calc(100% - 16px);
+    padding: 7px 8px;
+    margin-bottom: 8px;
+    border: 1px solid #444;
+    border-radius: 3px;
+    font-size: 0.9em;
+    background-color: #333;
+    color: #e0e0e0;
+}
+.movie-card-back input::placeholder,
+.movie-card-back textarea::placeholder {
+    color: #888;
+}
+
+.movie-card-back .rating-group {
+    margin-bottom: 10px;
+}
+.movie-card-back .rating-group label {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 0.85em;
+    color: #bbb;
+}
+.movie-card-back .rating-group input[type="radio"] {
+    margin-right: 3px;
+    accent-color: #B08D57;
+}
+
+.movie-card-back .flip-back-button {
+    padding: 9px 15px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: auto;
+    text-transform: uppercase;
+}
+.movie-card-back .flip-back-button:hover {
+    background-color: #444;
+}
+
+.movie-card-back .save-card-details-button {
+    padding: 10px 15px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: auto;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+}
+.movie-card-back .save-card-details-button:hover {
+    background-color: #229954;
+}
+.movie-card-front .selection-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #27ae60; /* Green */
+    color: white;
+    padding: 3px 7px;
+    font-size: 0.75em;
+    border-radius: 3px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    z-index: 5; /* Above poster */
+}
+.movie-card-front .selection-indicator.active {
+    opacity: 1;
+}
+
+.save-onboarding-button {
+    display: block;
+    width: 320px;
+    padding: 15px 20px;
+    background-color: #B08D57; /* Gold */
+    color: #2E2925; /* Dark text */
+    border: 1px solid #2E2925; /* Dark border for contrast on gold */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.15em;
+    font-weight: bold;
+    margin: 40px auto 10px; /* Centering with auto margins, and top/bottom margin */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Added transition */
+}
+.save-onboarding-button:hover {
+    background-color: #a07d47; /* Darker gold */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
