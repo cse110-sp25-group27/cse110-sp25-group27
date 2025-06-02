@@ -20,25 +20,29 @@ body {
   width: 100%;
 }
 
+
 @media (width >= 800px) {
   .banner {
-    width: 60vw;
-    max-width: 900px;
+    width: 40vw;
+    max-width: 500px;
   }
 }
 
 .scrolling-text {
   position: absolute;
-  bottom:55px;
+  bottom:6%;
   overflow: hidden;
   white-space: nowrap;
   width: fit-content;
-  max-width: 600px;
+  max-width:24%;
+  /*max-width: 420px;*/
+
 }
 
 .scrolling-text p {
-  animation: scroll 10s linear infinite;
-  font-size: 1.5rem;
+  animation: scroll 20s linear infinite;
+  /*font-size: 1.5rem;*/
+  font-size:1.5rem;
   font-family: Limelight;
   min-width: 100%;
 }
@@ -80,7 +84,7 @@ body {
 
 .poster-container img[alt = "Current movie poster"] {
   position: relative;
-  z-index: 20; 
+  z-index: 5; 
 }
 
 .poster-container img[alt ="Next movie poster"] {
@@ -99,6 +103,7 @@ body {
 .nav-btn{
   background-color: transparent;
   border: transparent;
+  z-index: 1;
 }
 
 #add-ticket-button{
@@ -120,14 +125,15 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  position: relative;
+  top: -20px;
+  transform: translateY(-50px) scale(0.8);
 }
 
 .text-bubble {
   display: flex;
   position: absolute;
   left: 55%;
+  bottom: 60%;
   flex-direction: column;
   text-align: center;
   text-transform: uppercase;
@@ -143,6 +149,19 @@ button:hover {
   transition: all 0.4s ease;
 }
 
+.text-bubble.expanded {
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  bottom: auto !important;
+  transform: translate(-50%, -140%) !important;
+  z-index: 10;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  /* padding: 2vw; */
+}
+
 
 #form-container.hidden {
   opacity: 0;
@@ -153,16 +172,14 @@ button:hover {
 .text-bubble.expanded #form-container {
   opacity: 1;
   pointer-events: auto;
+  max-height: 1000px; 
 }
 
 #form-container {
+  position: relative;
   transition: opacity 0.4s ease, max-height 0.4s ease;
   max-height: 0;
   overflow: hidden;
-}
-
-.text-bubble.expanded #form-container {
-  max-height: 1000px; 
 }
 
 .poster-carousel {
@@ -173,19 +190,19 @@ button:hover {
   position: relative;      /* Establishes a positioning context if needed, though not strictly for this layout */
   width: 100%;             /* Take full available width */
   box-sizing: border-box;
+  z-index: 0;
 }
 
 .poster-carousel > #carousel-prev-btn {
   order: 1;                /* Display order: First item */
   margin-right: 15px;      /* Space between this button and the main card viewport */
   flex-shrink: 0;          /* Prevent this button from shrinking if space is tight */
-  
   background-color: transparent;
   border: none;
   padding: 10px;
   cursor: pointer;
   opacity: 0.8;
-  z-index: 10;             /* Ensure buttons are above the carousel track content if any accidental overlap */
+  z-index: 6;             /* Ensure buttons are above the carousel track content if any accidental overlap */
 }
 .poster-carousel > #carousel-prev-btn:hover {
   opacity: 1;
@@ -205,13 +222,12 @@ button:hover {
   order: 3;                /* Display order: Third item */
   margin-left: 15px;       /* Space between the main card viewport and this button */
   flex-shrink: 0;          /* Prevent this button from shrinking */
-
   background-color: transparent;
   border: none;
   padding: 10px;
   cursor: pointer;
   opacity: 0.8;
-  z-index: 10;             /* Ensure buttons are above the carousel track content */
+  z-index: 6;             /* Ensure buttons are above the carousel track content */
 }
 .poster-carousel > #carousel-next-btn:hover {
   opacity: 1;

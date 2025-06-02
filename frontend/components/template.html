@@ -24,7 +24,7 @@
 
     <!--Hover over the stars that you want to rate the movie, once you click it will update the rating-->
 
-    <fieldset>
+    <fieldset id = "rating-field">
         <legend>Rating</legend>
         <label for="rating-0">0<input type="radio" id="rating-0" value="0" name="rating" /> </label>
         <label for="rating-1">1<input type="radio" id="rating-1" value="1" name="rating" /> </label>
@@ -42,20 +42,27 @@
 <style>
 #new-review {
     padding-top:10px;
+    z-index: 1000;
 }
 
-#new-review fieldset {
+#new-review fieldset:not(#rating-field) {
     display: flex;
-    justify-content: flex-start;
+    /*justify-content: flex-start;*/
     flex-direction: column;
-    align-items: column;
+    align-items: flex-start;
     border: none;
 }
 
-#new-review legend{
-    
+#rating-field {
     display:flex;
     flex-direction:row;
-    flex-flow:row;
+    align-items: center;
+    justify-content:center;
 }
+
+#rating-field label{
+    display:flex;
+    align-items: center;
+}
+
 </style>
