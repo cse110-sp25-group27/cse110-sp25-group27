@@ -27,18 +27,20 @@
 
     <!-- movie posters -->
     <section class="poster-carousel">
-        <main>
-            <!--Review cards will be dynamically added here-->
-        </main>
-        <div class="carousel-button-container">
-            <button class="nav-btn">
-                <img src="../assets/gold_left_arrow.png" alt="Previous poster button" height="50" width="70">
-            </button>
+        <!-- PREVIOUS BUTTON - NOW A DIRECT CHILD -->
+        <button class="nav-btn" id="carousel-prev-btn">
+            <img src="../assets/gold_left_arrow.png" alt="Previous poster button" height="50" width="70">
+        </button>
 
-            <button class="nav-btn">
-                <img src="../assets/gold_right_arrow.png" alt="Next poster button" height="50" width="70">
-            </button>
-        </div>
+        <!-- MAIN VIEWPORT - DIRECT CHILD -->
+        <main>
+            <!--Review cards will be dynamically added here by JS (inside a .carousel-track div)-->
+        </main>
+
+        <!-- NEXT BUTTON - NOW A DIRECT CHILD -->
+        <button class="nav-btn" id="carousel-next-btn">
+            <img src="../assets/gold_right_arrow.png" alt="Next poster button" height="50" width="70">
+        </button>
     </section>
 
     <!-- Ticket Booth with Powell and option to add ticket-->

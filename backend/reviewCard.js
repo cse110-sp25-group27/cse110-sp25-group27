@@ -1,137 +1,234 @@
+// Color Palette (as used in the perforation version)
+const TICKET_BACKGROUND = '#2E2925'; 
+const TICKET_GOLD = '#B08D57';       
+const TICKET_TEXT_GOLD = '#B08D57';
+const TICKET_TEXT_CONTENT = '#D7D7D7'; 
+
+// frontTemplateHTML from the iteration with perforations and "ADMIT ONE"
 const frontTemplateHTML = `
   <style>
-    .review-card-front {
-      padding: 15px;
+    .review-card-front-content { /* Renamed from .review-card-front for consistency */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; 
+      height: 100%;
+      padding: 20px 25px; 
       box-sizing: border-box;
       text-align: center;
+      position: relative; 
     }
-    .review-card-front .movie-title {
-      font-size: 1.2em;
+    .admit-one-text {
+      font-family: 'Times New Roman', Times, serif; 
+      font-size: 1.8em; 
+      font-weight: bold; 
+      color: ${TICKET_TEXT_GOLD};
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px; 
+      margin-bottom: 10px;
+      width: 100%;
+      z-index: 1; 
+    }
+    .dashed-line { /* This was part of that version's front */
+      width: calc(100% - 10px); 
+      height: 2px;
+      border: none;
+      border-top: 3px dashed ${TICKET_GOLD};
+      margin-bottom: 15px;
+    }
+    .movie-title-front { /* Ensure class name matches render method */
+      font-size: 1.4em;
       font-weight: bold;
+      color: ${TICKET_TEXT_CONTENT};
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .movie-poster-front { /* Ensure class name matches render method */
+      max-width: 90%;
+      max-height: 180px; 
+      object-fit: contain;
       margin-bottom: 10px;
     }
-    .review-card-front img {
-      max-width: 100%;
-      max-height: 200px; /* Adjust as needed */
-      object-fit: contain;
-      border: 1px solid #ddd;
+    .dashed-line-bottom { /* This was part of that version's front */
+      width: calc(100% - 10px);
+      height: 2px;
+      border: none;
+      border-top: 3px dashed ${TICKET_GOLD};
+      margin-top: auto; 
+      margin-bottom: 5px; 
     }
   </style>
-  <div class="review-card-front">
-    <p class="movie-title">Movie Title</p>
-    <img src="" alt="Movie Poster">
+  <div class="review-card-front-content">
+    <p class="admit-one-text">Admit One</p>
+    <hr class="dashed-line">
+    <p class="movie-title-front">Movie Title</p>
+    <img class="movie-poster-front" src="" alt="Movie Poster">
+    <div style="flex-grow: 1;"></div> 
+    <hr class="dashed-line-bottom">
   </div>
 `;
 
+// backTemplateHTML from the iteration with perforations
 const backTemplateHTML = `
   <style>
-    .review-card-back {
-      padding: 15px;
+    .review-card-back-content { /* Renamed from .review-card-back for consistency */
+      padding: 20px 25px; 
       box-sizing: border-box;
-      font-size: 0.9em;
+      font-size: 0.95em; 
+      color: ${TICKET_TEXT_CONTENT};
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
-    .review-card-back .movie-title {
-      font-size: 1.1em;
+    .movie-title-back { /* Ensure class name matches render method */
+      font-size: 1.3em;
       font-weight: bold;
-      margin-bottom: 5px;
+      color: ${TICKET_TEXT_CONTENT};
+      margin-bottom: 10px;
+      text-align: center;
     }
-    .review-card-back p {
-      margin-bottom: 3px;
+    .review-card-back-content p {
+      margin-bottom: 6px;
+      line-height: 1.4;
     }
-    .review-card-back .label {
+    .review-card-back-content .label {
       font-weight: bold;
+      color: #BDBDBD; 
     }
-    .review-card-back .rating-display {
+    .rating-display-back { /* Ensure class name matches render method */
       display: flex;
       align-items: center;
-      margin-top: 5px;
-      margin-bottom: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
     }
-    .review-card-back .rating-display img {
-      width: 100px; /* Adjust as needed */
-      margin-left: 5px;
-      margin-right: 5px;
+    .rating-display-back img {
+      width: 90px; 
+      margin-left: 8px;
+      margin-right: 8px;
     }
-    .review-card-back .actions button {
-      padding: 8px 12px;
-      margin-right: 10px;
+    .actions-back { /* Ensure class name matches render method */
+      margin-top: auto; 
+      padding-top: 10px;
+      text-align: center; 
+    }
+    .actions-back button {
+      padding: 10px 18px;
+      margin: 0 8px;
       cursor: pointer;
+      background-color: ${TICKET_GOLD};
+      color: ${TICKET_BACKGROUND};
+      border: 1px solid ${TICKET_BACKGROUND};
+      border-radius: 5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.9em;
+    }
+    .actions-back button:hover {
+      background-color: ${TICKET_BACKGROUND};
+      color: ${TICKET_GOLD};
+      border: 1px solid ${TICKET_GOLD};
     }
   </style>
-  <div class="review-card-back">
-    <p class="movie-title">Movie Title</p>
+  <div class="review-card-back-content">
+    <p class="movie-title-back">Movie Title</p>
+    <hr class="dashed-line" style="border-top-color: ${TICKET_GOLD}; width: calc(100% - 10px); margin-bottom: 10px;">
     <p><span class="label">Released:</span> <span class="release-date"></span></p>
-    <p><span class="label">Watched On:</span> <span class="watch-date"></span> at <span class="watch-time"></span></p>
-    <p><span class="label">Watch Count:</span> <span class="watch-count"></span></p>
-    <div class="user-review-container">
+    <p><span class="label">Watched:</span> <span class="watch-date"></span> at <span class="watch-time"></span></p>
+    <p><span class="label">Count:</span> <span class="watch-count"></span></p>
+    <div>
       <p class="label">Review:</p>
-      <p class="user-review"></p>
+      <p class="user-review" style="max-height: 80px; overflow-y: auto;"></p>
     </div>
-    <div class="rating-display">
+    <div class="rating-display-back">
       <span class="label">Rating:</span>
       <span class="rating-value"></span>/5
       <img class="rating-stars" src="" alt="Rating Stars">
     </div>
-    <div class="actions">
+    <div class="actions-back">
       <button class="edit-button">Edit</button>
       <button class="delete-button">Delete</button>
     </div>
   </div>
 `;
 
+
 class ReviewCard extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-
     this._isFlipped = false;
     this._data = null;
 
-    // Create general card styles
     const style = document.createElement('style');
     style.textContent = `
       :host {
         display: block;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        margin: 10px;
-        width: 300px; /* Adjust as needed */
-        height: 350px; /* Adjust as needed */
-        overflow: hidden;
+        background-color: ${TICKET_BACKGROUND};
+        border: 1px solid ${TICKET_GOLD}; 
+        box-shadow: 0 0 0 3px ${TICKET_BACKGROUND}, 0 0 0 4px ${TICKET_GOLD};
+        border-radius: 15px; 
+        margin: 20px auto; /* This auto margin might be an issue in a flex track */
+        width: 280px;  
+        height: 520px; 
+        margin: 20px 0; 
+        box-sizing: border-box;
+        overflow: visible; /* For perforations to show */
         cursor: pointer;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-        position: relative; /* For positioning front/back */
+        position: relative; 
+        font-family: Arial, sans-serif;
+        perspective: 1000px; /* Good, perspective is here */
+        transform-style: preserve-3d; /* Crucial for nested 3D transforms */
       }
+
+      /* Reinstated Perforation effect with larger circles and shifted higher */
+      :host::before, :host::after {
+        content: '';
+        position: absolute;
+        left: 10px; 
+        right: 10px; 
+        height: 20px; 
+        background-image: radial-gradient(circle at 7.5px 7.5px, transparent 0, transparent 6px, ${TICKET_BACKGROUND} 7px);
+        background-size: 20px 15px; 
+        background-repeat: repeat-x;
+      }
+      :host::before {
+        top: -13px; /* Shifted higher */
+      }
+      :host::after {
+        bottom: -13px; /* Shifted higher (further down from content) */
+      }
+
       .card-face {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        backface-visibility: hidden; /* For potential 3D flip later */
-        -webkit-backface-visibility: hidden;
-        transition: transform 0.6s; /* For potential 3D flip later */
+        backface-visibility: hidden; 
+        -webkit-backface-visibility: hidden; 
+        transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        box-sizing: border-box;
+        border-radius: 13px; 
+        overflow: hidden; 
+        /* Ensure transform-style is also here if faces had their own 3D children, but not strictly needed for just rotation */
       }
-      /* Basic flip by hiding/showing. Real flip animation is more complex. */
       .front-view {
-        /* transform: rotateY(0deg); */ /* For 3D flip */
+        transform: rotateY(0deg); 
+        z-index: 2; 
       }
       .back-view {
-        /* transform: rotateY(180deg); */ /* For 3D flip */
-        display: none; /* Initially hidden if front is shown */
+        transform: rotateY(180deg); 
       }
       :host(.flipped) .front-view {
-        /* transform: rotateY(-180deg); */ /* For 3D flip */
-        display: none;
+        transform: rotateY(-180deg); 
       }
       :host(.flipped) .back-view {
-        /* transform: rotateY(0deg); */ /* For 3D flip */
-        display: block;
+        transform: rotateY(0deg); 
       }
     `;
     this.shadowRoot.appendChild(style);
 
-    // Create front and back containers
     this.frontDiv = document.createElement('div');
     this.frontDiv.classList.add('card-face', 'front-view');
     this.frontDiv.innerHTML = frontTemplateHTML;
@@ -158,38 +255,37 @@ class ReviewCard extends HTMLElement {
   _render() {
     if (!this._data) return;
 
-    // Populate Front
-    this.frontDiv.querySelector('.movie-title').textContent = this._data.title || 'N/A';
-    const frontImg = this.frontDiv.querySelector('img');
-    frontImg.src = this._data.imageData || '../assets/placeholder_poster.png'
+    // Populate Front - Ensure class names match the template
+    this.frontDiv.querySelector('.movie-title-front').textContent = this._data.title || 'N/A';
+    const frontImg = this.frontDiv.querySelector('.movie-poster-front');
+    if (this._data.imageData) {
+        frontImg.src = this._data.imageData;
+        frontImg.style.display = 'block';
+    } else {
+        frontImg.style.display = 'none'; 
+    }
     frontImg.alt = this._data.title ? `Poster for ${this._data.title}` : 'Movie Poster';
 
-    // Populate Back
-    this.backDiv.querySelector('.movie-title').textContent = this._data.title || 'N/A';
+    // Populate Back - Ensure class names match the template
+    this.backDiv.querySelector('.movie-title-back').textContent = this._data.title || 'N/A';
     this.backDiv.querySelector('.release-date').textContent = this._data.releaseDate ? new Date(this._data.releaseDate).toLocaleDateString() : 'N/A';
-    
     const watchedDate = this._data.watchedOn ? new Date(this._data.watchedOn) : null;
     this.backDiv.querySelector('.watch-date').textContent = watchedDate ? watchedDate.toLocaleDateString() : 'N/A';
     this.backDiv.querySelector('.watch-time').textContent = watchedDate ? watchedDate.toLocaleTimeString() : '';
-    
     this.backDiv.querySelector('.watch-count').textContent = this._data.watchCount !== undefined ? this._data.watchCount : 'N/A';
     this.backDiv.querySelector('.user-review').textContent = this._data.notes || 'No review provided.';
-    
     const rating = this._data.rating !== undefined ? parseInt(this._data.rating) : 0;
     this.backDiv.querySelector('.rating-value').textContent = rating;
-    // Assuming you have images named 0-star.svg, 1-star.svg, ..., 5-star.svg in /assets/images/icons/
-    this.backDiv.querySelector('.rating-stars').src = `/assets/images/${rating}_star.png`;
+    this.backDiv.querySelector('.rating-stars').src = `../assets/${rating}_star.png`; 
     this.backDiv.querySelector('.rating-stars').alt = `${rating} out of 5 stars`;
 
-    // Add event listeners for edit/delete, ensuring they don't also flip the card
     const editButton = this.backDiv.querySelector('.edit-button');
     editButton.addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent card flip
-      this._handleEdit();
+      event.stopPropagation(); this._handleEdit();
     });
-
     const deleteButton = this.backDiv.querySelector('.delete-button');
     deleteButton.addEventListener('click', (event) => {
+      event.stopPropagation(); this._handleDelete();
       event.stopPropagation(); // Prevent card flip
       this._handleDelete();
     });
@@ -198,12 +294,15 @@ class ReviewCard extends HTMLElement {
   }
 
   _flipCard(event) {
-    // Only flip if the click is directly on the card and not on buttons inside backDiv
+    console.log('Review card clicked. ID:', this._data ? this._data.id : 'N/A', 'Target:', event.target); // DEBUG LINE
+    // Don't flip if the click was on a button inside the card
     if (event.target.closest('button')) {
-        return;
+      console.log('Flip prevented: click was on a button.'); // DEBUG LINE
+      return;
     }
     this._isFlipped = !this._isFlipped;
     this.classList.toggle('flipped', this._isFlipped);
+    console.log('Flipped state:', this._isFlipped); // DEBUG LINE
     this._updateView();
   }
 
