@@ -1,25 +1,21 @@
 <article>
-  <p class="movie-title>">
-    <a href="https://link-to-article.com">Movie Title</a>
-  </p>
-  <p class="release-date">Release Date</p> 
-  <time>50 min</time>
-  <p class="user">Ticket Reserved for Username</p>
- 
-  <p class="location-watched">Theater location / Streaming Service</p>
+  <p class="movie-title">Movie Title</p>
+  <p class="release-date">Release Date</p>
+  <!-- The 'watchedOn' date will be used to populate Date and Time below -->
+  <!-- Removed placeholder duration <time>50 min</time> -->
+  
+  <p class="date">Date:</p> <!-- To be populated with formatted watchedOn -->
+  <p class="time">Time:</p> <!-- To be populated with formatted watchedOn -->
+  <!-- Removed <time>00:00:00</time> placeholder for combined date/time -->
 
-  <p class = "date">Date:</p>
-  <p class = "time"> Time:</p>
-  <time>00:00:00</time>
- 
   <p class="user-review">
     User Review
   </p>
   
   <div class="rating">
-    <span>5</span>
-    <img src="/assets/images/icons/5-star.svg" alt="5 stars">
-    <span>(500)</span>
+    <span>5</span> <!-- This will be the actual rating value -->
+    <img src="/assets/images/icons/5-star.svg" alt="5 stars"> <!-- Image path might need to be dynamic based on rating -->
+    <!-- Removed rating count <span>(500)</span> -->
   </div>
   
   <button id="edit">Edit</button>

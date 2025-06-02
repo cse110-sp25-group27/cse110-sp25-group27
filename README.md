@@ -75,6 +75,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [phase1 video](admin/cipipeline/phase1.mp4)
 - [phase2](admin/cipipeline/phase2.md)
 - [phase2 video](admin/cipipeline/phase2.mp4)
+- [phase3](admin/cipipeline/phase3.md)
 
 [**JS Documentation**](/docs/documentation.md)
 
@@ -86,120 +87,34 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 ```
 .
 ├── __tests__
-│   ├── localStorage.test.js
-│   └── sum.test.js
 ├── admin
-│   ├── adr
-│   │   └── SWOT_analysis.pdf
-│   ├── branding
-│   │   └── PowellRangersLOGO.png
-│   ├── cipipeline
-│   │   ├── phase1-2.drawio.png
-│   │   ├── phase1.md
-│   │   ├── phase1.mp4
-│   │   ├── phase2.md
-│   │   └── phase2.mp4
-│   ├── meetings
-│   │   ├── 042525-brainstorm.md
-│   │   ├── 052525-sprint-2-review.md
-│   │   ├── 51525-retrospective-1.md
-│   │   ├── 51525-sprint-1-review.md
-│   │   ├── 52025-retrospective-2.md
-│   │   ├── apr_11.md
-│   │   ├── april_16_TA.md
-│   │   ├── april_16.md
-│   │   ├── april_18.md
-│   │   ├── april_23_TA.md
-│   │   ├── assets
-│   │   │   ├── apr16_img.png
-│   │   │   ├── apr18_img.jpg
-│   │   │   └── table_idea.jpg
-│   │   ├── frontend_may_10.md
-│   │   ├── may_21_TA.md
-│   │   ├── may_28.md
-│   │   └── may_30_TA.md
-│   ├── misc
-│   │   ├── rules-albertho.pdf
-│   │   ├── rules-austinchoi.pdf
-│   │   ├── rules-charliezhu.pdf
-│   │   ├── rules-inchulkim.pdf
-│   │   ├── rules-minniezhang.pdf
-│   │   ├── rules-nadineapresto.pdf
-│   │   ├── rules-prachiheda.pdf
-│   │   ├── rules-samanthaphan.pdf
-│   │   ├── rules-skylernguyen.pdf
-│   │   ├── rules-srujamdave.pdf
-│   │   ├── rules-svetlanabobiles.pdf
-│   │   └── rules.md
-│   ├── team.md
-│   ├── teambonding.jpg
-│   └── videos
-│       ├── statusvideo1.zip
-│       └── teamintro.mp4
+│   ├── adr
+│   ├── branding
+│   ├── cipipeline
+│   ├── meetings
+│   │   └── assets
+│   ├── misc
+│   └── videos
 ├── backend
-│   ├── localStorage.js
-│   ├── reviewCard.js
-│   ├── reviewCardBack.js
-│   └── reviewCardFront.js
 ├── code-to-unit-test
-│   └── sum.js
 ├── docs
-│   ├── backend.md
-│   ├── code_style.md
-│   ├── diagram.drawio.png
-│   ├── documentation.md
-│   └── frontend.md
-├── eslint.config.js
+│   └── coverage_report
+│       ├── backend
+│       ├── code-to-unit-test
+│       └── lcov-report
+│           ├── backend
+│           └── code-to-unit-test
 ├── frontend
-│   ├── assets
-│   │   ├── 0_star.png
-│   │   ├── 1_star.png
-│   │   ├── 2_star.png
-│   │   ├── 3_star.png
-│   │   ├── 4_star.png
-│   │   ├── 5_star.png
-│   │   ├── blank_star.png
-│   │   ├── boxoffice_banner.png
-│   │   ├── city_top.png
-│   │   ├── filmstrip_btn.png
-│   │   ├── gold_left_arrow.png
-│   │   ├── gold_right_arrow.png
-│   │   ├── gold_star.png
-│   │   ├── meeting_refs
-│   │   │   ├── BoxOffice.png
-│   │   │   ├── hifidelity_wireframes.png
-│   │   │   └── PowellTicketSeller.png
-│   │   ├── PowellRangersLOGO.png
-│   │   ├── ticket_booth.png
-│   │   └── ticket.png
-│   ├── components
-│   │   ├── back_module.html
-│   │   ├── front_module.html
-│   │   └── template.html
-│   ├── index.html
-│   ├── pages
-│   │   ├── landing_page.html
-│   │   └── viewing_page.html
-│   └── styles
-│       ├── back_module.css
-│       ├── front_module.css
-│       ├── landing_page.css
-│       └── viewing_page.css
-├── index.html
-├── package-lock.json
-├── package.json
-├── README.md
+│   ├── assets
+│   │   └── meeting_refs
+│   ├── components
+│   ├── pages
+│   ├── scripts
+│   └── styles
 ├── source
-└── specs
-    ├── adrs
-    │   ├── 05082025-ConfirmationButtons.md
-    │   ├── 05102025-ButtonsforDialogue.md
-    │   ├── 05102025-Design.md
-    │   ├── 05142025-DuplicateEntry.md
-    │   └── 05142025-FormSubmission.md
-    ├── brainstorm
-    │   ├── Box Office Flow_v1.png
-    │   └── Box Office Flow_v2.png
-    └── script
-        └── Box Office Pitch Script Draft.pdf
+├── specs
+│   ├── adrs
+│   ├── brainstorm
+│   └── script
+└── unit-testing
 ```
