@@ -12,6 +12,7 @@ beforeAll(() => {
   globalThis.alert = () => {};
 });
 
+
 //-------------------------------------------------------------------
 // TEST (createReviewObject)
 //-------------------------------------------------------------------
@@ -45,6 +46,8 @@ describe("createReviewObject()", () => {
         expect(new Date(review.createdAt).toISOString()).toBe(review.createdAt);
         expect(new Date(review.updatedAt).toISOString()).toBe(review.updatedAt);
 
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
+
         // idCounter should have incremented in our stubbed storage
         expect(localStorage.getItem("idCounter")).toBe("1");
     });
@@ -68,9 +71,9 @@ describe("updateReview()", () => {
 
         updateReview(updated);
 
-        const stored = getReviewsFromStorage();
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
 
-        expect(stored).toEqual([
+        expect(testReviews).toEqual([
             { id: 0, title: "New", rating: 5 }, // replaced
             { id: 1, title: "Keep me", rating: 4 } // untouched
         ]);
@@ -79,7 +82,10 @@ describe("updateReview()", () => {
     it("leaves the array unchanged if id is not found", () => {
         __seedReviews([{ id: 0, title: "Only one" }]);
         updateReview({ id: 99, title: "Fake" });
-        expect(getReviewsFromStorage()).toEqual([
+
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
+
+        expect(testReviews).toEqual([
             { id: 0, title: "Only one" }
         ]);
     });
@@ -137,8 +143,8 @@ describe("saveReviewsToStorage()", () => {
         const original = [{ id: 12, title: "Power Rangers" }];
 
         saveReviewsToStorage(original);
-        const roundTrip = getReviewsFromStorage();
-        expect(roundTrip).toEqual(original);
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
+        expect(testReviews).toEqual(original);
     });
 });
 
@@ -149,33 +155,51 @@ describe("saveReviewsToStorage()", () => {
 describe("deleteReviewById()", () => {
     beforeEach(() => localStorage.clear());
 
-    it("removes the matching review and keeps the rest", () => {
+    it("removes the matching review and updates localStorage", () => {
         __seedReviews([
-            { id: 0, title: "First" },
-            { id: 1, title: "Delete" },
-            { id: 2, title: "Last" }
+          { id: 0, title: "First" },
+          { id: 1, title: "Delete" },
+          { id: 2, title: "Last" }
         ]);
-
+        
         deleteReviewById(1);
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
 
-        expect(getReviewsFromStorage()).toEqual([
-            { id: 0, title: "First" },
-            { id: 2, title: "Last" }
+        expect(testReviews).toEqual([
+          { id: 0, title: "First" },
+          { id: 2, title: "Last" }
         ]);
-    });
+        
+      });
 
     it("leaves the array unchanged when id does not exist", () => {
 
         __seedReviews([{ id: 0, title: "Powell The Movie" }]);
         deleteReviewById(99);
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
 
-        expect(getReviewsFromStorage()).toEqual([
+        expect(testReviews).toEqual([
             { id: 0, title: "Powell The Movie" }
         ]);
     });
 
     it("handles an empty 'reviews' list gracefully", () => {
         deleteReviewById(0);
-        expect(getReviewsFromStorage()).toEqual([]);
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
+        expect(testReviews).toEqual([]);
     });
-});
+
+    it("removes first element in list correctly", () => {
+        __seedReviews([
+            { id: 0, title: "First" },
+            { id: 1, title: "Delete" },
+            { id: 2, title: "Last" }
+        ]);
+        deleteReviewById(0);
+        const testReviews = JSON.parse(localStorage.getItem("reviews"));
+        expect(testReviews).toEqual([
+            { id: 1, title: "Delete" },
+            { id: 2, title: "Last" }
+        ])
+    });
+    });
