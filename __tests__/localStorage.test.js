@@ -1,4 +1,7 @@
-
+/**
+ * @jest-environment jsdom
+ */
+import {jest} from '@jest/globals'
 import {
   initFormHandler,
   getReviewsFromStorage, //PASS
@@ -12,6 +15,57 @@ beforeAll(() => {
   globalThis.alert = () => {};
 });
 
+//-------------------------------------------------------------------
+// TEST (initFormHandler)
+//-------------------------------------------------------------------
+describe("initFormHandler()", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        document.body.innerHTML = '';
+    });
+    it("initializes idCounter if not already set", () => {
+        document.body.innerHTML = '<form id="new-review"></form>';
+        
+        expect(localStorage.getItem('idCounter')).toBeNull();
+
+        initFormHandler();
+
+        expect(localStorage.getItem('idCounter')).toBe('0');
+    });
+
+    it("does not attach submit listener if form is missing", () => {
+        console.warn = jest.fn();
+
+        initFormHandler();
+
+        expect(console.warn).toHaveBeenCalledWith(
+            expect.stringContaining("#new-review form not found")
+        );
+    });
+
+    it("prevents duplicate movie reviews", async () => {
+        document.body.innerHTML = `
+        <form id="new-review">
+            <input name="movie-title" value="Minions" />
+        </form>
+    `   ;
+
+        __seedReviews([
+            { id: 0, title: "Minions" }
+        ]);
+
+        window.alert = jest.fn();
+
+        initFormHandler();
+
+        const form = document.querySelector("#new-review");
+        form.dispatchEvent(new Event("submit", { bubbles: true }));
+        
+        expect(window.alert).toHaveBeenCalledWith(
+            expect.stringContaining("already exists")
+        );
+    });
+});
 
 //-------------------------------------------------------------------
 // TEST (createReviewObject)
@@ -202,4 +256,4 @@ describe("deleteReviewById()", () => {
             { id: 2, title: "Last" }
         ])
     });
-    });
+});
