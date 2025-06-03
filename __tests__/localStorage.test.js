@@ -257,3 +257,80 @@ describe("deleteReviewById()", () => {
         ])
     });
 });
+
+
+//-------------------------------------------------------------------
+// TEST (addReviewsToDocument())
+//-------------------------------------------------------------------
+describe('addReviewsToDocument', () => {
+    beforeEach(() => localStorage.clear());
+
+    it("adds no reviews to document", () => {
+        document.body.innerHTML = `<main></main>`;
+
+        const testReviews = [];
+
+        addReviewsToDocument(testReviews);
+
+        const cards = document.querySelectorAll("review-card");
+        
+        expect(cards.length).toBe(0);
+
+    });
+
+    it("adds single review to document", () => {
+        const testReview = [{
+            id: "1",
+            title: "Test",
+            imageData: "",
+            releaseDate: "2020-01-01",
+            watchedOn: "2021-01-01",
+            watchCount: "2",
+            notes: "",
+            rating: 5
+        }]
+        document.body.innerHTML = `<main></main>`;
+
+        addReviewsToDocument(testReview);
+
+
+        const cards = document.querySelectorAll("review-card");
+        
+        expect(cards.length).toBe(1);
+        expect(cards[0].data).toEqual(testReview[0]);
+
+    });
+
+    it("adds multiple reviews to document", () => {
+        const testReviews = [{
+            id: "1",
+            title: "Test1",
+            imageData: "",
+            releaseDate: "2020-01-01",
+            watchedOn: "2021-01-01",
+            watchCount: "2",
+            notes: "",
+            rating: 5
+        },
+        {
+            id: "2",
+            title: "Test2",
+            imageData: "",
+            releaseDate: "2020-02-01",
+            watchedOn: "2021-02-01",
+            watchCount: "3",
+            notes: "",
+            rating: 4
+        }];
+        document.body.innerHTML = `<main></main>`;
+
+        addReviewsToDocument(testReviews);
+
+
+        const cards = document.querySelectorAll("review-card");
+        
+        expect(cards.length).toBe(2);
+        expect(cards[0].data).toEqual(testReviews[0]);
+        expect(cards[1].data).toEqual(testReviews[1]);
+    });
+});
