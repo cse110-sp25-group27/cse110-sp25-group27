@@ -239,3 +239,4 @@
 - New Design Wireframes to reflect our new MVP
 - Flowchart updated in MVP to reflect new functionality of our website
 - New design is in frontend/meetingref/in case we need to make an ADR on friday for it
+- Old Design has been uploaded in order to be used in our adr for revamping our project scale
