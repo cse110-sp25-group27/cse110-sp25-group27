@@ -179,6 +179,7 @@
 ## May 28 Meeting
 
 ### Attendance - 5/28
+
 - Albert 
 - Inchul
 - Nadine
@@ -189,6 +190,7 @@
 - A brief meeting after the general meeting 
 
 ### Notes - 5/28
+
 - When you click on dialogue, open up the form
   - Form will allow the user to fill out the form
   - Scrolling within the container
@@ -232,7 +234,7 @@
 - Final sprint on Friday with backend team
 - Fix up new Design
 
-### Questions and Clarifications
+### Questions and Clarifications - 6/2
 
 - Q: Removing Viewing Page? A: Yes, the viewing page is a redundant feature if we have the landing page with the attendent adding a ticket. Having the features all at once would let the user have a better experience.
 
