@@ -54,7 +54,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [GridLayout](/specs/adrs/05302025-GridLayout.md)
 - [CardLayout](/specs/adrs/05302025-CardLayout.md)
 
-## Movie Box Documentation
+## Box Office Documentation
 
 **Installation/Local Deployment:**
 1. Clone the repo
@@ -73,6 +73,8 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
   npm run dev # Extra dependency needed to run
 ```
 5. Edit/Update any changes
+
+[**Pitch Document**](/specs/script/BoxOfficePitchScript-Draft2.pdf)
 
 **CI/CD Documentation:**
 - [phase1](admin/cipipeline/phase1.md)
