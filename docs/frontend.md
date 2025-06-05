@@ -231,4 +231,11 @@
 
 ### Questions and Clarifications
 
-- Q: Removing Viewing Page? A: Yes, the viewing page is a redundant feature if we have the landing page with the attendent adding a ticket. Having the features at once would have a better user experience.
+- Q: Removing Viewing Page? A: Yes, the viewing page is a redundant feature if we have the landing page with the attendent adding a ticket. Having the features all at once would let the user have a better experience.
+
+## Progress of Frontend as of 6/4 
+- Frontend.md has been updated (5/28 a little (i don't really know what went on)+ 6/2 from the info/summary in our group communications)
+- Powell ticketbooth in meetingref also deleted in addition to the current ticketbooth in landing page to respect Powell
+- New Design Wireframes to reflect our new MVP
+- Flowchart updated in MVP to reflect new functionality of our website
+- New design is in frontend/meetingref/in case we need to make an ADR on friday for it
