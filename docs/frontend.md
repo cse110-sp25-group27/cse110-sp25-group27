@@ -8,6 +8,7 @@
 4. [May 19](#may-19-meeting)
 5. [May 28](#may-28-meeting)
 6. [June 2](#june-2-meeting)
+   
 ---
 
 ## May 10 Meeting
@@ -139,7 +140,7 @@
 - Nadine
 - Svetlana
 
-### Agenda - 5/10
+### Agenda - 5/19
 
 - Brief overview after wednesday meeting
 
@@ -209,6 +210,7 @@
 - Svetlana
 
 ### Agenda - 6/2
+
 - 1pm to 3pm for working, a bit after 3 to clarify some stuff
 
 ### Notes - 6/2
@@ -219,6 +221,7 @@
 - Changed the ticket booth attendent to respect Powell
 
 ### Accomplished - 6/2
+
 - Styling of the add ticket form is completed
   - Form will now open up to the center of the page (ticket)
 - Revamped the frontend folder to reflect the new mvp
@@ -234,6 +237,7 @@
 - Q: Removing Viewing Page? A: Yes, the viewing page is a redundant feature if we have the landing page with the attendent adding a ticket. Having the features all at once would let the user have a better experience.
 
 ## Progress of Frontend as of 6/4 
+
 - Frontend.md has been updated (5/28 a little (i don't really know what went on)+ 6/2 from the info/summary in our group communications)
 - Powell ticketbooth in meetingref also deleted in addition to the current ticketbooth in landing page to respect Powell
 - New Design Wireframes to reflect our new MVP
