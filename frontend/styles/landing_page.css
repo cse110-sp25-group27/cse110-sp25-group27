@@ -42,6 +42,7 @@ body {
 .scrolling-text p {
   animation: scroll 20s linear infinite;
   /*font-size: 1.5rem;*/
+  color: #222;
   font-size:1.5rem;
   font-family: Limelight;
   min-width: 100%;

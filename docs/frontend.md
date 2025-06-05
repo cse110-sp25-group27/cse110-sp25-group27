@@ -7,6 +7,7 @@
 3. [May 14](#may-14-meeting)
 4. [May 19](#may-19-meeting)
 5. [May 28](#may-28-meeting)
+6. [June 2](#june-2-meeting)
 ---
 
 ## May 10 Meeting
@@ -138,6 +139,10 @@
 - Nadine
 - Svetlana
 
+### Agenda - 5/10
+
+- Brief overview after wednesday meeting
+
 ### Notes - 5/19
 
 - consolidated template.html to one page (back_module template for the html elements is now just template.html)
@@ -172,7 +177,17 @@
 
 ## May 28 Meeting
 
-### Notes
+### Attendance - 5/28
+- Albert 
+- Inchul
+- Nadine
+- Svetlana
+
+### Agenda - 5/28
+
+- A brief meeting after the general meeting 
+
+### Notes - 5/28
 - When you click on dialogue, open up the form
   - Form will allow the user to fill out the form
   - Scrolling within the container
@@ -182,3 +197,38 @@
     - Otherwise, scrolling enabled
   - By default there is padding between the banner and office box
     - Once populated with posters, replace padding with cards
+  
+## June 2 Meeting
+
+### Attendance - 6/2
+
+- Albert 
+- Inchul
+- Samantha
+- Nadine
+- Svetlana
+
+### Agenda - 6/2
+- 1pm to 3pm for working, a bit after 3 to clarify some stuff
+
+### Notes - 6/2
+
+- Fix up the Landing Page html and css 
+- Style the form based on what would improve the user experience
+- Deleted viewing page html/css along with back_moudle and front moudle css files(not needed anymore)
+- Changed the ticket booth attendent to respect Powell
+
+### Accomplished - 6/2
+- Styling of the add ticket form is completed
+  - Form will now open up to the center of the page (ticket)
+- Revamped the frontend folder to reflect the new mvp
+
+### Need to Work On - 6/2
+
+- Finish up some styling issues if ended
+- Final sprint on Friday with backend team
+- Fix up new Design
+
+### Questions and Clarifications
+
+- Q: Removing Viewing Page? A: Yes, the viewing page is a redundant feature if we have the landing page with the attendent adding a ticket. Having the features at once would have a better user experience.
