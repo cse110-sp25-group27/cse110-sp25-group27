@@ -92,6 +92,21 @@ function addReviewCardToCarouselDOM(reviewObject, atIndex = -1) {
         console.error("Carousel track not found. Cannot add card.");
         return null;
     }
+
+    // Remove default card if it exists
+    const defaultCard = carouselTrack.querySelector('#default-card');
+    if (defaultCard) {
+        carouselTrack.removeChild(defaultCard);
+    }
+
+    // When adding a review, ensure the navigation buttons are visible
+    const prevButton = document.getElementById('carousel-prev-btn');
+    const nextButton = document.getElementById('carousel-next-btn');
+    if(prevButton && nextButton && prevButton.style.display === 'none'){
+        prevButton.style.display = 'block';
+        nextButton.style.display = 'block';
+    }
+
     const reviewCard = document.createElement('review-card');
     reviewCard.data = reviewObject;
 
@@ -297,6 +312,19 @@ document.addEventListener('DOMContentLoaded', () => {
         reviewCardsInCarousel = []; // Reset the array
         const reviews = getReviewsFromStorage();
         reviews.forEach(review => addReviewCardToCarouselDOM(review));
+
+        if (reviews.length === 0) {
+            const defaultCard = document.createElement('div');
+            defaultCard.id = 'default-card';
+            defaultCard.innerHTML = `
+                <div class="default-card-content">
+                    <h3>No Reviews</h3>
+                    <p>Click "Add Ticket" to create a review.</p>
+                </div>
+            `;
+            carouselTrack.appendChild(defaultCard);
+            // hide buttons
+        }
 
         if (reviewCardsInCarousel.length > 0) {
             currentCarouselIndex = 0;

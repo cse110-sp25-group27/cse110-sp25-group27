@@ -256,6 +256,83 @@ button:hover {
   margin-right: 0;
 }
 
+#default-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 280px; 
+    height: 520px;
+    margin: 20px 0;
+    box-sizing: border-box;
+    position: relative;
+    font-family: Arial, sans-serif;
+
+    /* Styles from review-card */
+    background-color: #2E2925; /* TICKET_BACKGROUND */
+    border: 1px solid #B08D57; /* TICKET_GOLD */
+    box-shadow: 0 0 0 3px #2E2925, 0 0 0 4px #B08D57;
+    border-radius: 15px; 
+    color: #D7D7D7; /* TICKET_TEXT_CONTENT */
+    padding: 20px;
+}
+
+/* Perforation effect from review-card */
+#default-card::before, #default-card::after {
+    content: '';
+    position: absolute;
+    left: 10px; 
+    right: 10px; 
+    height: 20px; 
+    background-image: radial-gradient(circle at 7.5px 7.5px, transparent 0, transparent 6px, #2E2925 7px);
+    background-size: 20px 15px; 
+    background-repeat: repeat-x;
+}
+#default-card::before {
+    top: -13px;
+}
+#default-card::after {
+    bottom: -13px;
+}
+
+.default-card-content {
+    text-align: center;
+    padding: 20px 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.default-card-content h3 {
+    font-family: 'Times New Roman', Times, serif; 
+    font-size: 1.8em; 
+    font-weight: bold; 
+    color: #B08D57; /* TICKET_TEXT_GOLD */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 15px 0;
+}
+
+.default-card-content p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #D7D7D7; /* TICKET_TEXT_CONTENT */
+    margin: 0;
+}
+
+/* Dashed line to mimic review card style */
+.default-card-content::before {
+    content: '';
+    width: calc(100% - 10px); 
+    height: 2px;
+    border: none;
+    border-top: 3px dashed #B08D57; /* TICKET_GOLD */
+    margin-bottom: 15px;
+    display: block;
+}
+
 .hidden {
   display: none;
 }
