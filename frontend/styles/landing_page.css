@@ -1,5 +1,5 @@
 body {
-  background-image: url('/frontend/assets/city_top.png');
+  background-image: url('../assets/city_top.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
