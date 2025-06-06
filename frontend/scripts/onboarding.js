@@ -5,7 +5,7 @@ const presetMovies = [
     {
       id_preset: 'p1',
       title: 'Inception',
-      posterUrl: 'https://www.originalfilmart.com/cdn/shop/products/inception-imax_1024x1024.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg',
       releaseDate: '2010-07-16'
     },
     {
@@ -17,7 +17,7 @@ const presetMovies = [
     {
       id_preset: 'p3',
       title: 'Interstellar',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
+      posterUrl: 'https://m.media-amazon.com/images/I/514zBLkyJcL._AC_SY606_.jpg',
       releaseDate: '2014-11-07'
     },
     {
@@ -35,7 +35,7 @@ const presetMovies = [
     {
       id_preset: 'p6',
       title: 'Oppenheimer',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/8Gxv9iV5rY3jXy9p4u5Zk6g3YhA.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg',
       releaseDate: '2023-07-21'
     },
     {
@@ -65,7 +65,7 @@ const presetMovies = [
     {
       id_preset: 'p11',
       title: 'Get Out',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/1SwAVYpuLj8KsHxllTF8Dt9dSSX.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a3/Get_Out_poster.png',
       releaseDate: '2017-02-24'
     },
     {
@@ -83,7 +83,7 @@ const presetMovies = [
     {
       id_preset: 'p14',
       title: 'The Hunger Games',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/4z0i6mQZsM2zv2b5r5fP3g0v7wA.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/4/42/HungerGamesPoster.jpg',
       releaseDate: '2012-03-23'
     },
     {
@@ -107,13 +107,13 @@ const presetMovies = [
     {
       id_preset: 'p18',
       title: 'Avatar',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/kmcqlZGaSh20zpTbuoF0Cdn07dT.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg',
       releaseDate: '2009-12-18'
     },
     {
       id_preset: 'p19',
       title: 'Mean Girls',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/4tS0iyKQBDFX6FvQn3tG2eW2N6z.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/a/ac/Mean_Girls_film_poster.png',
       releaseDate: '2004-04-30'
     },
     {
