@@ -18,18 +18,17 @@
     }
 })(); // Self-invoking function to run immediately
 
-// Import functions from localStorage.js and the ReviewCard component
+
 import { getReviewsFromStorage, saveReviewsToStorage, createReviewObject, addReviewsToDocument as originalAddReviewsToDocument, updateReview, deleteReviewById, initFormHandler } from '../../backend/localStorage.js';
-import '../../backend/reviewCard.js'; // This ensures ReviewCard custom element is defined
+import '../../backend/reviewCard.js';
 
 // --- Carousel Variables & Functions ---
 let carouselTrack = null;
-let reviewCardsInCarousel = []; // Holds the DOM elements of review-card
+let reviewCardsInCarousel = []; 
 let currentCarouselIndex = 0;
 
-const BASE_CARD_WIDTH = 280; // The actual width property of the review-card component
-const CARD_MARGIN_RIGHT = 15; // The margin-right we added in CSS (must match value in landing_page.css)
-// This is the total horizontal space one card (and its spacing) occupies in the sequence
+const BASE_CARD_WIDTH = 280; 
+const CARD_MARGIN_RIGHT = 15; 
 const EFFECTIVE_CARD_FOOTPRINT = BASE_CARD_WIDTH + CARD_MARGIN_RIGHT;
 
 let mainViewportElement = null;
@@ -52,11 +51,6 @@ function updateCarouselPosition(animate = true) {
         return;
     }
 
-    // Calculate the offset to center the current card within the mainViewportElement.
-    // The mainViewportElement is currently 290px wide.
-    // We want to shift the track so the LEFT edge of the current card
-    // aligns with the LEFT edge of the mainViewportElement.
-    // Each step in the sequence is now EFFECTIVE_CARD_FOOTPRINT wide.
     const targetTranslateX = -(currentCarouselIndex * EFFECTIVE_CARD_FOOTPRINT);
 
     if (!animate) carouselTrack.style.transition = 'none';
@@ -69,7 +63,6 @@ function updateCarouselPosition(animate = true) {
         carouselTrack.style.transition = 'transform 0.5s ease-in-out';
     }
 
-    // Optional: Add classes to side cards for different styling
     reviewCardsInCarousel.forEach((card, index) => {
         card.classList.remove('active-card', 'prev-card', 'next-card');
         if (index === currentCarouselIndex) {
@@ -120,7 +113,7 @@ function addReviewCardToCarouselDOM(reviewObject, atIndex = -1) {
     return reviewCard;
 }
 
-// --- Logic for loading the NEW review form (Mostly Unchanged) ---
+//  Logic for loading the NEW review form 
 const addButton = document.getElementById('add-ticket-button');
 const textBubble = document.getElementById('text-bubble');
 const newReviewFormContainer = document.getElementById('form-container');
@@ -136,7 +129,7 @@ if (addButton && textBubble && newReviewFormContainer) {
         // Hide the update form if it's open
         if (updateForm && updateForm.style.display !== 'none') {
             updateForm.style.display = 'none';
-            updateForm.reset(); // Optionally reset the form fields
+            updateForm.reset(); 
         }
 
         // Hide the new review form if it's open
@@ -152,9 +145,7 @@ if (addButton && textBubble && newReviewFormContainer) {
                 newReviewFormLoaded = true;
                 newReviewForm = newReviewFormContainer.querySelector('form');
                 if (newReviewForm) {
-                    if (!newReviewForm.id) newReviewForm.id = 'new-review'; // Ensure ID for localStorage handler
-                    // The initFormHandler in localStorage.js should call a function to add the review
-                    // to the carousel after it's created and saved.
+                    if (!newReviewForm.id) newReviewForm.id = 'new-review'; 
                     initFormHandler((createdReviewObject) => {
                         addReviewCardToCarouselDOM(createdReviewObject); // Add to end
                         // If we want to show the new card immediately:
@@ -174,23 +165,14 @@ if (addButton && textBubble && newReviewFormContainer) {
     console.warn("Add ticket button, text bubble, or new review form container not found.");
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const addTicketButton = document.getElementById('add-ticket-button');
-    const promptElement = document.getElementById('prompt');
-
-    addTicketButton.addEventListener('click', () => {
-        // Toggle the visibility of the prompt element
-        if (promptElement.classList.contains('hidden')) {
-            promptElement.classList.remove('hidden');
-        } else {
-            promptElement.classList.add('hidden');
-        }
-    });
-});
-
-// --- End of new review form loading logic ---
-
-// NEW HELPER FUNCTION (copied from localStorage.js or defined here)
+/**
+ * Processes an image file for storage by resizing and converting it to a base64 JPEG.
+ * @param {File} imageFile The image file to process.
+ * @param {number} [maxWidth=600] The maximum width of the output image.
+ * @param {number} [maxHeight=600] The maximum height of the output image.
+ * @param {number} [quality=0.7] The quality of the output JPEG image (0 to 1).
+ * @returns {Promise<string>} A promise that resolves with the base64 encoded image data.
+ */
 async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600, quality = 0.7) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -231,15 +213,20 @@ async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600
     });
 }
 
-/** ------------------------------------------------------------------------------
- * @Overview code that handles the front end carousel UI. 
- * Handles the edit and delete interactions from each individual <review-card> element.
- * Mnagaes the Update Review form.
- * All of the execution begins once the DOM is fully finished loading.
- * @returns {void}
- * @listens document:DOMContentLoaded
- ------------------------------------------------------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
+    const addTicketButton = document.getElementById('add-ticket-button');
+    const promptElement = document.getElementById('prompt');
+
+    if (addTicketButton && promptElement) {
+        addTicketButton.addEventListener('click', () => {
+            if (promptElement.classList.contains('hidden')) {
+                promptElement.classList.remove('hidden');
+            } else {
+                promptElement.classList.add('hidden');
+            }
+        });
+    }
+
     mainViewportElement = document.querySelector('.poster-carousel main');
     const updateReviewForm = document.querySelector('#update-form');
 
@@ -254,7 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
         carouselTrack.classList.add('carousel-track');
         mainViewportElement.appendChild(carouselTrack);
     } else {
-        // SO long as we keep the HTML clean it shoudn't happen, but good fallback to have
         carouselTrack = mainViewportElement.querySelector('.carousel-track');
     }
 
@@ -266,14 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cancelUpdateButton) {
             cancelUpdateButton.addEventListener('click', () => {
                 updateReviewForm.style.display = 'none';
-                updateReviewForm.reset();
-                // Restore text bubble/new form visibility if needed
-                // if (textBubble) textBubble.classList.add('expanded'); 
+                updateReviewForm.reset(); 
                 const textBubble = document.getElementById('text-bubble');
                 if (textBubble) {
                     textBubble.classList.remove('expanded'); // Restore original styling
                 }
-                // if (newReviewFormContainer && newReviewFormLoaded) newReviewFormContainer.classList.add('hidden');
             });
         }
     }
@@ -281,32 +264,30 @@ document.addEventListener('DOMContentLoaded', () => {
     /** -------------------------------------------------------------------
      * Carousel Navigation helper functions
      ------------------------------------------------------------------- */
-    /** -------------------------------------------------------------------
-     * Will advance the Carousel to show the next card (wraps around the end)
+    /**
+     * Advances the carousel to show the next card, wrapping around if at the end.
      * @private
-     * @returns {void}
-     ------------------------------------------------------------------- */
+     */
     function showNextCard() {
         if (reviewCardsInCarousel.length === 0) return;
         currentCarouselIndex = (currentCarouselIndex + 1) % reviewCardsInCarousel.length;
         updateCarouselPosition();
     }
-    /** -------------------------------------------------------------------
-     * Will move the Carousel to shwo the previous card (wraps around the start)
+    /**
+     * Moves the carousel to show the previous card, wrapping around if at the beginning.
      * @private
-     * @returns {void}
-     ------------------------------------------------------------------- */
+     */
     function showPrevCard() {
         if (reviewCardsInCarousel.length === 0) return;
         currentCarouselIndex = (currentCarouselIndex - 1 + reviewCardsInCarousel.length) % reviewCardsInCarousel.length;
         updateCarouselPosition();
     }
-    /** -------------------------------------------------------------------
-     * Remakes the DOM for every review and positions the carousel track so 
-     * that the first card is visible.
+    /**
+     * Displays the initial set of review cards from localStorage. If no reviews
+     * exist, it displays a default card. It also handles the visibility of
+     * navigation buttons.
      * @private
-     * @returns {void}
-     ------------------------------------------------------------------- */
+     */
     function displayInitialReviews() {
         if (!carouselTrack) {
             console.error("Carousel track not available for initial reviews.");
@@ -378,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (cardIndexInCarousel === -1) {
             console.warn("Attempted to delete a card not found in the carousel's JS array.");
-            // Fallback: try to find by ID if needed, but direct reference is better
             return;
         }
 
@@ -498,14 +478,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 } catch (err) {
                     console.error("Error processing image file for update:", err);
                     alert("Failed to process new image. Keeping old image or no image if new.");
-                    // If oldReviewData.imageData was empty and processing new one fails, imageData remains empty.
+
                 }
             }
 
             const updatedReviewData = {
                 id: parseInt(reviewId),
                 title: formData.get('update-movie-title'),
-                imageData: imageData, // USE PROCESSED IMAGE DATA
+                imageData: imageData, 
                 releaseDate: formData.get('update-release-date'),
                 watchedOn: formData.get('update-watch-date'),
                 watchCount: parseInt(formData.get('update-watch-count')),
@@ -542,19 +522,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     // --- Initialize ---
-    displayInitialReviews(); // Load and display existing reviews
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const addTicketButton = document.getElementById('add-ticket-button');
-    const promptElement = document.getElementById('prompt');
-
-    addTicketButton.addEventListener('click', () => {
-        // Toggle the visibility of the prompt element
-        if (promptElement.classList.contains('hidden')) {
-            promptElement.classList.remove('hidden');
-        } else {
-            promptElement.classList.add('hidden');
-        }
-    });
+    displayInitialReviews(); 
 });
