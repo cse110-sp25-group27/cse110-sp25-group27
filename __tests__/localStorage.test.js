@@ -10,7 +10,7 @@ import {
   saveReviewsToStorage, //PASS
   createReviewObject, //PASS
   updateReview, //PASS
-  processImageForStorage,
+  processImageForStorage, //PASS
 } from "../backend/localStorage.js";
 beforeAll(() => {
   globalThis.alert = () => {};

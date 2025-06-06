@@ -98,7 +98,7 @@ export function createReviewObject(form){
             title : form.get('movie-title'),
             watchedOn : form.get('watch-date'),
             watchCount: parseInt(form.get('watch-count')) || 1,
-            rating : parseInt(form.get('rating')),
+            rating : parseInt(form.get('rating')) || 0,
             imageData : processedImageData,
             notes : form.get('review'),
             releaseDate: form.get('release-date'),
