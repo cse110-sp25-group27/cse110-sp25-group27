@@ -44,7 +44,8 @@ export function addReviewsToDocument(reviews) {
 /**
  * Takes in an array of reviews, converts it to a string, and then
  * saves that string to 'reviews' in localStorage
- * @param {Array<Object>} reviews 
+ * @param {Array<Object>} reviews An array of review objects.
+ * @returns {boolean} True if the save was successful, false otherwise.
  */
 export function saveReviewsToStorage(reviews) {
 	try {
@@ -202,6 +203,7 @@ export function initFormHandler(onReviewCreated) {
  * @param {Object} updatedReview - The updated review object.
  * @param {string} updatedReview.id - The unique identifier of the review to update.
  * Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.
+ * @returns {boolean} True if the review was found and updated successfully, false otherwise.
  * 
  * Side effects:
  * - Replaces the existing review with the same ID in localStorage.
