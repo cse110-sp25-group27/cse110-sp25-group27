@@ -371,7 +371,7 @@ describe("processImageForStorage", () => {
             this.readAsDataURL = () => setTimeout(() => this.onload({ target: { result: "data:..." } }), 0);
         });
         jest.spyOn(global, 'Image').mockImplementation(function() {
-            Object.defineProperty(this, 'src', { set: () => setTimeout(() => this.onload(), 0) });
+            Object.defineProperty(this, 'src', { set: () => { setTimeout(() => this.onload(), 0); } });
         });
         jest.spyOn(document, 'createElement').mockReturnValue({
             getContext: () => ({ drawImage: jest.fn() }),
@@ -410,7 +410,7 @@ describe("processImageForStorage", () => {
         });
         // ...but mock Image to fail
         jest.spyOn(global, 'Image').mockImplementation(function() {
-            Object.defineProperty(this, 'src', { set: () => setTimeout(() => this.onerror(new Error("Image Load Fail")), 0) });
+            Object.defineProperty(this, 'src', { set: () => { setTimeout(() => this.onerror(new Error("Image Load Fail")), 0); } });
         });
 
         const promise = processImageForStorage(mockFile);
