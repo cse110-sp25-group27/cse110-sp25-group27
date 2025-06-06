@@ -1,4 +1,3 @@
-// Imports from localStorage.js (adjust path if necessary)
 import { getReviewsFromStorage, saveReviewsToStorage } from '../../backend/localStorage.js';
 
 const presetMovies = [
@@ -204,10 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update button text based on current status when flipping TO back
                 if (card.dataset.detailsAdded === "true") {
                     frontSelectBtn.textContent = 'Edit My Details ✓';
-                    // frontSelectBtn.classList.add('details-entered'); // Style might already be there
                 } else {
                     frontSelectBtn.textContent = 'Add My Details';
-                    // frontSelectBtn.classList.remove('details-entered');
                 }
             });
 
@@ -231,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         for (const card of allCards) {
-            if (card.dataset.detailsAdded === "true") { // Ensure this is a string comparison
+            if (card.dataset.detailsAdded === "true") { 
                 const presetId = card.dataset.presetId;
                 const moviePreset = presetMovies.find(m => m.id_preset === presetId);
                 if (!moviePreset) {
