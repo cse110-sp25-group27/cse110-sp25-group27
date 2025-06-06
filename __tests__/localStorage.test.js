@@ -6,7 +6,7 @@ import {
   initFormHandler,
   getReviewsFromStorage, //PASS
   deleteReviewById, //PASS
-  addReviewsToDocument,
+  addReviewsToDocument, //PASS
   saveReviewsToStorage, //PASS
   createReviewObject, //PASS
   updateReview, //PASS
@@ -99,8 +99,6 @@ describe("createReviewObject()", () => {
         // createdAt / updatedAt should be ISO strings
         expect(new Date(review.createdAt).toISOString()).toBe(review.createdAt);
         expect(new Date(review.updatedAt).toISOString()).toBe(review.updatedAt);
-
-        const testReviews = JSON.parse(localStorage.getItem("reviews"));
 
         // idCounter should have incremented in our stubbed storage
         expect(localStorage.getItem("idCounter")).toBe("1");
@@ -322,7 +320,7 @@ describe('addReviewsToDocument', () => {
         expect(cards[1].data).toEqual(testReviews[1]);
     });
 
-    it("should throw an error if the <main> element is not found in the DOM", () => {
+    it("should throw an error if the 'main' element is not found in the DOM", () => {
         // Overwrite the setup to ensure <main> is missing
         document.body.innerHTML = '';
         
