@@ -5,7 +5,7 @@ const presetMovies = [
     {
       id_preset: 'p1',
       title: 'Inception',
-      posterUrl: 'https://www.originalfilmart.com/cdn/shop/products/inception-imax_1024x1024.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg',
       releaseDate: '2010-07-16'
     },
     {
@@ -17,7 +17,7 @@ const presetMovies = [
     {
       id_preset: 'p3',
       title: 'Interstellar',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
+      posterUrl: 'https://m.media-amazon.com/images/I/514zBLkyJcL._AC_SY606_.jpg',
       releaseDate: '2014-11-07'
     },
     {
@@ -35,7 +35,7 @@ const presetMovies = [
     {
       id_preset: 'p6',
       title: 'Oppenheimer',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/8Gxv9iV5rY3jXy9p4u5Zk6g3YhA.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg',
       releaseDate: '2023-07-21'
     },
     {
@@ -65,7 +65,7 @@ const presetMovies = [
     {
       id_preset: 'p11',
       title: 'Get Out',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/1SwAVYpuLj8KsHxllTF8Dt9dSSX.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a3/Get_Out_poster.png',
       releaseDate: '2017-02-24'
     },
     {
@@ -83,7 +83,7 @@ const presetMovies = [
     {
       id_preset: 'p14',
       title: 'The Hunger Games',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/4z0i6mQZsM2zv2b5r5fP3g0v7wA.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/4/42/HungerGamesPoster.jpg',
       releaseDate: '2012-03-23'
     },
     {
@@ -107,13 +107,13 @@ const presetMovies = [
     {
       id_preset: 'p18',
       title: 'Avatar',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/kmcqlZGaSh20zpTbuoF0Cdn07dT.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg',
       releaseDate: '2009-12-18'
     },
     {
       id_preset: 'p19',
       title: 'Mean Girls',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/4tS0iyKQBDFX6FvQn3tG2eW2N6z.jpg',
+      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/a/ac/Mean_Girls_film_poster.png',
       releaseDate: '2004-04-30'
     },
     {
@@ -134,7 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Function to render movie cards
+    /**
+     * Renders the preset movie options as interactive flip cards in the DOM.
+     * Each card has a front with the movie poster and a button to add details,
+     * and a back with a form for the user to input their review. Event listeners
+     * are attached to handle flipping the card and tracking which cards have had
+     * details saved.
+     */
     function renderMovieOptionCards() {
         presetMovies.forEach(movie => {
             const card = document.createElement('div');
@@ -208,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Event listener for the "Save Details" button on the back to flip to front
             backSaveDetailsBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                console.log(`Saving details for card presetId: ${card.dataset.presetId}. Setting detailsAdded to true.`); // DEBUG
                 card.dataset.detailsAdded = "true"; 
                 frontSelectBtn.textContent = 'Edit My Details ✓';
                 frontSelectBtn.classList.add('details-entered');
@@ -218,24 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listener for the main save button
+
     saveButton.addEventListener('click', async () => {
-        console.log("Save Selections & Continue button clicked."); // DEBUG
         const reviewsToSave = [];
         const allCards = document.querySelectorAll('.movie-option-card');
         let lastUsedId = parseInt(localStorage.getItem('idCounter') || '0');
-        let cardsMarkedForSaving = 0; // DEBUG counter
 
-        console.log(`Found ${allCards.length} movie option cards.`); // DEBUG
 
         for (const card of allCards) {
-            console.log(`Checking card presetId: ${card.dataset.presetId}, detailsAdded: ${card.dataset.detailsAdded}, type: ${typeof card.dataset.detailsAdded}`); // DEBUG
             if (card.dataset.detailsAdded === "true") { // Ensure this is a string comparison
-                cardsMarkedForSaving++; // DEBUG
                 const presetId = card.dataset.presetId;
                 const moviePreset = presetMovies.find(m => m.id_preset === presetId);
                 if (!moviePreset) {
-                    console.warn(`Movie preset not found for ID: ${presetId}`); // DEBUG
                     continue;
                 }
 
@@ -256,8 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reviewsToSave.push(reviewObject);
             }
         }
-
-        console.log(`Number of reviews to save: ${reviewsToSave.length}. Cards marked for saving (debug count): ${cardsMarkedForSaving}`); // DEBUG
 
         if (reviewsToSave.length === 0) {
             alert("Please save details for at least one movie before continuing.");
