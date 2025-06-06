@@ -10,6 +10,7 @@ import {
   saveReviewsToStorage, //PASS
   createReviewObject, //PASS
   updateReview, //PASS
+  processImageForStorage,
 } from "../backend/localStorage.js";
 beforeAll(() => {
   globalThis.alert = () => {};
@@ -111,8 +112,7 @@ describe("createReviewObject()", () => {
 describe("updateReview()", () => {
     beforeEach(() => localStorage.clear());
 
-    it("replaces the review that has the same id", () => {
-        //Seed storage with two reviews (helper in unit-testing/testSetup.js)
+    it("should return true and replace the review that has the same id", () => {
         __seedReviews([
             { id: 0, title: "Old", rating: 1 },
             { id: 1, title: "Keep me", rating: 4 }
@@ -197,6 +197,21 @@ describe("saveReviewsToStorage()", () => {
         saveReviewsToStorage(original);
         const testReviews = JSON.parse(localStorage.getItem("reviews"));
         expect(testReviews).toEqual(original);
+    });
+
+    it("should return false if saving to localStorage fails", () => {
+        // Mock localStorage.setItem to throw an error
+        jest.spyOn(window.localStorage.__proto__, 'setItem').mockImplementation(() => {
+            throw new Error("Storage quota exceeded");
+        });
+
+        const result = saveReviewsToStorage([{ id: 1, title: "Test" }]);
+        
+        // Assert that the function returned false
+        expect(result).toBe(false);
+
+        // Restore the original function
+        jest.restoreAllMocks();
     });
 });
 
@@ -330,5 +345,79 @@ describe('addReviewsToDocument', () => {
         expect(() => {
             addReviewsToDocument(testReviews);
         }).toThrow();
+    });
+});
+
+//-------------------------------------------------------------------
+// TEST (processImageForStorage)
+//-------------------------------------------------------------------
+describe("processImageForStorage", () => {
+    // Mock the necessary browser APIs before each test
+    beforeEach(() => {
+        // Mock FileReader
+        global.FileReader = jest.fn(() => ({
+            readAsDataURL: jest.fn(function() { this.onload({ target: { result: "data:image/png;base64,mock" } }); }),
+            onload: jest.fn(),
+            onerror: jest.fn(),
+        }));
+
+        // Mock Image and canvas
+        global.Image = jest.fn(() => ({
+            onload: jest.fn(),
+            onerror: jest.fn(),
+            src: "", // Will be set by the function
+        }));
+
+        global.document.createElement = (element) => {
+            if (element === 'canvas') {
+                return {
+                    getContext: () => ({
+                        drawImage: jest.fn(),
+                    }),
+                    toDataURL: () => "data:image/jpeg;base64,processed_mock",
+                };
+            }
+            return {};
+        };
+    });
+    
+    it("should process a valid image file and resolve with a base64 string", async () => {
+        const mockFile = new File([""], "test.png", { type: "image/png" });
+        
+        // Trigger the image's onload event manually for the test
+        jest.spyOn(global, 'Image').mockImplementation(function() {
+            const img = { src: '' };
+            // Use setTimeout to simulate async image loading
+            setTimeout(() => this.onload(), 0); 
+            return img;
+        });
+
+        await expect(processImageForStorage(mockFile)).resolves.toBe("data:image/jpeg;base64,processed_mock");
+    });
+
+    it("should reject the promise if the FileReader fails", async () => {
+        const mockFile = new File([""], "test.png", { type: "image/png" });
+        
+        // Mock FileReader to simulate an error
+        global.FileReader = jest.fn(() => ({
+            readAsDataURL: jest.fn(function() { this.onerror(new Error("File read failed")); }),
+            onload: jest.fn(),
+            onerror: jest.fn(),
+        }));
+
+        await expect(processImageForStorage(mockFile)).rejects.toThrow("Failed to read file for processing.");
+    });
+
+    it("should reject the promise if the image fails to load", async () => {
+        const mockFile = new File([""], "test.png", { type: "image/png" });
+        
+        // Mock the Image object to simulate an error on load
+        jest.spyOn(global, 'Image').mockImplementation(function() {
+            const img = { src: '' };
+            setTimeout(() => this.onerror(new Error("Image load failed")), 0);
+            return img;
+        });
+
+        await expect(processImageForStorage(mockFile)).rejects.toThrow("Failed to load image for processing.");
     });
 });
