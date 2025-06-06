@@ -98,7 +98,7 @@ export function createReviewObject(form){
             title : form.get('movie-title'),
             watchedOn : form.get('watch-date'),
             watchCount: parseInt(form.get('watch-count')) || 1,
-            rating : parseInt(form.get('rating')),
+            rating : parseInt(form.get('rating')) || 0,
             imageData : processedImageData,
             notes : form.get('review'),
             releaseDate: form.get('release-date'),
@@ -238,7 +238,7 @@ export function deleteReviewById(id) {
 }
 
 // NEW FUNCTION: To compress/resize images
-async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600, quality = 0.7) {
+export async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600, quality = 0.7) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
