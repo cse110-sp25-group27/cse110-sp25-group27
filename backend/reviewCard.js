@@ -276,7 +276,7 @@ class ReviewCard extends HTMLElement {
     this.backDiv.querySelector('.user-review').textContent = this._data.notes || 'No review provided.';
     const rating = this._data.rating !== undefined ? parseInt(this._data.rating) : 0;
     this.backDiv.querySelector('.rating-value').textContent = rating;
-    this.backDiv.querySelector('.rating-stars').src = `../assets/${rating}_star.png`; 
+    this.backDiv.querySelector('.rating-stars').src = `../assets/landing_imgs/${rating}_star.png`; 
     this.backDiv.querySelector('.rating-stars').alt = `${rating} out of 5 stars`;
 
     const editButton = this.backDiv.querySelector('.edit-button');
