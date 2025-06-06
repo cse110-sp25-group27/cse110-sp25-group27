@@ -74,7 +74,9 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 ```
 5. Edit/Update any changes
 
-[**Pitch Document**](/specs/script/BoxOfficePitchScript-Draft2.pdf)
+[**Original BoxOffice Pitch Document**](/specs/script/BoxOfficePitchScript-Draft1.pdf)
+
+[**Reevaluated/Updated BoxOffice Pitch Document**](/specs/script/BoxOfficePitchScript-Draft2.pdf)
 
 **CI/CD Documentation:**
 - [phase1](admin/cipipeline/phase1.md)
