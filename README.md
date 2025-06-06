@@ -4,12 +4,51 @@
 
 We're the Powell Rangers, a plucky group of students whose mission is to defeat bad software engineering practices and save the industry.
 
-## About Box Office Project:
-- Box Office is an interactive and visually engaging movie review platform designed for everyday movie lovers — not just critics or industry insiders. Inspired by the charm of classic theaters, ticket booths, and cinema nostalgia, it lets users create personalized, ticket-stub-style movie reviews, track the exact day they watched films, and explore posters and ratings through intuitive, playful interactions. Unlike traditional text-heavy review sites, Box Office focuses on delivering a beautiful, user-friendly experience where people can privately journal, customize, and celebrate their movie-watching journeys.
-- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/)
-
 **Learn more about us:**
 - [Team Page](admin/team.md)
+- [Team Video](admin/videos/teamintro.mp4)
+  
+
+## About Box Office Project:
+- Box Office is an interactive and visually engaging movie review platform designed for everyday movie lovers — not just critics or industry insiders. Inspired by the charm of classic theaters, ticket booths, and cinema nostalgia, it lets users create personalized, ticket-stub-style movie reviews, track the exact day they watched films, and explore posters and ratings through intuitive, playful interactions. Unlike traditional text-heavy review sites, Box Office focuses on delivering a beautiful, user-friendly experience where people can privately journal, customize, and celebrate their movie-watching journeys.
+- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html)
+
+**Project Flow:**
+1. [Flow v1](specs/brainstorm/Box%20Office%20Flow_v1.png)
+2. [Flow v2](specs/brainstorm/Box%20Office%20Flow_v2.png)
+
+**Installation/Local Deployment:**
+1. Clone the repo
+```
+  git clone https://github.com/cse110-sp25-group27/cse110-sp25-group27.git
+```
+1. Install dependencies
+```
+  # Recommended to do a virtual environment
+  npm install
+```
+1. Go to index.html
+2. Run live server
+```
+  # If on VSCode, use the Go Live button on the bottom right
+  npm run dev # Extra dependency needed to run
+```
+1. Edit/Update any changes
+
+**CI/CD Documentation:**
+- [Phase1 docs](admin/cipipeline/phase1.md)
+- [Phase1 video](admin/cipipeline/phase1.mp4)
+- [Phase2 docs](admin/cipipeline/phase2.md)
+- [Phase2 video](admin/cipipeline/phase2.mp4)
+- [Phase3 docs](admin/cipipeline/phase3.md)
+- [CI/CD Pipeline Documentation](admin/cipipeline/phase1-2.drawio.png)
+
+[**JS Documentation**](/docs/documentation.md)
+
+[**Code Coverage Report**](https://cse110-sp25-group27.github.io/cse110-sp25-group27/)
+
+[**Code Styling Documentation**](/docs/code_style.md)
+
 
 ## Internal Docs
 
@@ -54,40 +93,9 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [GridLayout](/specs/adrs/05302025-GridLayout.md)
 - [CardLayout](/specs/adrs/05302025-CardLayout.md)
 
-## Movie Box Documentation
+[**Team Rules**](admin/misc/rules.md)
 
-**Installation/Local Deployment:**
-1. Clone the repo
-```
-  git clone https://github.com/cse110-sp25-group27/cse110-sp25-group27.git
-```
-2. Install dependencies
-```
-  # Recommended to do a virtual environment
-  npm install
-```
-3. Go to index.html
-4. Run live server
-```
-  # If on VSCode, use the Go Live button on the bottom right
-  npm run dev # Extra dependency needed to run
-```
-5. Edit/Update any changes
-
-**CI/CD Documentation:**
-- [phase1](admin/cipipeline/phase1.md)
-- [phase1 video](admin/cipipeline/phase1.mp4)
-- [phase2](admin/cipipeline/phase2.md)
-- [phase2 video](admin/cipipeline/phase2.mp4)
-- [phase3](admin/cipipeline/phase3.md)
-
-[**JS Documentation**](/docs/documentation.md)
-
-[**Code Coverage Report**](https://cse110-sp25-group27.github.io/cse110-sp25-group27/)
-
-[**Code Styling Documentation**](/docs/code_style.md)
-
-**Repo Formatting (Tree diagram):**
+## Repo Formatting (Tree diagram):
 ```
 .
 ├── __tests__
