@@ -18,8 +18,12 @@
     "setupFiles": [
       "./__tests__/testSetup.js"
     ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/testSetup.js"
+    ],
     "testEnvironment": "node",
-    "codeCoverage": true,
+    "collectCoverage": true,
     "coverageDirectory": "docs/coverage_report",
     "coverageReporters": [
       "text",
