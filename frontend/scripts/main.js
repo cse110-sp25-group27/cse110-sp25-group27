@@ -215,8 +215,15 @@ async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600
         reader.readAsDataURL(imageFile);
     });
 }
-// END OF NEW HELPER FUNCTION
 
+/** ------------------------------------------------------------------------------
+ * @Overview code that handles the front end carousel UI. 
+ * Handles the edit and delete interactions from each individual <review-card> element.
+ * Mnagaes the Update Review form.
+ * All of the execution begins once the DOM is fully finished loading.
+ * @returns {void}
+ * @listens document:DOMContentLoaded
+ ------------------------------------------------------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
     mainViewportElement = document.querySelector('.poster-carousel main');
     const updateReviewForm = document.querySelector('#update-form');
@@ -231,7 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
         carouselTrack = document.createElement('div');
         carouselTrack.classList.add('carousel-track');
         mainViewportElement.appendChild(carouselTrack);
-    } else { // Should not happen if HTML is clean, but good fallback
+    } else { 
+        // SO long as we keep the HTML clean it shoudn't happen, but good fallback to have
         carouselTrack = mainViewportElement.querySelector('.carousel-track');
     }
 
@@ -251,19 +259,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Carousel Navigation Functions ---
+    /** -------------------------------------------------------------------
+     * Carousel Navigation helper functions
+     ------------------------------------------------------------------- */
+    /** -------------------------------------------------------------------
+     * Will advance the Carousel to show the next card (wraps around the end)
+     * @private
+     * @returns {void}
+     ------------------------------------------------------------------- */
     function showNextCard() {
         if (reviewCardsInCarousel.length === 0) return;
         currentCarouselIndex = (currentCarouselIndex + 1) % reviewCardsInCarousel.length;
         updateCarouselPosition();
     }
-
+    /** -------------------------------------------------------------------
+     * Will move the Carousel to shwo the previous card (wraps around the start)
+     * @private
+     * @returns {void}
+     ------------------------------------------------------------------- */
     function showPrevCard() {
         if (reviewCardsInCarousel.length === 0) return;
         currentCarouselIndex = (currentCarouselIndex - 1 + reviewCardsInCarousel.length) % reviewCardsInCarousel.length;
         updateCarouselPosition();
     }
-
+    /** -------------------------------------------------------------------
+     * Remakes the DOM for every review and positions the carousel track so 
+     * that the first card is visible.
+     * @private
+     * @returns {void}
+     ------------------------------------------------------------------- */
     function displayInitialReviews() {
         if (!carouselTrack) {
             console.error("Carousel track not available for initial reviews.");
@@ -280,16 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Event Listeners for Carousel Navigation ---
     const prevButton = document.getElementById('carousel-prev-btn');
     const nextButton = document.getElementById('carousel-next-btn');
 
     if (prevButton) prevButton.addEventListener('click', showPrevCard);
     if (nextButton) nextButton.addEventListener('click', showNextCard);
-
-    // --- Event Listeners for Edit/Delete (Interacting with Carousel) ---
-    // Assuming review-card elements dispatch 'delete-review' and 'edit-review' events
-    // These listeners should be on an ancestor, mainViewportElement is good.
 
     mainViewportElement.addEventListener('delete-review', (event) => {
         const reviewIdToDelete = event.detail.reviewId;
