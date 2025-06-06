@@ -84,67 +84,29 @@ jobs:
           retention-days: 1
 
   deploy:
-    name: Deploy docs to coverage-update branch
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: tests
-    if: github.event_name == 'push' && needs.tests.outputs.docs-exists == 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - name: Checkout repository
+      - name: Checkout current branch
         uses: actions/checkout@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact (entire root)
+        uses: actions/upload-pages-artifact@v3
         with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: .   # deploy the whole repo root
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-      - name: Setup Git user
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Download docs artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: downloaded-docs/   # <-- download into a separate folder
-
-      - name: Switch to deployment branch
-        run: |
-          if git ls-remote --exit-code origin coverage-update; then
-            echo "Branch exists, checking out..."
-            git fetch origin coverage-update
-            git checkout coverage-update
-          else
-            echo "Creating new orphan branch..."
-            git checkout --orphan coverage-update
-            touch .nojekyll
-          fi
-
-      - name: Clear old docs files
-        run: |
-          # Remove old docs files except .git directory
-          git rm -r --ignore-unmatch docs || true
-
-      - name: Copy new docs content
-        run: |
-          mkdir -p docs
-          cp -r downloaded-docs/* docs/
-
-      - name: Add .nojekyll file
-        run: |
-          touch .nojekyll
-
-      - name: Add docs and .nojekyll
-        run: |
-          git add docs .nojekyll
-
-      - name: Commit and push docs to coverage-update branch
-        run: |
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Deploy docs from GitHub Actions - Branch: ${{ github.ref_name }} - $(date)"
-            git push origin coverage-update --force
-            echo "✅ Successfully deployed to coverage-update branch from ${{ github.ref_name }}"
-          fi
 
   codacy-coverage-reporter:
     name: Upload coverage report to Codacy
