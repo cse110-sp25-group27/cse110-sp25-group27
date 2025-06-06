@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 Not Found</title>
-
-  <!-- Force paths to start at root using JavaScript later -->
-  <link rel="stylesheet" href="frontend/styles/404_page.css" id="css-link">
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
-  </style>
+    <script>
+        const expectedRoot = "/cse110-sp25-group27/";
+        if (!location.pathname.startsWith(expectedRoot) || location.pathname !== expectedRoot) {
+            location.href = "https://cse110-sp25-group27.github.io/cse110-sp25-group27/";
+        }
+    </script> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <link rel="stylesheet" href="frontend/styles/404_page.css" id="css-link">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+    </style>
 </head>
 <body>
   <img src="frontend/assets/sad_power_ranger.png" alt="Sad Power Ranger" id="main-img"> 
