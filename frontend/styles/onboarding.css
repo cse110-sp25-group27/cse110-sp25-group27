@@ -86,10 +86,6 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.movie-option-card.details-saved-indicator .movie-card-inner {
-    /* Change background of both front and back, or just a specific one if preferred */
-    /* This will apply to whichever face is visible */
-}
 
 .movie-option-card.is-flipped .movie-card-inner {
     transform: rotateY(180deg);

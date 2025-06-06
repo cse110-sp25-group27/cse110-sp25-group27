@@ -313,14 +313,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const reviews = getReviewsFromStorage();
   
         if (reviews.length === 0) {
-            const defaultCard = document.createElement('div');
+            const defaultCard = document.createElement('review-card');
             defaultCard.id = 'default-card';
-            defaultCard.innerHTML = `
-                <div class="default-card-content">
-                    <h3>No Reviews</h3>
-                    <p>Click "Add Ticket" to create a review.</p>
-                </div>
-            `;
+
+            // Override the content of the review-card to show a default message
+            const shadow = defaultCard.shadowRoot;
+            if (shadow) {
+                const contentArea = shadow.querySelector('.review-card-front-content');
+                const backFace = shadow.querySelector('.back-view');
+
+                if (contentArea) {
+                    contentArea.innerHTML = `
+                        <p class="admit-one-text">No Reviews</p>
+                        <hr class="dashed-line">
+                        <p style="font-size: 1.1em; color: #D7D7D7; line-height: 1.5; font-family: Arial, sans-serif; padding: 20px; text-transform: none;">
+                            Click "Add Ticket" to create your first review.
+                        </p>
+                    `;
+                    contentArea.style.justifyContent = 'center';
+                }
+                if (backFace) {
+                    backFace.remove(); // Remove the back to prevent flipping
+                }
+            }
+  
+            // Prevent the card from flipping on click
+            defaultCard.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+            }, true);
+
             carouselTrack.appendChild(defaultCard);
             // hide buttons when no reviews are present
             const prevButton = document.getElementById('carousel-prev-btn');
