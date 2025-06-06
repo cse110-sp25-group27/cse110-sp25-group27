@@ -9,7 +9,7 @@
  * @function
  * @returns {void}
  */
-(function() {
+(function () {
     if (localStorage.getItem('hasCompletedOnboarding') !== 'true') {
         // Ensure we are not already on onboarding.html to prevent redirect loop
         if (!window.location.pathname.endsWith('onboarding.html')) {
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         carouselTrack = document.createElement('div');
         carouselTrack.classList.add('carousel-track');
         mainViewportElement.appendChild(carouselTrack);
-    } else { 
+    } else {
         // SO long as we keep the HTML clean it shoudn't happen, but good fallback to have
         carouselTrack = mainViewportElement.querySelector('.carousel-track');
     }
@@ -269,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateReviewForm.reset();
                 // Restore text bubble/new form visibility if needed
                 // if (textBubble) textBubble.classList.add('expanded'); 
+                const textBubble = document.getElementById('text-bubble');
+                if (textBubble) {
+                    textBubble.classList.remove('expanded'); // Restore original styling
+                }
                 // if (newReviewFormContainer && newReviewFormLoaded) newReviewFormContainer.classList.add('hidden');
             });
         }
@@ -463,8 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (textBubble) textBubble.classList.add('expanded'); // Expand text bubble if update form is inside it
     });
 
-
-
     // Update form submission logic (ensure this is robust)
     if (updateReviewForm) {
         updateReviewForm.addEventListener('submit', async (e) => {
@@ -527,14 +529,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 form.style.display = 'none';
                 form.reset();
-                // if (textBubble) textBubble.classList.remove('expanded');
+                // Restore the text-bubble styling and content
+                const textBubble = document.getElementById('text-bubble');
+                if (textBubble) {
+                    textBubble.classList.remove('expanded'); // Restore original styling
+                }
+
                 alert('Review updated successfully!');
             } else {
                 alert('Failed to update review in storage.');
             }
         });
     }
-
     // --- Initialize ---
     displayInitialReviews(); // Load and display existing reviews
 });
