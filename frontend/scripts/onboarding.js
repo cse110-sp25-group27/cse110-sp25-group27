@@ -1,6 +1,25 @@
 // Imports from localStorage.js (adjust path if necessary)
 import { getReviewsFromStorage, saveReviewsToStorage } from '../../backend/localStorage.js';
 
+/**
+ * Immediately redirects the user to `landing_page.html` if there is at least one review.
+ * The check is based on if there is at least 1 review using getReviewsFromStorage().
+ * 
+ * This logic should be placed at the top of your script to ensure it executes
+ * before any other UI logic, preventing unauthorized access to the onboarding page.
+ *
+ * @function
+ * @returns {void}
+ */
+(function() {
+    if (window.location.pathname.endsWith('onboarding.html')) {
+        const reviews = getReviewsFromStorage();
+        if (reviews.length >= 1) {
+            window.location.href = 'landing_page.html';
+        }
+    }
+})(); // Self-invoking function to run immediately
+
 const presetMovies = [
     {
       id_preset: 'p1',
