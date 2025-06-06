@@ -1,5 +1,5 @@
 body {
-    background-image: url('frontend/assets/error_background.png');
+    background-image: url('/cse110-sp25-group27/frontend/assets/error_background.png');
     background-size: cover;
     background-position: center;
     margin: 0;
