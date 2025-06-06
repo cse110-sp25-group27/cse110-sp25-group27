@@ -5,121 +5,121 @@ const presetMovies = [
     {
       id_preset: 'p1',
       title: 'Inception',
-      posterUrl: 'https://www.originalfilmart.com/cdn/shop/products/inception-imax_1024x1024.jpg',
+      posterUrl: '../assets/posters/inception.png',
       releaseDate: '2010-07-16'
     },
     {
       id_preset: 'p2',
       title: 'The Matrix',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
+      posterUrl: '../assets/posters/matrix.png',
       releaseDate: '1999-03-31'
     },
     {
       id_preset: 'p3',
       title: 'Interstellar',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
+      posterUrl: '../assets/posters/interstellar.png',
       releaseDate: '2014-11-07'
     },
     {
       id_preset: 'p4',
       title: 'Parasite',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
+      posterUrl: '../assets/posters/parasite.png',
       releaseDate: '2019-10-11'
     },
     {
       id_preset: 'p5',
       title: 'Barbie',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg',
+      posterUrl: '../assets/posters/barbie.png',
       releaseDate: '2023-07-21'
     },
     {
       id_preset: 'p6',
       title: 'Oppenheimer',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/8Gxv9iV5rY3jXy9p4u5Zk6g3YhA.jpg',
+      posterUrl: '../assets/posters/oppenheimer.png',
       releaseDate: '2023-07-21'
     },
     {
       id_preset: 'p7',
       title: 'Everything Everywhere All at Once',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg',
+      posterUrl: '../assets/posters/everything_everywhere.png',
       releaseDate: '2022-03-11'
     },
     {
       id_preset: 'p8',
       title: 'La La Land',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg',
+      posterUrl: '../assets/posters/la_la_land.png',
       releaseDate: '2016-12-09'
     },
     {
       id_preset: 'p9',
       title: 'The Dark Knight',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
+      posterUrl: '../assets/posters/dark_knight.png',
       releaseDate: '2008-07-18'
     },
     {
       id_preset: 'p10',
       title: 'The Social Network',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/n0ybibhJtQ5icDqTp8eRytcIHJx.jpg',
+      posterUrl: '../assets/posters/social_network.png',
       releaseDate: '2010-10-01'
     },
     {
       id_preset: 'p11',
       title: 'Get Out',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/1SwAVYpuLj8KsHxllTF8Dt9dSSX.jpg',
+      posterUrl: '../assets/posters/get_out.png',
       releaseDate: '2017-02-24'
     },
     {
       id_preset: 'p12',
       title: 'The Shawshank Redemption',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
+      posterUrl: '../assets/posters/shawshank.png',
       releaseDate: '1994-09-23'
     },
     {
       id_preset: 'p13',
       title: 'Spider-Man: Into the Spider-Verse',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+      posterUrl: '../assets/posters/spiderman.png',
       releaseDate: '2018-12-14'
     },
     {
       id_preset: 'p14',
       title: 'The Hunger Games',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/4z0i6mQZsM2zv2b5r5fP3g0v7wA.jpg',
+      posterUrl: '../assets/posters/hunger_games.png',
       releaseDate: '2012-03-23'
     },
     {
       id_preset: 'p15',
       title: 'The Avengers',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg',
+      posterUrl: '../assets/posters/avengers.png',
       releaseDate: '2012-05-04'
     },
     {
       id_preset: 'p16',
       title: 'Titanic',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg',
+      posterUrl: '../assets/posters/titanic.png',
       releaseDate: '1997-12-19'
     },
     {
       id_preset: 'p17',
       title: 'The Wolf of Wall Street',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/pWHf4khOloNVfCxscsXFj3jj6gP.jpg',
+      posterUrl: '../assets/posters/wolf_wallstreet.png',
       releaseDate: '2013-12-25'
     },
     {
       id_preset: 'p18',
       title: 'Avatar',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/kmcqlZGaSh20zpTbuoF0Cdn07dT.jpg',
+      posterUrl: '../assets/posters/avatar.png',
       releaseDate: '2009-12-18'
     },
     {
       id_preset: 'p19',
       title: 'Mean Girls',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/4tS0iyKQBDFX6FvQn3tG2eW2N6z.jpg',
+      posterUrl: '../assets/posters/mean_girls.png',
       releaseDate: '2004-04-30'
     },
     {
       id_preset: 'p20',
       title: 'Black Panther',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/uxzzxijgPIY7slzFvMotPv8wjKA.jpg',
+      posterUrl: '../assets/posters/black_panther.png',
       releaseDate: '2018-02-16'
     }
   ];
