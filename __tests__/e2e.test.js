@@ -4,8 +4,6 @@ describe('Basic user flow for website', () => {
   });
 
   it('block users from landing with zero reviews', async () => {
-    console.log('Checking for 20 product items...');
-
     await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/");
     const dialogPromise = new Promise(resolve =>{
         page.on('dialog', async dialog =>{
@@ -23,5 +21,18 @@ describe('Basic user flow for website', () => {
     });
 
     expect(onboarded).toBe(null);
+  });
+
+  it('Onboarding page updates correctly after movies are selected', async () => {
+    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/");
+
+    await page.click('[data-preset-id="p4"] .select-button');
+    await page.click('[data-preset-id="p4] .save-card-details-button');
+
+    const onboarded = await page.evaluate(() => {
+        return localStorage.getItem('hasCompletedOnboarding');
+    });
+
+    expect(onboarded).toBe(true);
   });
 });
