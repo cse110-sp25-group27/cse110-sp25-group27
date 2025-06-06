@@ -47,7 +47,13 @@ export function addReviewsToDocument(reviews) {
  * @param {Array<Object>} reviews 
  */
 export function saveReviewsToStorage(reviews) {
-	localStorage.setItem('reviews', JSON.stringify(reviews));	
+	try {
+		localStorage.setItem('reviews', JSON.stringify(reviews));	
+		return true;
+	} catch (e) {
+		console.error("Failed to save reviews to storage:", e);
+		return false;
+	}
 }
 
 /**
@@ -201,10 +207,19 @@ export function initFormHandler(onReviewCreated) {
  * - Replaces the existing review with the same ID in localStorage.
  */
 export function updateReview(updatedReview) {
-	const reviews = getReviewsFromStorage().map(r =>
-		r.id === updatedReview.id ? updatedReview : r
-	);
-	saveReviewsToStorage(reviews);
+	let reviewFound = false;
+	const reviews = getReviewsFromStorage().map(r => {
+		if (r.id === updatedReview.id) {
+			reviewFound = true;
+			return updatedReview;
+		}
+		return r;
+	});
+	
+	if (reviewFound) {
+		return saveReviewsToStorage(reviews);
+	}
+	return false;
 }
 
 /**
