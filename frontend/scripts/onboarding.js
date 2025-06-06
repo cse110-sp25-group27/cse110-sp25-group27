@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             backSaveDetailsBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                const form = cardBack.querySelector('form'); // adjust if needed
+                const form = cardBack.querySelector('form');
 
                 if (!form.checkValidity()) {
                     form.reportValidity();
