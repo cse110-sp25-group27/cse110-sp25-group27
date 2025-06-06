@@ -18,10 +18,10 @@ describe('Basic user flow for website', () => {
     await page.click("#save-onboarding-button");
     await dialogPromise;
 
-    const onboardingStatus = await page.evaluate(() => {
+    const onboarded = await page.evaluate(() => {
         return localStorage.getItem('hasCompletedOnboarding');
     });
 
-    expect(hasCompletedOnboarding).toBe(null);
+    expect(onboarded).toBe(null);
   });
 });
