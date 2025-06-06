@@ -16,7 +16,7 @@
     "transform": {},
     "verbose": true,
     "setupFiles": [
-      "./unit-testing/testSetup.js"
+      "./__tests__/testSetup.js"
     ],
     "testEnvironment": "node",
     "codeCoverage": true,
