@@ -1,13 +1,18 @@
-// ONBOARDING REDIRECT LOGIC - PLACE AT THE VERY TOP
+/**
+ * Immediately redirects the user to `onboarding.html` if they have not completed onboarding.
+ * The check is based on a localStorage flag `hasCompletedOnboarding`.
+ * 
+ * This logic should be placed at the top of your script to ensure it executes
+ * before any other UI logic, preventing unauthorized access to the landing page.
+ *
+ * @function
+ * @returns {void}
+ */
 (function() {
     if (localStorage.getItem('hasCompletedOnboarding') !== 'true') {
         // Ensure we are not already on onboarding.html to prevent redirect loop
         if (!window.location.pathname.endsWith('onboarding.html')) {
-            // Adjust the path if onboarding.html is not in the same directory as landing_page.html
-            // This assumes they are both in 'frontend/pages/' and scripts are in 'frontend/scripts/'
-            // If landing_page.html is at the root and onboarding.html is in 'frontend/pages/',
-            // the path would be './frontend/pages/onboarding.html'
-            window.location.href = 'onboarding.html'; // Simpler if both in same dir e.g. 'pages'
+            window.location.href = 'onboarding.html'; // Adjusts path when needed
         }
     }
 })(); // Self-invoking function to run immediately
@@ -28,6 +33,14 @@ const EFFECTIVE_CARD_FOOTPRINT = BASE_CARD_WIDTH + CARD_MARGIN_RIGHT;
 
 let mainViewportElement = null; 
 
+/**
+ * Updates the position of the carousel to center the currently active card.
+ * Applies a transform to shift the carousel track based on the active index.
+ * Also applies the 'active-card' class to the current card for styling.
+ *
+ * @param {boolean} [animate=true] - If false, disables animation for the movement.
+ * @returns {void}
+ */
 function updateCarouselPosition(animate = true) {
     if (!carouselTrack || !mainViewportElement) {
         console.warn("Carousel track or viewport not ready for positioning.");
@@ -63,7 +76,16 @@ function updateCarouselPosition(animate = true) {
         } 
     });
 }
-
+/**
+ * Adds a new `<review-card>` element to the carousel DOM based on the given review data.
+ * The card is inserted at a specified index or appended to the end if no valid index is provided.
+ *
+ * @function
+ * @param {Object} reviewObject - The data object used to populate the review card.
+ * @param {number} [atIndex=-1] - Optional index at which to insert the card. 
+ *                                 If out of bounds, appends the card instead.
+ * @returns {HTMLElement|null} The newly created `<review-card>` element, or `null` if insertion failed.
+ */
 function addReviewCardToCarouselDOM(reviewObject, atIndex = -1) {
     if (!carouselTrack) {
         console.error("Carousel track not found. Cannot add card.");
