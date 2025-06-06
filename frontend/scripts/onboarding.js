@@ -134,7 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Function to render movie cards
+    /**
+     * Renders the preset movie options as interactive flip cards in the DOM.
+     * Each card has a front with the movie poster and a button to add details,
+     * and a back with a form for the user to input their review. Event listeners
+     * are attached to handle flipping the card and tracking which cards have had
+     * details saved.
+     */
     function renderMovieOptionCards() {
         presetMovies.forEach(movie => {
             const card = document.createElement('div');
@@ -208,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Event listener for the "Save Details" button on the back to flip to front
             backSaveDetailsBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                console.log(`Saving details for card presetId: ${card.dataset.presetId}. Setting detailsAdded to true.`); // DEBUG
                 card.dataset.detailsAdded = "true"; 
                 frontSelectBtn.textContent = 'Edit My Details ✓';
                 frontSelectBtn.classList.add('details-entered');
@@ -218,24 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listener for the main save button
+
     saveButton.addEventListener('click', async () => {
-        console.log("Save Selections & Continue button clicked."); // DEBUG
         const reviewsToSave = [];
         const allCards = document.querySelectorAll('.movie-option-card');
         let lastUsedId = parseInt(localStorage.getItem('idCounter') || '0');
-        let cardsMarkedForSaving = 0; // DEBUG counter
 
-        console.log(`Found ${allCards.length} movie option cards.`); // DEBUG
 
         for (const card of allCards) {
-            console.log(`Checking card presetId: ${card.dataset.presetId}, detailsAdded: ${card.dataset.detailsAdded}, type: ${typeof card.dataset.detailsAdded}`); // DEBUG
             if (card.dataset.detailsAdded === "true") { // Ensure this is a string comparison
-                cardsMarkedForSaving++; // DEBUG
                 const presetId = card.dataset.presetId;
                 const moviePreset = presetMovies.find(m => m.id_preset === presetId);
                 if (!moviePreset) {
-                    console.warn(`Movie preset not found for ID: ${presetId}`); // DEBUG
                     continue;
                 }
 
@@ -256,8 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reviewsToSave.push(reviewObject);
             }
         }
-
-        console.log(`Number of reviews to save: ${reviewsToSave.length}. Cards marked for saving (debug count): ${cardsMarkedForSaving}`); // DEBUG
 
         if (reviewsToSave.length === 0) {
             alert("Please save details for at least one movie before continuing.");
