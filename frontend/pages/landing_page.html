@@ -47,14 +47,16 @@
         <img id="powell" src="../assets/landing_imgs/ticket_booth.png" alt="Ticket booth" height="400" width=auto>
 
         <div class="text-bubble" id="text-bubble">
-            <p>
-                Welcome! <br><br>
-                Would you like to add a ticket stub?
-            </p>
-            <div class="add-button-container">
-                <button type="button" id="add-ticket-button">
-                    <img src="../assets/landing_imgs/filmstrip_btn.png" alt="img of film" height="70px" width="90px">
-                </button>
+            <div class="prompt" id="prompt">
+                <p>
+                    Welcome! <br><br>
+                    Would you like to add a ticket stub?
+                </p>
+                <div class="add-button-container">
+                    <button type="button" id="add-ticket-button">
+                        <img src="../assets/landing_imgs/filmstrip_btn.png" alt="img of film" height="70px" width="90px">
+                    </button>
+                </div>
             </div>
 
             <!-- Container for the dynamically loaded new review form -->
@@ -84,7 +86,7 @@
                     <input type="number" id="update-watch-count" name="update-watch-count" min="1" value="1" required><br>
 
                     <label for="update-review">Review:</label>
-                    <textarea id="update-review" name="update-review" rows="4" cols="50"></textarea><br>
+                    <textarea id="update-review" name="update-review" rows="4" cols="50" required></textarea><br>
                 </fieldset>
                 <fieldset>
                     <legend>Rating</legend>
