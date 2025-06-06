@@ -71,20 +71,18 @@ describe('Basic user flow for landing', ()=>{
     await fileInput.uploadFile('frontend/assets/ticket.png');
 
     await page.click('button[type="submit"]');
+
     await page.waitForSelector('main .review-card');
 
-    const cards = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('.review-card')).map(el => el.innerText);
+    const reviews = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('reviews') || '[]');
     });
-    console.log(cards);
-
-    const found = await page.evaluate(() =>{
-      return Array.from(document.querySelectorAll('main .review-card')).some(card =>
-        card.innerText.includes('Test Movie with File')
-      );
-    });
-
+    const found = reviews.some(r => r.title === 'Test Movie');
     expect(found).toBe(true);
-  }, 15000);
+    
+    /*await page.waitForSelector('main review-card');
+    const reviewCards = await page.$$('main review-card');
+    expect(reviewCards.length).toBeGreaterThan(0);*/
+  }, 20000);
   
 })

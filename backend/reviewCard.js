@@ -160,6 +160,8 @@ class ReviewCard extends HTMLElement {
     this._isFlipped = false;
     this._data = null;
 
+    this.classList.add('review-card');
+
     const style = document.createElement('style');
     style.textContent = `
       :host {
