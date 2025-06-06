@@ -44,10 +44,17 @@ export function addReviewsToDocument(reviews) {
 /**
  * Takes in an array of reviews, converts it to a string, and then
  * saves that string to 'reviews' in localStorage
- * @param {Array<Object>} reviews 
+ * @param {Array<Object>} reviews An array of review objects.
+ * @returns {boolean} True if the save was successful, false otherwise.
  */
 export function saveReviewsToStorage(reviews) {
-	localStorage.setItem('reviews', JSON.stringify(reviews));	
+	try {
+		localStorage.setItem('reviews', JSON.stringify(reviews));	
+		return true;
+	} catch (e) {
+		console.error("Failed to save reviews to storage:", e);
+		return false;
+	}
 }
 
 /**
@@ -196,15 +203,25 @@ export function initFormHandler(onReviewCreated) {
  * @param {Object} updatedReview - The updated review object.
  * @param {string} updatedReview.id - The unique identifier of the review to update.
  * Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.
+ * @returns {boolean} True if the review was found and updated successfully, false otherwise.
  * 
  * Side effects:
  * - Replaces the existing review with the same ID in localStorage.
  */
 export function updateReview(updatedReview) {
-	const reviews = getReviewsFromStorage().map(r =>
-		r.id === updatedReview.id ? updatedReview : r
-	);
-	saveReviewsToStorage(reviews);
+	let reviewFound = false;
+	const reviews = getReviewsFromStorage().map(r => {
+		if (r.id === updatedReview.id) {
+			reviewFound = true;
+			return updatedReview;
+		}
+		return r;
+	});
+	
+	if (reviewFound) {
+		return saveReviewsToStorage(reviews);
+	}
+	return false;
 }
 
 /**
@@ -221,7 +238,7 @@ export function deleteReviewById(id) {
 }
 
 // NEW FUNCTION: To compress/resize images
-async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600, quality = 0.7) {
+export async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600, quality = 0.7) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
