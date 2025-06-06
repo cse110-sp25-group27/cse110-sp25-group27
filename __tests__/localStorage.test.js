@@ -263,22 +263,18 @@ describe("deleteReviewById()", () => {
 // TEST (addReviewsToDocument())
 //-------------------------------------------------------------------
 describe('addReviewsToDocument', () => {
-    beforeEach(() => localStorage.clear());
-
-    it("adds no reviews to document", () => {
+    // Before each test, set up the <main> element in the DOM
+    beforeEach(() => {
         document.body.innerHTML = `<main></main>`;
-
-        const testReviews = [];
-
-        addReviewsToDocument(testReviews);
-
-        const cards = document.querySelectorAll("review-card");
-        
-        expect(cards).toHaveLength(0);
-
     });
 
-    it("adds single review to document", () => {
+    it("should not add any review cards if the reviews array is empty", () => {
+        addReviewsToDocument([]);
+        const cards = document.querySelectorAll("review-card");
+        expect(cards).toHaveLength(0);
+    });
+
+    it("should add a single review card to the document", () => {
         const testReview = [{
             id: "1",
             title: "Test",
@@ -288,20 +284,16 @@ describe('addReviewsToDocument', () => {
             watchCount: "2",
             notes: "",
             rating: 5
-        }]
-        document.body.innerHTML = `<main></main>`;
+        }];
 
         addReviewsToDocument(testReview);
 
-
         const cards = document.querySelectorAll("review-card");
-        
         expect(cards).toHaveLength(1);
         expect(cards[0].data).toEqual(testReview[0]);
-
     });
 
-    it("adds multiple reviews to document", () => {
+    it("should add multiple review cards to the document", () => {
         const testReviews = [{
             id: "1",
             title: "Test1",
@@ -311,8 +303,7 @@ describe('addReviewsToDocument', () => {
             watchCount: "2",
             notes: "",
             rating: 5
-        },
-        {
+        }, {
             id: "2",
             title: "Test2",
             imageData: "",
@@ -322,15 +313,24 @@ describe('addReviewsToDocument', () => {
             notes: "",
             rating: 4
         }];
-        document.body.innerHTML = `<main></main>`;
-
+        
         addReviewsToDocument(testReviews);
 
-
         const cards = document.querySelectorAll("review-card");
-        
         expect(cards).toHaveLength(2);
         expect(cards[0].data).toEqual(testReviews[0]);
         expect(cards[1].data).toEqual(testReviews[1]);
+    });
+
+    it("should throw an error if the <main> element is not found in the DOM", () => {
+        // Overwrite the setup to ensure <main> is missing
+        document.body.innerHTML = '';
+        
+        const testReviews = [{ id: "1", title: "Test" }];
+
+        // Expect the function to throw an error because it can't find <main>
+        expect(() => {
+            addReviewsToDocument(testReviews);
+        }).toThrow();
     });
 });
