@@ -92,6 +92,21 @@ function addReviewCardToCarouselDOM(reviewObject, atIndex = -1) {
         console.error("Carousel track not found. Cannot add card.");
         return null;
     }
+
+    // Remove default card if it exists
+    const defaultCard = carouselTrack.querySelector('#default-card');
+    if (defaultCard) {
+        carouselTrack.removeChild(defaultCard);
+    }
+
+    // When adding a review, ensure the navigation buttons are visible
+    const prevButton = document.getElementById('carousel-prev-btn');
+    const nextButton = document.getElementById('carousel-next-btn');
+    if(prevButton && nextButton && prevButton.style.display === 'none'){
+        prevButton.style.display = 'block';
+        nextButton.style.display = 'block';
+    }
+
     const reviewCard = document.createElement('review-card');
     reviewCard.data = reviewObject;
 
@@ -297,13 +312,54 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Carousel track not available for initial reviews.");
             return;
         }
-        carouselTrack.innerHTML = '';
+        carouselTrack.innerHTML = ''; 
         reviewCardsInCarousel = []; // Reset the array
         const reviews = getReviewsFromStorage();
-        reviews.forEach(review => addReviewCardToCarouselDOM(review));
+  
+        if (reviews.length === 0) {
+            const defaultCard = document.createElement('review-card');
+            defaultCard.id = 'default-card';
 
+            // Override the content of the review-card to show a default message
+            const shadow = defaultCard.shadowRoot;
+            if (shadow) {
+                const contentArea = shadow.querySelector('.review-card-front-content');
+                const backFace = shadow.querySelector('.back-view');
+
+                if (contentArea) {
+                    contentArea.innerHTML = `
+                        <p class="admit-one-text">No Reviews</p>
+                        <hr class="dashed-line">
+                        <p style="font-size: 1.1em; color: #D7D7D7; line-height: 1.5; font-family: Arial, sans-serif; padding: 20px; text-transform: none;">
+                            Click "Add Ticket" to create your first review.
+                        </p>
+                    `;
+                    contentArea.style.justifyContent = 'center';
+                }
+                if (backFace) {
+                    backFace.remove(); // Remove the back to prevent flipping
+                }
+            }
+  
+            // Prevent the card from flipping on click
+            defaultCard.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+            }, true);
+
+            carouselTrack.appendChild(defaultCard);
+            // hide buttons when no reviews are present
+            const prevButton = document.getElementById('carousel-prev-btn');
+            const nextButton = document.getElementById('carousel-next-btn');
+            if(prevButton && nextButton){
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+            }
+        } else {
+          reviews.forEach(review => addReviewCardToCarouselDOM(review));
+        }
+        
         if (reviewCardsInCarousel.length > 0) {
-            currentCarouselIndex = 0;
+            currentCarouselIndex = 0; 
             updateCarouselPosition(false); // Position without animation initially
         }
     }
@@ -330,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (confirm(`Are you sure you want to delete ${reviewTitle}?`)) {
             deleteReviewById(reviewIdToDelete); // Delete from localStorage
-
+            
             // Remove from DOM and array
             carouselTrack.removeChild(cardElement);
             reviewCardsInCarousel.splice(cardIndexInCarousel, 1);
@@ -338,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (reviewCardsInCarousel.length === 0) {
                 currentCarouselIndex = 0; // Reset
                 updateCarouselPosition(false); // Update view (empty track)
+                displayInitialReviews(); // This will handle showing the default card
             } else {
                 // Adjust currentCarouselIndex if the deleted card affected it
                 if (currentCarouselIndex >= reviewCardsInCarousel.length) {

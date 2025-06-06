@@ -17,6 +17,10 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 1. [Flow v1](specs/brainstorm/Box%20Office%20Flow_v1.png)
 2. [Flow v2](specs/brainstorm/Box%20Office%20Flow_v2.png)
 
+**BoxOffice Pitch Documents:**
+- [Original](specs\mvp\BoxOfficePitchScript-Draft1.pdf)
+- [Reevaluated/Updated](specs\mvp\BoxOfficePitchScript-Draft2.pdf)
+
 **Installation/Local Deployment:**
 1. Clone the repo
 ```
@@ -92,8 +96,6 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [FormSubmission](/specs/adrs/05142025-FormSubmission.md)
 - [GridLayout](/specs/adrs/05302025-GridLayout.md)
 - [CardLayout](/specs/adrs/05302025-CardLayout.md)
-
-[**Team Rules**](admin/misc/rules.md)
 
 ## Repo Formatting (Tree diagram):
 ```
