@@ -1,6 +1,4 @@
 // ONBOARDING REDIRECT LOGIC - PLACE AT THE VERY TOP
-(function () {
-=======
 /**
  * Immediately redirects the user to `onboarding.html` if they have not completed onboarding.
  * The check is based on a localStorage flag `hasCompletedOnboarding`.
