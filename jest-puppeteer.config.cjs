@@ -1,7 +1,6 @@
 module.exports = {
   launch: {
     headless: false,
-    slowMo: 0,
-    executablePath: '/usr/bin/chromium'
+    slowMo: 0
   }
 }
