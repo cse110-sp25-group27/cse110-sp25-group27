@@ -1,5 +1,5 @@
 body {
-  background-image: url('../assets/city_top.png');
+  background-image: url('../assets/landing_imgs/city_top.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -108,7 +108,7 @@ body {
 }
 
 #add-ticket-button{
-  background-image: url('/frontend/assets/filmstrip_btn.png');
+  background-image: url('../assets/landing_imgs/filmstrip_btn.png');
   background-color: transparent;
   border: transparent;
 }
