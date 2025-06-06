@@ -274,7 +274,7 @@ describe('addReviewsToDocument', () => {
 
         const cards = document.querySelectorAll("review-card");
         
-        expect(cards.length).toHaveLength(0);
+        expect(cards).toHaveLength(0);
 
     });
 
@@ -296,7 +296,7 @@ describe('addReviewsToDocument', () => {
 
         const cards = document.querySelectorAll("review-card");
         
-        expect(cards.length).toHaveLength(1);
+        expect(cards).toHaveLength(1);
         expect(cards[0].data).toEqual(testReview[0]);
 
     });
@@ -329,7 +329,7 @@ describe('addReviewsToDocument', () => {
 
         const cards = document.querySelectorAll("review-card");
         
-        expect(cards.length).toHaveLength(2);
+        expect(cards).toHaveLength(2);
         expect(cards[0].data).toEqual(testReviews[0]);
         expect(cards[1].data).toEqual(testReviews[1]);
     });
