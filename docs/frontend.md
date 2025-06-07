@@ -243,6 +243,7 @@
 - Frontend.md has been updated (5/28 a little (i don't really know what went on)+ 6/2 from the info/summary in our group communications)
 - Powell ticketbooth in meetingref also deleted in addition to the current ticketbooth in landing page to respect Powell
 - New Design Wireframes to reflect our new MVP
+  - [Link to our figma:](https://www.figma.com/board/hF19DMmDW0dL2egkzj9Bte/Box_office-Design?node-id=0-1&t=Fg0TaSWUSlMoyluL-0)
 - Flowchart updated in MVP to reflect new functionality of our website
 - New design is in frontend/meetingref/in case we need to make an ADR on friday for it
 - Old Design has been uploaded in order to be used in our adr for revamping our project scale
