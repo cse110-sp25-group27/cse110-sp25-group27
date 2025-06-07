@@ -93,9 +93,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-
-      - name: Start server
-        run: npx http-server -p 8080 &
         
       - name: Run E2E tests
         run: npm run test:e2e

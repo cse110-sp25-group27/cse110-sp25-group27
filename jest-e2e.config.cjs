@@ -8,13 +8,13 @@ module.exports = {
         filename: 'e2e-report.html',
         expand: true,
       }],
-    ],
-    testEnvironmentOptions: {
-      "jest-playwright": {
-        launchOptions: {
-          headless: true
-        },
-        baseURL: 'http://localhost:8080'
-      }
-    }
+    ]//,
+    // testEnvironmentOptions: {
+    //   "jest-playwright": {
+    //     launchOptions: {
+    //       headless: true
+    //     },
+    //     baseURL: 'http://localhost:8080'
+    //   }
+    // }
   };
