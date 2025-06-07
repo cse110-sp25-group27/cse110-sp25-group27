@@ -26,13 +26,9 @@ describe('Basic user flow for onboarding', () => {
 
 
 
-
   it('Onboarding page updates correctly after movies are selected', async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
     await page.evaluate(() => localStorage.clear());
-
-
-
 
     await page.waitForSelector('#watch-date-p4');
     
@@ -56,8 +52,6 @@ describe('Basic user flow for onboarding', () => {
   }, 20000);
 
 });
-
-
 
 
 describe('Basic user flow for landing', ()=>{
@@ -127,19 +121,16 @@ describe('Basic user flow for landing', ()=>{
     await page.click('button[type="submit"]');
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-
     await page.waitForFunction(() => {
     return JSON.parse(localStorage.getItem('reviews') || '[]')
       .some(r => r.title === 'Test Movie');
     });
-
 
     const reviews = await page.evaluate(() => {
       return JSON.parse(localStorage.getItem('reviews') || '[]');
     });
     const found = reviews.some(r => r.title === 'Invalid Movie');
     expect(found).toBe(false);
-
 
   }, 30000);
 
@@ -172,20 +163,44 @@ describe('Basic user flow for landing', ()=>{
       });
     });
 
-
     await page.click('button[type="submit"]');
     await dialogPromise;
-
 
     const updated = await page.evaluate(() => {
       const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
       return reviews.some(r => r.notes === 'I hated it!' && r.rating === 0);
     });
 
-
     expect(updated).toBe(true);
   }, 30000);
 
+  it('incorrectly updated review with missing field', async () =>{
+    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
+
+    await page.evaluate(() => {
+      const card = document.querySelector('review-card');
+      card.click();
+    });
+
+    await page.evaluate(() => {
+      const card = document.querySelector('review-card');
+      const shadow = card.shadowRoot;
+      shadow.querySelector('.edit-button').click();
+    });
+
+    await page.waitForSelector('#update-form', );
+    await page.$eval('#update-review', el => el.value = '');
+
+    await page.click('button[type="submit"]');
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const updated = await page.evaluate(() => {
+      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+      return reviews.some(r => r.notes === '');
+    });
+
+    expect(updated).toBe(false);
+  }, 30000);
 
   //test for delete
 
