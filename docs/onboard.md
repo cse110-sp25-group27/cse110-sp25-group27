@@ -70,23 +70,29 @@ Here's a breakdown of what the pipeline does:
 This is the main job, and it runs on every push to any branch.
 
 1.  **Checkout & Setup:** It checks out your code and sets up a Node.js environment.
-2.  **Install Dependencies:** It runs `npm ci` to install the exact versions of the dependencies listed in `package-lock.json`.
-3.  **Run Jest Tests (`npm test`):** It executes the automated tests in the `__tests__` directory to ensure existing functionality is not broken.
-4.  **Run ESLint:** It checks your code for style issues and potential errors using the rules defined in `eslint.config.js`. It will fail if there are any errors or warnings.
-5.  **Calculate Code Coverage (`npm run test -- --coverage`):** It runs the tests again, but this time it calculates how much of your code is covered by tests. The results are saved to the `docs/coverage_report/` directory.
-6.  **Generate Documentation (`npm run generate-docs`):** This step generates JSDoc documentation for your code.
-7.  **Upload Artifacts:** It uploads the `docs` and `coverage` directories as artifacts, which can be downloaded and inspected.
+2.  **Install Dependencies:** It runs `npm ci` to install the exact versions of the dependencies listed in `package-lock.json`. This ensures a consistent environment.
+3.  **Run unit tests with coverage:** The `npm test` command runs all unit tests. We have configured it to also generate a code coverage report, which shows how much of the code is tested.
+4.  **Run ESLint:** It lints the code to check for style issues and potential errors based on our team's configuration (`eslint.config.js`). This helps maintain a consistent code style.
+5.  **Generate Documentation:** It runs `npm run generate-docs` to create documentation from the JSDoc comments in the code.
+6.  **Upload Artifacts:** It uploads the generated `docs` and `coverage_report` as build artifacts. This allows you to inspect the documentation and coverage report from the GitHub Actions run.
+
+### Job: `e2e-tests`
+
+This job runs after the `tests` job completes successfully. It ensures that the main features of the application work from end to end.
+
+1.  **Checkout & Setup:** It checks out the code and sets up Node.js.
+2.  **Install Dependencies:** It installs the required dependencies using `npm ci`.
+3.  **Run E2E tests:** It executes the end-to-end tests using the `npm run test:e2e` command. These tests simulate user interactions to verify the application's functionality.
 
 ### Job: `deploy`
 
-This job only runs on a successful push to the `main` branch.
+This job only runs on a successful push to the `main` branch. Its purpose is to deploy the project to GitHub Pages.
 
-1.  **Setup & Deploy:** It uses the `docs` artifact from the `tests` job to deploy the project to GitHub Pages, making it live.
+1.  **Setup & Deploy:** It uses the `docs` artifact from the `tests` job to deploy the project, making it live.
 
 ### Job: `codacy-coverage-reporter`
 
-This job also runs on a successful push to any branch.
+This job also runs on a successful push to any branch after `tests` completes.
 
-1.  **Upload to Codacy:** It takes the `lcov.info` file generated during the coverage step and uploads it to Codacy, our code quality analysis tool. This allows us to track code coverage over time.
-
-If any step in the `tests` job fails, your push will be marked with a red "X" on GitHub, and you'll need to fix the issues before your code can be merged.
+1.  **Download Artifact:** It first downloads the `coverage` artifact that was uploaded by the `tests` job.
+2.  **Upload to Codacy:** It takes the `lcov.info` file from the artifact and uploads it to Codacy, our code quality analysis tool. This allows us to track code coverage over time.
