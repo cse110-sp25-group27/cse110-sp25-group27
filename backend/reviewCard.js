@@ -1,10 +1,8 @@
-// Color Palette (as used in the perforation version)
 const TICKET_BACKGROUND = '#2E2925'; 
 const TICKET_GOLD = '#B08D57';       
 const TICKET_TEXT_GOLD = '#B08D57';
 const TICKET_TEXT_CONTENT = '#D7D7D7'; 
 
-// frontTemplateHTML from the iteration with perforations and "ADMIT ONE"
 const frontTemplateHTML = `
   <style>
     .review-card-front-content { /* Renamed from .review-card-front for consistency */
@@ -67,7 +65,6 @@ const frontTemplateHTML = `
   </div>
 `;
 
-// backTemplateHTML from the iteration with perforations
 const backTemplateHTML = `
   <style>
     .review-card-back-content { /* Renamed from .review-card-back for consistency */
@@ -252,8 +249,6 @@ class ReviewCard extends HTMLElement {
 
   _render() {
     if (!this._data) return;
-
-    // Populate Front - Ensure class names match the template
     this.frontDiv.querySelector('.movie-title-front').textContent = this._data.title || 'N/A';
     const frontImg = this.frontDiv.querySelector('.movie-poster-front');
     if (this._data.imageData) {
@@ -264,10 +259,8 @@ class ReviewCard extends HTMLElement {
     }
     frontImg.alt = this._data.title ? `Poster for ${this._data.title}` : 'Movie Poster';
 
-    // Populate Back - Ensure class names match the template
     this.backDiv.querySelector('.movie-title-back').textContent = this._data.title || 'N/A';
 
-    // Code to handle manually parsing the date to ensure tht selection of date does not get influenced by timezone
     const releaseDateString = this._data.releaseDate;
     let [year, month, date] = releaseDateString.split('-').map(Number);
     let localRelease = new Date(year, month-1, date);
@@ -297,7 +290,7 @@ class ReviewCard extends HTMLElement {
     const deleteButton = this.backDiv.querySelector('.delete-button');
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation(); this._handleDelete();
-      event.stopPropagation(); // Prevent card flip
+      event.stopPropagation(); 
       this._handleDelete();
     });
     
@@ -305,15 +298,14 @@ class ReviewCard extends HTMLElement {
   }
 
   _flipCard(event) {
-    console.log('Review card clicked. ID:', this._data ? this._data.id : 'N/A', 'Target:', event.target); // DEBUG LINE
-    // Don't flip if the click was on a button inside the card
+    console.log('Review card clicked. ID:', this._data ? this._data.id : 'N/A', 'Target:', event.target);
     if (event.target.closest('button')) {
-      console.log('Flip prevented: click was on a button.'); // DEBUG LINE
+      console.log('Flip prevented: click was on a button.'); 
       return;
     }
     this._isFlipped = !this._isFlipped;
     this.classList.toggle('flipped', this._isFlipped);
-    console.log('Flipped state:', this._isFlipped); // DEBUG LINE
+    console.log('Flipped state:', this._isFlipped);
     this._updateView();
   }
 
@@ -330,10 +322,10 @@ class ReviewCard extends HTMLElement {
   _handleEdit() {
     this.dispatchEvent(new CustomEvent('edit-review', {
       detail: { reviewData: this._data },
-      bubbles: true, // Allows event to bubble up through the DOM
-      composed: true // Allows event to cross shadow DOM boundaries
+      bubbles: true, 
+      composed: true
     }));
-    console.log('Edit review:', this._data); // Placeholder
+    console.log('Edit review:', this._data); 
   }
 
   _handleDelete() {
@@ -342,8 +334,7 @@ class ReviewCard extends HTMLElement {
       bubbles: true,
       composed: true
     }));
-    console.log('Delete review ID:', this._data.id); // Placeholder
-    // The actual removal from DOM and localStorage will be handled by the listener of this event.
+    console.log('Delete review ID:', this._data.id); 
   }
 }
 
