@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- End of new review form loading logic ---
 
 // NEW HELPER FUNCTION (copied from localStorage.js or defined here)
-async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600, quality = 0.7) {
+async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 20000, quality = 0.7) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -226,6 +226,7 @@ async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600
                 const canvas = document.createElement('canvas');
                 let { width, height } = img;
 
+                /*
                 if (width > height) {
                     if (width > maxWidth) {
                         height = Math.round((height * maxWidth) / width);
@@ -237,6 +238,7 @@ async function processImageForStorage(imageFile, maxWidth = 600, maxHeight = 600
                         height = maxHeight;
                     }
                 }
+                    */
                 canvas.width = width;
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');

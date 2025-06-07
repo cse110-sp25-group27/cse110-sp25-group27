@@ -13,7 +13,7 @@ const frontTemplateHTML = `
       align-items: center;
       justify-content: flex-start; 
       height: 100%;
-      padding: 20px 25px; 
+      
       box-sizing: border-box;
       text-align: center;
       position: relative; 
@@ -35,18 +35,16 @@ const frontTemplateHTML = `
       height: 2px;
       border: none;
       border-top: 3px dashed ${TICKET_GOLD};
-      margin-bottom: 15px;
     }
     .movie-title-front { /* Ensure class name matches render method */
       font-size: 1.4em;
       font-weight: bold;
       color: ${TICKET_TEXT_CONTENT};
-      margin-bottom: 10px;
-      line-height: 1.2;
+      line-height: .1;
     }
     .movie-poster-front { /* Ensure class name matches render method */
-      max-width: 90%;
-      max-height: 180px; 
+      width: 90%;
+      max-height: 100%; 
       object-fit: contain;
       margin-bottom: 10px;
     }
