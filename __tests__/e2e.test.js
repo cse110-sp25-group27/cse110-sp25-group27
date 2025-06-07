@@ -83,10 +83,9 @@ describe('Basic user flow for landing', ()=>{
 
     await page.click('button[type="submit"]');
 
-    await page.waitForSelector('main .review-card');
-
-    const reviews = await page.evaluate(() => {
-      return JSON.parse(localStorage.getItem('reviews') || '[]');
+    await page.waitForFunction(() => {
+      return JSON.parse(localStorage.getItem('reviews') || '[]')
+        .some(r => r.title === 'Test Movie');
     });
     const found = reviews.some(r => r.title === 'Test Movie');
     expect(found).toBe(true);
