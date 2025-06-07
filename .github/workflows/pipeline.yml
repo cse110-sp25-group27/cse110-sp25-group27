@@ -32,6 +32,9 @@ jobs:
       - name: Run ESLint
         run: npx eslint . --max-warnings=0 --config eslint.config.js
 
+      - name: Run E2E tests
+        run: npm run test:e2e
+
       - name: Run unit tests with coverage
         run: npm run test -- --coverage
 

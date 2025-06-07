@@ -7,7 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "http-server -c-1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathIgnorePatterns=__tests__/e2e.test.js",
+    "test:e2e": "start-server-and-test start http-get://localhost:8080 'node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/e2e.test.js'",
     "generate-docs": "documentation build backend/*.js frontend/scripts/**.js -f md -o docs/documentation.md",
     "posttest": "cp docs/coverage_report/lcov-report/index.html docs/coverage_report/index.html"
   },

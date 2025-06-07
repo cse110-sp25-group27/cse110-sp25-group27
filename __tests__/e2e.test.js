@@ -1,10 +1,12 @@
+const localBaseUrl = 'http://localhost:8080/frontend/pages/';
+
 describe('Basic user flow for onboarding', () => {
   beforeAll(async () => {
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+    await page.goto(`${localBaseUrl}onboarding.html`);
   });
 
   it('block users from landing with zero reviews', async () => {
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+    await page.goto(`${localBaseUrl}onboarding.html`);
     const dialogPromise = new Promise(resolve =>{
         page.on('dialog', async dialog =>{
             expect(dialog.message()).toMatch("Please save details for at least one movie before continuing.");
@@ -24,7 +26,7 @@ describe('Basic user flow for onboarding', () => {
   });
 
   it('Onboarding page updates correctly after movies are selected', async () => {
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+    await page.goto(`${localBaseUrl}onboarding.html`);
     await page.evaluate(() => localStorage.clear());
 
     await page.waitForSelector('#watch-date-p4');
@@ -53,17 +55,17 @@ describe('Basic user flow for onboarding', () => {
 
 describe('Basic user flow for landing', ()=>{
   beforeAll(async () => {
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+    await page.goto(`${localBaseUrl}onboarding.html`);
 
     await page.evaluate(() => {
       localStorage.setItem('hasCompletedOnboarding', 'true');
     });
     
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
+    await page.goto(`${localBaseUrl}landing_page.html`);
   });
 
   it('adds new movie review and displays it on page', async ()=>{
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
+    await page.goto(`${localBaseUrl}landing_page.html`);
         
     await page.click('#add-ticket-button');
 
@@ -96,7 +98,7 @@ describe('Basic user flow for landing', ()=>{
   }, 20000);
 
   it('user inputs incorrect value', async ()=>{
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
+    await page.goto(`${localBaseUrl}landing_page.html`);
         
     await page.click('#add-ticket-button');
 
@@ -137,18 +139,18 @@ describe('Basic user flow for landing', ()=>{
 
 describe('Test redirect to landing page if there is at least 1 review', () => {
   beforeAll(async () => {
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+    await page.goto(`${localBaseUrl}onboarding.html`);
 
     await page.evaluate(() => {
       localStorage.setItem('hasCompletedOnboarding', 'true');
     });
       
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
+    await page.goto(`${localBaseUrl}landing_page.html`);
 
   });
 
   it('Test redirect', async () => {
-    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+    await page.goto(`${localBaseUrl}onboarding.html`);
 
     await page.waitForFunction(() => window.location.pathname.endsWith('landing_page.html'));
 
