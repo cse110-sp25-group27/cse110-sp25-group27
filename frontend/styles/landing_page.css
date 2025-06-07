@@ -1,9 +1,10 @@
 body {
-  background-image: url('../assets/city_top.png');
+  background-image: url('../assets/landing_imgs/city_top.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  height: 100%;
 }
 
 .banner-container {
@@ -12,38 +13,35 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
 }
 
 .banner {
   display: block;
   height: auto;
   width: 100%;
-}
-
-
-@media (width >= 800px) {
-  .banner {
-    width: 40vw;
-    max-width: 500px;
-  }
+  object-fit: cover;
+  max-width: 50%;
 }
 
 .scrolling-text {
   position: absolute;
-  bottom:6%;
   overflow: hidden;
   white-space: nowrap;
-  width: fit-content;
-  max-width:24%;
-  /*max-width: 420px;*/
-
+  font-size: 1.5vw;
+  bottom: 6%;
+  width: 100%;
+  max-width: 35%;
+  pointer-events: none;
 }
 
 .scrolling-text p {
-  animation: scroll 20s linear infinite;
+  animation: scroll 18s linear infinite;
   /*font-size: 1.5rem;*/
   color: #222;
-  font-size:1.5rem;
+  font-size:1.5em;
   font-family: Limelight;
   min-width: 100%;
 }
@@ -52,9 +50,8 @@ body {
   0% {
     transform: translateX(100%);
   }
-
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-180vw);
   }
 }
 
@@ -108,11 +105,20 @@ body {
 }
 
 #add-ticket-button{
-  background-image: url('/frontend/assets/filmstrip_btn.png');
+  background-image: url('../assets/landing_imgs/filmstrip_btn.png');
   background-color: transparent;
   border: transparent;
 }
 
+.submit-btn{
+  background-color: transparent;
+  border: transparent;
+}
+
+.save-changes-btn{
+  background-color: transparent;
+  border: transparent;
+}
 
 button:active {
   filter: drop-shadow(5px 5px 5px #222);
@@ -122,12 +128,12 @@ button:hover {
   cursor: pointer;
 }
 
-.powell-ticket-booth {
+.power-ticket-booth {
   display: flex;
   flex-direction: column;
   align-items: center;
   top: -20px;
-  transform: translateY(-50px) scale(0.8);
+  transform: translateY(-40px) scale(.9);
 }
 
 .text-bubble {
@@ -254,4 +260,8 @@ button:hover {
 
 .carousel-track > review-card:last-child {
   margin-right: 0;
+}
+
+.hidden {
+  display: none;
 }

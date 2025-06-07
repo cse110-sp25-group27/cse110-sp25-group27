@@ -3,7 +3,7 @@
         <label for="movie-title">Movie Title</label>
         <input type="text" id="movie-title" name="movie-title" required><br>
         <label for="movie-poster">Upload Movie Poster</label>
-        <input type="file" id="movie-poster" name="movie-poster" accept="image/*">
+        <input type="file" id="movie-poster" name="movie-poster" accept="image/*" required>
     </fieldset>
 
     <fieldset>
@@ -19,7 +19,7 @@
         <input type="number" id="watch-count" name="watch-count" min="1" value="1" required><br>
 
         <label for="review">Review:</label>
-        <textarea id="review" name="review" rows="4" cols="50">Review</textarea><br>
+        <textarea id="review" name="review" rows="4" cols="50" required></textarea><br>
     </fieldset>
 
     <!--Hover over the stars that you want to rate the movie, once you click it will update the rating-->
@@ -34,7 +34,9 @@
         <label for="rating-5">5<input type="radio" id="rating-5" value="5" name="rating" checked /> </label>
     </fieldset>
 
-    <button type="submit" form="new-review" value="Submit">Submit</button>
+    <button class = "submit-btn" type="submit" form="new-review" value="Submit">
+        <img src="../assets/landing_imgs/submit_review_btn.png" alt="img of filmstrip button for submit review" height="70px" width="90px">
+    </button>
 </form>
 <script type="module" src="../scripts/formTemplate.js"></script>
 

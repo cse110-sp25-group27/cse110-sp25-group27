@@ -15,11 +15,9 @@
 <body>
     <!-- Now showing -->
     <div class="banner-container">
-        <img src="../assets/boxoffice_banner.png" alt="BoxOffice Banner" class="banner">
+        <img src="../assets/landing_imgs/boxoffice_banner.png" alt="BoxOffice Banner" class="banner">
         <div class="scrolling-text">
-            <p> Please click on the card to edit or delete your review.
-                Use the buttons to look through all the cards. 
-                If you would like to add a card, click on the textbox.
+            <p> Please click on the card to edit or delete your review. Use the buttons to look through all the cards. If you would like to add a card, click on the textbox.
             </p>
         </div>
     </div>
@@ -28,7 +26,7 @@
     <section class="poster-carousel">
         <!-- PREVIOUS BUTTON - NOW A DIRECT CHILD -->
         <button class="nav-btn" id="carousel-prev-btn">
-            <img src="../assets/gold_left_arrow.png" alt="Previous poster button" height="50" width="70">
+            <img src="../assets/landing_imgs/gold_left_arrow.png" alt="Previous poster button" height="50" width="70">
         </button>
 
         <!-- MAIN VIEWPORT - DIRECT CHILD -->
@@ -38,23 +36,25 @@
 
         <!-- NEXT BUTTON - NOW A DIRECT CHILD -->
         <button class="nav-btn" id="carousel-next-btn">
-            <img src="../assets/gold_right_arrow.png" alt="Next poster button" height="50" width="70">
+            <img src="../assets/landing_imgs/gold_right_arrow.png" alt="Next poster button" height="50" width="70">
         </button>
     </section>
 
-    <!-- Ticket Booth with Powell and option to add ticket-->
-    <section class="powell-ticket-booth">
-        <img id="powell" src="../assets/ticket_booth.png" alt="Ticket booth" height="400" width=auto>
+    <!-- Ticket Booth with Power Ranger and option to add ticket-->
+    <section class="power-ticket-booth">
+        <img id="power-ranger" src="../assets/landing_imgs/ticket_booth.png" alt="Ticket booth" height="400" width=auto>
 
         <div class="text-bubble" id="text-bubble">
-            <p>
-                Welcome! <br><br>
-                Would you like to add a ticket stub?
-            </p>
-            <div class="add-button-container">
-                <button type="button" id="add-ticket-button">
-                    <img src="../assets/filmstrip_btn.png" alt="img of film" height="70px" width="90px">
-                </button>
+            <div class="prompt" id="prompt">
+                <p>
+                    Welcome! <br><br>
+                    Would you like to add a ticket stub?
+                </p>
+                <div class="add-button-container">
+                    <button type="button" id="add-ticket-button">
+                        <img id = "ticket-button-img" src="../assets/landing_imgs/add_review_btn.png" alt="img of filmstrip button for add review" height="70px" width="90px">
+                    </button>
+                </div>
             </div>
 
             <!-- Container for the dynamically loaded new review form -->
@@ -84,7 +84,7 @@
                     <input type="number" id="update-watch-count" name="update-watch-count" min="1" value="1" required><br>
 
                     <label for="update-review">Review:</label>
-                    <textarea id="update-review" name="update-review" rows="4" cols="50"></textarea><br>
+                    <textarea id="update-review" name="update-review" rows="4" cols="50" required></textarea><br>
                 </fieldset>
                 <fieldset>
                     <legend>Rating</legend>
@@ -95,8 +95,9 @@
                     <label><input type="radio" name="update-rating" value="4"> 4</label>
                     <label><input type="radio" name="update-rating" value="5"> 5</label>
                 </fieldset>
-                <button type="submit">Save Changes</button>
-                <button type="button" id="cancel-update">Cancel</button>
+                <button class = "save-changes-btn" type="submit">
+                    <img src="../assets/landing_imgs/save_changes_btn.png" alt="img of filmstrip button for save changes" height="70px" width="90px">
+                </button>
             </form>
         </div>
 

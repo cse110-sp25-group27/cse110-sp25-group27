@@ -1,125 +1,144 @@
 // Imports from localStorage.js (adjust path if necessary)
 import { getReviewsFromStorage, saveReviewsToStorage } from '../../backend/localStorage.js';
 
+/**
+ * Immediately redirects the user to `landing_page.html` if there is at least one review.
+ * The check is based on if there is at least 1 review using getReviewsFromStorage().
+ * 
+ * This logic should be placed at the top of your script to ensure it executes
+ * before any other UI logic, preventing unauthorized access to the onboarding page.
+ *
+ * @function
+ * @returns {void}
+ */
+(function() {
+    if (window.location.pathname.endsWith('onboarding.html')) {
+        const reviews = getReviewsFromStorage();
+        if (reviews.length >= 1) {
+            window.location.href = 'landing_page.html';
+        }
+    }
+})(); // Self-invoking function to run immediately
+
 const presetMovies = [
     {
       id_preset: 'p1',
       title: 'Inception',
-      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg',
+      posterUrl: '../assets/posters/inception.png',
       releaseDate: '2010-07-16'
     },
     {
       id_preset: 'p2',
       title: 'The Matrix',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
+      posterUrl: '../assets/posters/matrix.png',
       releaseDate: '1999-03-31'
     },
     {
       id_preset: 'p3',
       title: 'Interstellar',
-      posterUrl: 'https://m.media-amazon.com/images/I/514zBLkyJcL._AC_SY606_.jpg',
+      posterUrl: '../assets/posters/interstellar.png',
       releaseDate: '2014-11-07'
     },
     {
       id_preset: 'p4',
       title: 'Parasite',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
+      posterUrl: '../assets/posters/parasite.png',
       releaseDate: '2019-10-11'
     },
     {
       id_preset: 'p5',
       title: 'Barbie',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg',
+      posterUrl: '../assets/posters/barbie.png',
       releaseDate: '2023-07-21'
     },
     {
       id_preset: 'p6',
       title: 'Oppenheimer',
-      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg',
+      posterUrl: '../assets/posters/oppenheimer.png',
       releaseDate: '2023-07-21'
     },
     {
       id_preset: 'p7',
       title: 'Everything Everywhere All at Once',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg',
+      posterUrl: '../assets/posters/everything_everywhere.png',
       releaseDate: '2022-03-11'
     },
     {
       id_preset: 'p8',
       title: 'La La Land',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg',
+      posterUrl: '../assets/posters/la_la_land.png',
       releaseDate: '2016-12-09'
     },
     {
       id_preset: 'p9',
       title: 'The Dark Knight',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
+      posterUrl: '../assets/posters/dark_knight.png',
       releaseDate: '2008-07-18'
     },
     {
       id_preset: 'p10',
       title: 'The Social Network',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/n0ybibhJtQ5icDqTp8eRytcIHJx.jpg',
+      posterUrl: '../assets/posters/social_network.png',
       releaseDate: '2010-10-01'
     },
     {
       id_preset: 'p11',
       title: 'Get Out',
-      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a3/Get_Out_poster.png',
+      posterUrl: '../assets/posters/get_out.png',
       releaseDate: '2017-02-24'
     },
     {
       id_preset: 'p12',
       title: 'The Shawshank Redemption',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
+      posterUrl: '../assets/posters/shawshank.png',
       releaseDate: '1994-09-23'
     },
     {
       id_preset: 'p13',
       title: 'Spider-Man: Into the Spider-Verse',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg',
+      posterUrl: '../assets/posters/spiderman.png',
       releaseDate: '2018-12-14'
     },
     {
       id_preset: 'p14',
       title: 'The Hunger Games',
-      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/4/42/HungerGamesPoster.jpg',
+      posterUrl: '../assets/posters/hunger_games.png',
       releaseDate: '2012-03-23'
     },
     {
       id_preset: 'p15',
       title: 'The Avengers',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg',
+      posterUrl: '../assets/posters/avengers.png',
       releaseDate: '2012-05-04'
     },
     {
       id_preset: 'p16',
       title: 'Titanic',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg',
+      posterUrl: '../assets/posters/titanic.png',
       releaseDate: '1997-12-19'
     },
     {
       id_preset: 'p17',
       title: 'The Wolf of Wall Street',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/pWHf4khOloNVfCxscsXFj3jj6gP.jpg',
+      posterUrl: '../assets/posters/wolf_wallstreet.png',
       releaseDate: '2013-12-25'
     },
     {
       id_preset: 'p18',
       title: 'Avatar',
-      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg',
+      posterUrl: '../assets/posters/avatar.png',
       releaseDate: '2009-12-18'
     },
     {
       id_preset: 'p19',
       title: 'Mean Girls',
-      posterUrl: 'https://upload.wikimedia.org/wikipedia/en/a/ac/Mean_Girls_film_poster.png',
+      posterUrl: '../assets/posters/mean_girls.png',
       releaseDate: '2004-04-30'
     },
     {
       id_preset: 'p20',
       title: 'Black Panther',
-      posterUrl: 'https://www.themoviedb.org/t/p/original/uxzzxijgPIY7slzFvMotPv8wjKA.jpg',
+      posterUrl: '../assets/posters/black_panther.png',
       releaseDate: '2018-02-16'
     }
   ];
@@ -134,7 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Function to render movie cards
+    /**
+     * Renders the preset movie options as interactive flip cards in the DOM.
+     * Each card has a front with the movie poster and a button to add details,
+     * and a back with a form for the user to input their review. Event listeners
+     * are attached to handle flipping the card and tracking which cards have had
+     * details saved.
+     */
     function renderMovieOptionCards() {
         presetMovies.forEach(movie => {
             const card = document.createElement('div');
@@ -161,16 +186,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardBack = document.createElement('div');
             cardBack.classList.add('movie-card-back');
             cardBack.innerHTML = `
+                <form>
                 <h4>${movie.title} - Your Details</h4>
                 <div class="form-scroll-content">
                     <label for="watch-date-${movie.id_preset}">Your Watch Date:</label>
-                    <input type="date" id="watch-date-${movie.id_preset}" name="watch-date-${movie.id_preset}">
+                    <input type="date" id="watch-date-${movie.id_preset}" name="watch-date-${movie.id_preset}" required>
 
                     <label for="watch-count-${movie.id_preset}">Times Watched:</label>
-                    <input type="number" id="watch-count-${movie.id_preset}" name="watch-count-${movie.id_preset}" min="1" value="1">
+                    <input type="number" id="watch-count-${movie.id_preset}" name="watch-count-${movie.id_preset}" min="1" value="1" required>
                     
                     <label for="notes-${movie.id_preset}">Your Review/Notes:</label>
-                    <textarea id="notes-${movie.id_preset}" name="notes-${movie.id_preset}" rows="3"></textarea>
+                    <textarea id="notes-${movie.id_preset}" name="notes-${movie.id_preset}" rows="3" required></textarea>
 
                     <label>Your Rating:</label>
                     <div class="rating-group">
@@ -181,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <button class="save-card-details-button">Save Details for This Movie</button> 
+                </form>
             `;
             
             cardInner.appendChild(cardFront);
@@ -207,8 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Event listener for the "Save Details" button on the back to flip to front
             backSaveDetailsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
-                console.log(`Saving details for card presetId: ${card.dataset.presetId}. Setting detailsAdded to true.`); // DEBUG
+                const form = cardBack.querySelector('form');
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
                 card.dataset.detailsAdded = "true"; 
                 frontSelectBtn.textContent = 'Edit My Details ✓';
                 frontSelectBtn.classList.add('details-entered');
@@ -218,24 +251,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listener for the main save button
+
     saveButton.addEventListener('click', async () => {
-        console.log("Save Selections & Continue button clicked."); // DEBUG
         const reviewsToSave = [];
         const allCards = document.querySelectorAll('.movie-option-card');
         let lastUsedId = parseInt(localStorage.getItem('idCounter') || '0');
-        let cardsMarkedForSaving = 0; // DEBUG counter
 
-        console.log(`Found ${allCards.length} movie option cards.`); // DEBUG
 
         for (const card of allCards) {
-            console.log(`Checking card presetId: ${card.dataset.presetId}, detailsAdded: ${card.dataset.detailsAdded}, type: ${typeof card.dataset.detailsAdded}`); // DEBUG
             if (card.dataset.detailsAdded === "true") { // Ensure this is a string comparison
-                cardsMarkedForSaving++; // DEBUG
                 const presetId = card.dataset.presetId;
                 const moviePreset = presetMovies.find(m => m.id_preset === presetId);
                 if (!moviePreset) {
-                    console.warn(`Movie preset not found for ID: ${presetId}`); // DEBUG
                     continue;
                 }
 
@@ -256,8 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reviewsToSave.push(reviewObject);
             }
         }
-
-        console.log(`Number of reviews to save: ${reviewsToSave.length}. Cards marked for saving (debug count): ${cardsMarkedForSaving}`); // DEBUG
 
         if (reviewsToSave.length === 0) {
             alert("Please save details for at least one movie before continuing.");
