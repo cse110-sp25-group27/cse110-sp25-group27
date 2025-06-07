@@ -123,6 +123,30 @@ function addReviewCardToCarouselDOM(reviewObject, atIndex = -1) {
     return reviewCard;
 }
 
+/**
+ * Checks the visibility of the new review and update forms and sets the add/cancel
+ * button image accordingly. The button shows "cancel" if any form is visible.
+ */
+function updateAddButtonState() {
+    const buttonImg = document.getElementById('ticket-button-img');
+    const newReviewForm = document.getElementById('form-container');
+    const updateForm = document.getElementById('update-form');
+
+    // If any of the required elements aren't on the page yet, do nothing.
+    if (!buttonImg || !newReviewForm || !updateForm) {
+        return;
+    }
+
+    const isNewFormVisible = !newReviewForm.classList.contains('hidden');
+    const isUpdateFormVisible = updateForm.style.display !== 'none';
+
+    if (isNewFormVisible || isUpdateFormVisible) {
+        buttonImg.src = CANCEL_REVIEW_BTN_SRC;
+    } else {
+        buttonImg.src = ADD_REVIEW_BTN_SRC;
+    }
+}
+
 // --- Logic for loading the NEW review form (Mostly Unchanged) ---
 const addButton = document.getElementById('add-ticket-button');
 const textBubble = document.getElementById('text-bubble');
@@ -133,12 +157,14 @@ let newReviewFormLoaded = false;
 if (addButton && textBubble && newReviewFormContainer) {
     addButton.addEventListener('click', async () => {
         const updateForm = document.querySelector('#update-form');
-        const buttonImg = document.getElementById('ticket-button-img');
-
-        // If the update form is currently visible, hide it to prevent overlap.
+        
+        // If the update form is open, this button acts as its cancel button.
         if (updateForm && updateForm.style.display !== 'none') {
             updateForm.style.display = 'none';
             updateForm.reset();
+            textBubble.classList.remove('expanded');
+            updateAddButtonState();
+            return; // Stop further execution.
         }
 
         // Load the new review form content via fetch the first time it's needed.
@@ -158,8 +184,7 @@ if (addButton && textBubble && newReviewFormContainer) {
                         newReviewFormContainer.classList.add('hidden'); // Hide form on successful submit
                         if (textBubble) textBubble.classList.remove('expanded');
 
-                        // After submission, reset the button image to the "add" state.
-                        if (buttonImg) buttonImg.src = ADD_REVIEW_BTN_SRC;
+                        updateAddButtonState(); // Update button after submission
                     });
                 } else { console.error("Loaded template.html does not contain a form element."); }
             } catch (err) { console.error('Failed to load new review form:', err); }
@@ -169,14 +194,7 @@ if (addButton && textBubble && newReviewFormContainer) {
         textBubble.classList.toggle('expanded');
         newReviewFormContainer.classList.toggle('hidden');
 
-        // Check the new state of the form to set the correct button image.
-        if (newReviewFormContainer.classList.contains('hidden')) {
-            // If the form is now hidden (i.e., was just closed), show the "add review" button.
-            buttonImg.src = ADD_REVIEW_BTN_SRC;
-        } else {
-            // If the form is now visible (i.e., was just opened), show the "cancel review" button.
-            buttonImg.src = CANCEL_REVIEW_BTN_SRC;
-        }
+        updateAddButtonState(); // Update button state after toggling the form
     });
 } else {
     console.warn("Add ticket button, text bubble, or new review form container not found.");
@@ -270,21 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('Update review form (#update-form) not found. Editing may not work as expected if it relies on this script managing it.');
     } else {
         updateReviewForm.style.display = 'none'; // Ensure it's hidden initially
-        const cancelUpdateButton = updateReviewForm.querySelector('#cancel-update');
-        if (cancelUpdateButton) {
-            cancelUpdateButton.addEventListener('click', () => {
-                updateReviewForm.style.display = 'none';
-                updateReviewForm.reset();
-                const textBubble = document.getElementById('text-bubble');
-                if (textBubble) {
-                    textBubble.classList.remove('expanded'); // Restore original styling
-                }
-                
-                // When canceling an update, reset the button image
-                const buttonImg = document.getElementById('ticket-button-img');
-                if (buttonImg) buttonImg.src = ADD_REVIEW_BTN_SRC;
-            });
-        }
+    }
+
+    // This block handles the logic for toggling the prompt text, which is
+    // separate from the main form logic.
+    const addTicketButtonForPrompt = document.getElementById('add-ticket-button');
+    const promptElement = document.getElementById('prompt');
+    if (addTicketButtonForPrompt && promptElement) {
+        addTicketButtonForPrompt.addEventListener('click', () => {
+            promptElement.classList.toggle('hidden');
+        });
     }
 
     /** -------------------------------------------------------------------
@@ -474,6 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show the update form
         updateReviewForm.style.display = 'block';
         if (textBubble) textBubble.classList.add('expanded'); // Expand text bubble if update form is inside it
+        updateAddButtonState();
     });
 
     // Update form submission logic (ensure this is robust)
@@ -544,9 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     textBubble.classList.remove('expanded'); // Restore original styling
                 }
 
-                // After updating, reset the button image
-                const buttonImg = document.getElementById('ticket-button-img');
-                if (buttonImg) buttonImg.src = ADD_REVIEW_BTN_SRC;
+                updateAddButtonState();
 
                 alert('Review updated successfully!');
             } else {
@@ -556,18 +568,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // --- Initialize ---
     displayInitialReviews(); // Load and display existing reviews
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const addTicketButton = document.getElementById('add-ticket-button');
-    const promptElement = document.getElementById('prompt');
-
-    addTicketButton.addEventListener('click', () => {
-        // Toggle the visibility of the prompt element
-        if (promptElement.classList.contains('hidden')) {
-            promptElement.classList.remove('hidden');
-        } else {
-            promptElement.classList.add('hidden');
-        }
-    });
 });
