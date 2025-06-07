@@ -37,7 +37,7 @@ body {
 }
 
 .scrolling-text p {
-  animation: scroll 3s linear infinite;
+  animation: scroll 18s linear infinite;
   /*font-size: 1.5rem;*/
   color: #222;
   font-size:1.5em;
@@ -49,9 +49,8 @@ body {
   0% {
     transform: translateX(100%);
   }
-
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-180vw);
   }
 }
 
