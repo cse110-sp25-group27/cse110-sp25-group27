@@ -132,7 +132,7 @@ const backTemplateHTML = `
     <p class="movie-title-back">Movie Title</p>
     <hr class="dashed-line" style="border-top-color: ${TICKET_GOLD}; width: calc(100% - 10px); margin-bottom: 10px;">
     <p><span class="label">Released:</span> <span class="release-date"></span></p>
-    <p><span class="label">Watched:</span> <span class="watch-date"></span> at <span class="watch-time"></span></p>
+    <p><span class="label">Watched:</span> <span class="watch-date"></span></p>
     <p><span class="label">Count:</span> <span class="watch-count"></span></p>
     <div>
       <p class="label">Review:</p>
@@ -266,10 +266,23 @@ class ReviewCard extends HTMLElement {
 
     // Populate Back - Ensure class names match the template
     this.backDiv.querySelector('.movie-title-back').textContent = this._data.title || 'N/A';
-    this.backDiv.querySelector('.release-date').textContent = this._data.releaseDate ? new Date(this._data.releaseDate).toLocaleDateString() : 'N/A';
-    const watchedDate = this._data.watchedOn ? new Date(this._data.watchedOn) : null;
-    this.backDiv.querySelector('.watch-date').textContent = watchedDate ? watchedDate.toLocaleDateString() : 'N/A';
-    this.backDiv.querySelector('.watch-time').textContent = watchedDate ? watchedDate.toLocaleTimeString() : '';
+
+    // Code to handle manually parsing the date to ensure tht selection of date does not get influenced by timezone
+    const releaseDateString = this._data.releaseDate;
+    let [year, month, date] = releaseDateString.split('-').map(Number);
+    let localRelease = new Date(year, month-1, date);
+    const formattedRelease = localRelease.toLocaleDateString('en-US');
+
+    this.backDiv.querySelector('.release-date').textContent = this._data.releaseDate ? formattedRelease : 'N/A';
+
+    const watchDateString = this._data.watchedOn;
+    [year, month, date] = watchDateString.split('-').map(Number);
+    let localWatched = new Date(year, month-1, date);
+    const formattedWatched = localWatched.toLocaleDateString('en-US');
+    
+    const watchedDate = this._data.watchedOn ? formattedWatched : null;
+    this.backDiv.querySelector('.watch-date').textContent = watchedDate ? watchedDate : 'N/A';
+
     this.backDiv.querySelector('.watch-count').textContent = this._data.watchCount !== undefined ? this._data.watchCount : 'N/A';
     this.backDiv.querySelector('.user-review').textContent = this._data.notes || 'No review provided.';
     const rating = this._data.rating !== undefined ? parseInt(this._data.rating) : 0;
