@@ -19,6 +19,7 @@ describe('Basic user flow for onboarding', () => {
       return localStorage.getItem('hasCompletedOnboarding');
     });
 
+
     expect(onboarded).toBe(null);
   });
 
