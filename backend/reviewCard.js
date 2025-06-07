@@ -276,11 +276,12 @@ class ReviewCard extends HTMLElement {
     const formattedRelease = localRelease.toLocaleDateString('en-US');
 
     this.backDiv.querySelector('.release-date').textContent = this._data.releaseDate ? formattedRelease : 'N/A';
+
     const watchDateString = this._data.watchedOn;
     [year, month, date] = watchDateString.split('-').map(Number);
     let localWatched = new Date(year, month-1, date);
-
     const formattedWatched = localWatched.toLocaleDateString('en-US');
+    
     const watchedDate = this._data.watchedOn ? formattedWatched : null;
     this.backDiv.querySelector('.watch-date').textContent = watchedDate ? watchedDate : 'N/A';
 
