@@ -1,6 +1,25 @@
 // Imports from localStorage.js (adjust path if necessary)
 import { getReviewsFromStorage, saveReviewsToStorage } from '../../backend/localStorage.js';
 
+/**
+ * Immediately redirects the user to `landing_page.html` if there is at least one review.
+ * The check is based on if there is at least 1 review using getReviewsFromStorage().
+ * 
+ * This logic should be placed at the top of your script to ensure it executes
+ * before any other UI logic, preventing unauthorized access to the onboarding page.
+ *
+ * @function
+ * @returns {void}
+ */
+(function() {
+    if (window.location.pathname.endsWith('onboarding.html')) {
+        const reviews = getReviewsFromStorage();
+        if (reviews.length >= 1) {
+            window.location.href = 'landing_page.html';
+        }
+    }
+})(); // Self-invoking function to run immediately
+
 const presetMovies = [
     {
       id_preset: 'p1',
@@ -167,16 +186,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardBack = document.createElement('div');
             cardBack.classList.add('movie-card-back');
             cardBack.innerHTML = `
+                <form>
                 <h4>${movie.title} - Your Details</h4>
                 <div class="form-scroll-content">
                     <label for="watch-date-${movie.id_preset}">Your Watch Date:</label>
-                    <input type="date" id="watch-date-${movie.id_preset}" name="watch-date-${movie.id_preset}">
+                    <input type="date" id="watch-date-${movie.id_preset}" name="watch-date-${movie.id_preset}" required>
 
                     <label for="watch-count-${movie.id_preset}">Times Watched:</label>
-                    <input type="number" id="watch-count-${movie.id_preset}" name="watch-count-${movie.id_preset}" min="1" value="1">
+                    <input type="number" id="watch-count-${movie.id_preset}" name="watch-count-${movie.id_preset}" min="1" value="1" required>
                     
                     <label for="notes-${movie.id_preset}">Your Review/Notes:</label>
-                    <textarea id="notes-${movie.id_preset}" name="notes-${movie.id_preset}" rows="3"></textarea>
+                    <textarea id="notes-${movie.id_preset}" name="notes-${movie.id_preset}" rows="3" required></textarea>
 
                     <label>Your Rating:</label>
                     <div class="rating-group">
@@ -187,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <button class="save-card-details-button">Save Details for This Movie</button> 
+                </form>
             `;
             
             cardInner.appendChild(cardFront);
@@ -213,7 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Event listener for the "Save Details" button on the back to flip to front
             backSaveDetailsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
+                const form = cardBack.querySelector('form');
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
                 card.dataset.detailsAdded = "true"; 
                 frontSelectBtn.textContent = 'Edit My Details ✓';
                 frontSelectBtn.classList.add('details-entered');
