@@ -11,15 +11,15 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 
 ## About Box Office Project:
 - Box Office is an interactive and visually engaging movie review platform designed for everyday movie lovers — not just critics or industry insiders. Inspired by the charm of classic theaters, ticket booths, and cinema nostalgia, it lets users create personalized, ticket-stub-style movie reviews, track the exact day they watched films, and explore posters and ratings through intuitive, playful interactions. Unlike traditional text-heavy review sites, Box Office focuses on delivering a beautiful, user-friendly experience where people can privately journal, customize, and celebrate their movie-watching journeys.
-- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html)
+- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html)
 
 **Project Flow:**
 1. [Flow v1](specs/brainstorm/Box%20Office%20Flow_v1.png)
 2. [Flow v2](specs/brainstorm/Box%20Office%20Flow_v2.png)
 
 **BoxOffice Pitch Documents:**
-- [Original](specs\mvp\BoxOfficePitchScript-Draft1.pdf)
-- [Reevaluated/Updated](specs\mvp\BoxOfficePitchScript-Draft2.pdf)
+- [Original](specs/mvp/BoxOfficePitchScript-Draft1.pdf)
+- [Reevaluated/Updated](specs/mvp/BoxOfficePitchScript-Draft2.pdf)
 
 **Installation/Local Deployment:**
 1. Clone the repo
