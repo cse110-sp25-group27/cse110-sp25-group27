@@ -88,5 +88,26 @@ describe('Basic user flow for landing', ()=>{
     const reviewCards = await page.$$('main review-card');
     expect(reviewCards.length).toBeGreaterThan(0);*/
   }, 20000);
+
+  describe('Test redirect to landing page if there is at least 1 review', () => {
+  beforeAll(async () => {
+    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+
+    await page.evaluate(() => {
+      localStorage.setItem('hasCompletedOnboarding', 'true');
+    });
+    
+    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
+
+  });
+
+  it('Test redirect', async () => {
+    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
+
+    await page.waitForFunction(() => window.location.pathname.endsWith('landing_page.html'));
+
+    expect(page.url()).toContain('landing_page.html');
+  }, 20000);
+},)
   
 })
