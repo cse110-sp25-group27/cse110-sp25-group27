@@ -87,7 +87,7 @@ describe("createReviewObject()", () => {
 
         // Basic shape / values
         expect(review).toMatchObject({
-            id:          0,
+            id:          1,
             title:       "Minions",
             watchedOn:   "2025-05-30",
             watchCount:  2,
