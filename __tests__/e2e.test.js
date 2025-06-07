@@ -203,7 +203,13 @@ describe('Basic user flow for landing', ()=>{
   }, 30000);
 
   //test for delete
+  it('Delete existing review on landing page', async () => {
+    let reviews = await page.evaluate(() => {
+      return document.querySelectorAll('review-card');
+    });
 
+    const originalReviewsLen = Object.keys(reviews).length;
+  });
 
 });
 
