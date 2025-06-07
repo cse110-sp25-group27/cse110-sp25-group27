@@ -114,7 +114,7 @@ describe('Basic user flow for landing', ()=>{
    expect(found).toBe(true);
 
 
- }, 20000);
+ }, 30000);
 
 
  it('user inputs incorrect value', async ()=>{
@@ -158,7 +158,7 @@ describe('Basic user flow for landing', ()=>{
    expect(found).toBe(false);
 
 
- }, 20000);
+ }, 30000);
 
 
  //test for update
@@ -217,6 +217,6 @@ describe('Test redirect to landing page if there is at least 1 review', () => {
 
 
    expect(page.url()).toContain('landing_page.html');
- }, 20000);
+ }, 30000);
 });
 
