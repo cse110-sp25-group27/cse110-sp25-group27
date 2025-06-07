@@ -1,24 +1,22 @@
-// Imports from localStorage.js (adjust path if necessary)
 import { getReviewsFromStorage, saveReviewsToStorage } from '../../backend/localStorage.js';
 
 /**
- * Immediately redirects the user to `landing_page.html` if there is at least one review.
- * The check is based on if there is at least 1 review using getReviewsFromStorage().
- * 
- * This logic should be placed at the top of your script to ensure it executes
- * before any other UI logic, preventing unauthorized access to the onboarding page.
+ * This self-invoking function checks for a `hasCompletedOnboarding` flag
+ * in `localStorage`. If the flag is 'true', it redirects the user to
+ * `landing_page.html`, preventing them from re-visiting the onboarding page.
  *
  * @function
  * @returns {void}
  */
 (function() {
-    if (window.location.pathname.endsWith('onboarding.html')) {
-        const reviews = getReviewsFromStorage();
-        if (reviews.length >= 1) {
+
+    if (localStorage.getItem('hasCompletedOnboarding') === 'true') {
+
+        if (!window.location.pathname.endsWith('landing_page.html')) {
             window.location.href = 'landing_page.html';
         }
     }
-})(); // Self-invoking function to run immediately
+})();
 
 const presetMovies = [
     {
@@ -165,9 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.classList.add('movie-option-card');
             card.dataset.presetId = movie.id_preset;
-            card.dataset.detailsAdded = "false"; // Initialize: no details added yet
+            card.dataset.detailsAdded = "false"; 
 
-            // Card Inner structure for flip
             const cardInner = document.createElement('div');
             cardInner.classList.add('movie-card-inner');
 
@@ -222,13 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
             frontSelectBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 card.classList.add('is-flipped');
-                // Update button text based on current status when flipping TO back
                 if (card.dataset.detailsAdded === "true") {
                     frontSelectBtn.textContent = 'Edit My Details ✓';
-                    // frontSelectBtn.classList.add('details-entered'); // Style might already be there
                 } else {
                     frontSelectBtn.textContent = 'Add My Details';
-                    // frontSelectBtn.classList.remove('details-entered');
                 }
             });
 
@@ -259,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         for (const card of allCards) {
-            if (card.dataset.detailsAdded === "true") { // Ensure this is a string comparison
+            if (card.dataset.detailsAdded === "true") { 
                 const presetId = card.dataset.presetId;
                 const moviePreset = presetMovies.find(m => m.id_preset === presetId);
                 if (!moviePreset) {
@@ -298,6 +292,5 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'landing_page.html';
     });
 
-    // Initial render
     renderMovieOptionCards();
 });
