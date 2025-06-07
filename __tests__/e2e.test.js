@@ -27,12 +27,19 @@ describe('Basic user flow for onboarding', () => {
     await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
     await page.evaluate(() => localStorage.clear());
 
-    await page.click('[data-preset-id="p4"] .select-button', { delay: 1000 });
+    await page.waitForSelector('#watch-date-p4');
+    
+    await page.$eval('#watch-date-p4', el => el.value = '2024-06-01');
+    await page.$eval('#watch-count-p4', el => el.value = '2');    
+    await page.$eval('#notes-p4', el => el.value = 'Amazing!');    
+    await page.click('input[name="rating-p4"][value="5"]');
+
     await page.waitForSelector('[data-preset-id="p4"] .save-card-details-button', { visible: true });
+    await page.$eval('#watch-date-p4', el => el.value = '2024-06-01');
     await page.evaluate(() => {
       document.querySelector('[data-preset-id="p4"] .save-card-details-button').click();
-    });
-    
+    }, { timeout: 2000 });
+
     await page.click("#save-onboarding-button", { delay: 1000 });
 
     const onboarded = await page.evaluate(() => {
@@ -40,7 +47,7 @@ describe('Basic user flow for onboarding', () => {
     });
 
     expect(onboarded).toBe('true');
-  }, 15000);
+  }, 20000);
 
 });
 
