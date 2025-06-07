@@ -4,6 +4,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  height: 100%;
 }
 
 .banner-container {
@@ -132,7 +133,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   top: -20px;
-  transform: translateY(-50px) scale(0.8);
+  transform: translateY(-40px) scale(.9);
 }
 
 .text-bubble {
