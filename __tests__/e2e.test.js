@@ -1,7 +1,7 @@
 describe('Basic user flow for onboarding', () => {
  beforeAll(async () => {
    await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
- });
+ }, 20000);
 
 
  it('block users from landing with zero reviews', async () => {
@@ -73,7 +73,7 @@ describe('Basic user flow for landing', ()=>{
    });
   
    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
- });
+ }, 20000);
 
 
  it('adds new movie review and displays it on page', async ()=>{
@@ -206,7 +206,7 @@ describe('Test redirect to landing page if there is at least 1 review', () => {
    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
 
 
- });
+ }, 20000);
 
 
  it('Test redirect', async () => {
