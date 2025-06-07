@@ -225,16 +225,17 @@ body {
 }
 
 .movie-card-back .rating-group {
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+    margin-top: 10px;
 }
 .movie-card-back .rating-group label {
     display: inline-block;
-    margin-right: 8px;
+    margin-right: 1px;
     font-size: 0.85em;
     color: #bbb;
 }
 .movie-card-back .rating-group input[type="radio"] {
-    margin-right: 3px;
+    margin-right: 1px;
     accent-color: #B08D57;
 }
 
