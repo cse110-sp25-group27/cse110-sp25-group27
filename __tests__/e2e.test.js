@@ -60,7 +60,6 @@ describe('Basic user flow for landing', ()=>{
     });
     
     await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
-
   });
 
   it('adds new movie review and displays it on page', async ()=>{
@@ -84,25 +83,66 @@ describe('Basic user flow for landing', ()=>{
     await page.click('button[type="submit"]');
 
     await page.waitForFunction(() => {
-      return JSON.parse(localStorage.getItem('reviews') || '[]')
-        .some(r => r.title === 'Test Movie');
+    return JSON.parse(localStorage.getItem('reviews') || '[]')
+      .some(r => r.title === 'Test Movie');
+    });
+
+    const reviews = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('reviews') || '[]');
     });
     const found = reviews.some(r => r.title === 'Test Movie');
     expect(found).toBe(true);
-    
-    /*await page.waitForSelector('main review-card');
-    const reviewCards = await page.$$('main review-card');
-    expect(reviewCards.length).toBeGreaterThan(0);*/
+
   }, 20000);
 
-  describe('Test redirect to landing page if there is at least 1 review', () => {
+  it('user inputs incorrect value', async ()=>{
+    await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
+        
+    await page.click('#add-ticket-button');
+
+    await page.waitForSelector('#movie-title');
+    await page.type('#movie-title', 'Invalid Movie');
+    
+    await page.$eval('#release-date', el => el.value = '2024-06-01');
+    await page.$eval('#date-input', el => el.value = '2024-06-01');
+
+    await page.$eval('#watch-count', el => el.value = 'a');    
+    await page.$eval('#review', el => el.value = 'Amazing!');    
+    await page.click('input[name="rating"][value="5"]');
+
+    const fileInput = await page.waitForSelector('input[type="file"]');
+    await fileInput.uploadFile('frontend/assets/ticket.png');
+
+    await page.click('button[type="submit"]');
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+
+    await page.waitForFunction(() => {
+    return JSON.parse(localStorage.getItem('reviews') || '[]')
+      .some(r => r.title === 'Test Movie');
+    });
+
+    const reviews = await page.evaluate(() => {
+      return JSON.parse(localStorage.getItem('reviews') || '[]');
+    });
+    const found = reviews.some(r => r.title === 'Invalid Movie');
+    expect(found).toBe(false);
+
+  }, 20000);
+
+  //test for update
+
+  //test for delete
+});
+
+describe('Test redirect to landing page if there is at least 1 review', () => {
   beforeAll(async () => {
     await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html");
 
     await page.evaluate(() => {
       localStorage.setItem('hasCompletedOnboarding', 'true');
     });
-    
+      
     await page.goto("https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html");
 
   });
@@ -114,6 +154,4 @@ describe('Basic user flow for landing', ()=>{
 
     expect(page.url()).toContain('landing_page.html');
   }, 20000);
-},)
-  
-})
+});
