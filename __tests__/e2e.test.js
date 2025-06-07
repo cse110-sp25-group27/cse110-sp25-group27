@@ -15,6 +15,7 @@ describe('Basic user flow for onboarding', () => {
     await page.click("#save-onboarding-button");
     await dialogPromise;
 
+
     const onboarded = await page.evaluate(() => {
       return localStorage.getItem('hasCompletedOnboarding');
     });
@@ -22,6 +23,8 @@ describe('Basic user flow for onboarding', () => {
 
     expect(onboarded).toBe(null);
   });
+
+
 
   it('Onboarding page updates correctly after movies are selected', async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
@@ -49,6 +52,7 @@ describe('Basic user flow for onboarding', () => {
   }, 20000);
 
 });
+
 
 describe('Basic user flow for landing', ()=>{
   beforeAll(async () => {
@@ -166,16 +170,13 @@ describe('Basic user flow for landing', ()=>{
     await page.click('button[type="submit"]');
     await dialogPromise;
 
-
     const updated = await page.evaluate(() => {
       const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
       return reviews.some(r => r.notes === 'I hated it!' && r.rating === 0);
     });
 
-
     expect(updated).toBe(true);
   }, 30000);
-
 
   //test for delete
 
