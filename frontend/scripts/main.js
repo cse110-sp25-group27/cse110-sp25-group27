@@ -22,6 +22,9 @@
 import { getReviewsFromStorage, saveReviewsToStorage, createReviewObject, addReviewsToDocument as originalAddReviewsToDocument, updateReview, deleteReviewById, initFormHandler } from '../../backend/localStorage.js';
 import '../../backend/reviewCard.js'; // This ensures ReviewCard custom element is defined
 
+const ADD_REVIEW_BTN_SRC = '../assets/landing_imgs/add_review_btn.png';
+const CANCEL_REVIEW_BTN_SRC = '../assets/landing_imgs/cancel_review_btn.png';
+
 // --- Carousel Variables & Functions ---
 let carouselTrack = null;
 let reviewCardsInCarousel = []; // Holds the DOM elements of review-card
@@ -120,6 +123,30 @@ function addReviewCardToCarouselDOM(reviewObject, atIndex = -1) {
     return reviewCard;
 }
 
+/**
+ * Checks the visibility of the new review and update forms and sets the add/cancel
+ * button image accordingly. The button shows "cancel" if any form is visible.
+ */
+function updateAddButtonState() {
+    const buttonImg = document.getElementById('ticket-button-img');
+    const newReviewForm = document.getElementById('form-container');
+    const updateForm = document.getElementById('update-form');
+
+    // If any of the required elements aren't on the page yet, do nothing.
+    if (!buttonImg || !newReviewForm || !updateForm) {
+        return;
+    }
+
+    const isNewFormVisible = !newReviewForm.classList.contains('hidden');
+    const isUpdateFormVisible = updateForm.style.display !== 'none';
+
+    if (isNewFormVisible || isUpdateFormVisible) {
+        buttonImg.src = CANCEL_REVIEW_BTN_SRC;
+    } else {
+        buttonImg.src = ADD_REVIEW_BTN_SRC;
+    }
+}
+
 // --- Logic for loading the NEW review form (Mostly Unchanged) ---
 const addButton = document.getElementById('add-ticket-button');
 const textBubble = document.getElementById('text-bubble');
@@ -130,20 +157,17 @@ let newReviewFormLoaded = false;
 if (addButton && textBubble && newReviewFormContainer) {
     addButton.addEventListener('click', async () => {
         const updateForm = document.querySelector('#update-form');
-        if (updateForm && updateForm.style.display !== 'none') {
-            updateForm.style.display = 'none'; // Hide update form if open
-        }
-        // Hide the update form if it's open
+        
+        // If the update form is open, this button acts as its cancel button.
         if (updateForm && updateForm.style.display !== 'none') {
             updateForm.style.display = 'none';
-            updateForm.reset(); // Optionally reset the form fields
+            updateForm.reset();
+            textBubble.classList.remove('expanded');
+            updateAddButtonState();
+            return; // Stop further execution.
         }
 
-        // Hide the new review form if it's open
-        if (newReviewFormContainer && !newReviewFormContainer.classList.contains('hidden')) {
-            newReviewFormContainer.classList.add('hidden');
-        }
-
+        // Load the new review form content via fetch the first time it's needed.
         if (!newReviewFormLoaded) {
             try {
                 const response = await fetch('../components/template.html');
@@ -152,23 +176,25 @@ if (addButton && textBubble && newReviewFormContainer) {
                 newReviewFormLoaded = true;
                 newReviewForm = newReviewFormContainer.querySelector('form');
                 if (newReviewForm) {
-                    if (!newReviewForm.id) newReviewForm.id = 'new-review'; // Ensure ID for localStorage handler
-                    // The initFormHandler in localStorage.js should call a function to add the review
-                    // to the carousel after it's created and saved.
+                    if (!newReviewForm.id) newReviewForm.id = 'new-review';
                     initFormHandler((createdReviewObject) => {
-                        addReviewCardToCarouselDOM(createdReviewObject); // Add to end
-                        // If we want to show the new card immediately:
+                        addReviewCardToCarouselDOM(createdReviewObject);
                         currentCarouselIndex = reviewCardsInCarousel.length - 1;
-                        updateCarouselPosition(true); // Animate to the new card
-                        newReviewFormContainer.classList.add('hidden'); // Hide the form
+                        updateCarouselPosition(true);
+                        newReviewFormContainer.classList.add('hidden'); // Hide form on successful submit
                         if (textBubble) textBubble.classList.remove('expanded');
+
+                        updateAddButtonState(); // Update button after submission
                     });
                 } else { console.error("Loaded template.html does not contain a form element."); }
             } catch (err) { console.error('Failed to load new review form:', err); }
         }
-        // Toggle visibility of the form container and text bubble state
+        
+        // Toggle the visibility of the new review form and expand/collapse the text bubble.
         textBubble.classList.toggle('expanded');
         newReviewFormContainer.classList.toggle('hidden');
+
+        updateAddButtonState(); // Update button state after toggling the form
     });
 } else {
     console.warn("Add ticket button, text bubble, or new review form container not found.");
@@ -262,20 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('Update review form (#update-form) not found. Editing may not work as expected if it relies on this script managing it.');
     } else {
         updateReviewForm.style.display = 'none'; // Ensure it's hidden initially
-        const cancelUpdateButton = updateReviewForm.querySelector('#cancel-update');
-        if (cancelUpdateButton) {
-            cancelUpdateButton.addEventListener('click', () => {
-                updateReviewForm.style.display = 'none';
-                updateReviewForm.reset();
-                // Restore text bubble/new form visibility if needed
-                // if (textBubble) textBubble.classList.add('expanded'); 
-                const textBubble = document.getElementById('text-bubble');
-                if (textBubble) {
-                    textBubble.classList.remove('expanded'); // Restore original styling
-                }
-                // if (newReviewFormContainer && newReviewFormLoaded) newReviewFormContainer.classList.add('hidden');
-            });
-        }
+    }
+
+    // This block handles the logic for toggling the prompt text, which is
+    // separate from the main form logic.
+    const addTicketButtonForPrompt = document.getElementById('add-ticket-button');
+    const promptElement = document.getElementById('prompt');
+    if (addTicketButtonForPrompt && promptElement) {
+        addTicketButtonForPrompt.addEventListener('click', () => {
+            promptElement.classList.toggle('hidden');
+        });
     }
 
     /** -------------------------------------------------------------------
@@ -465,6 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show the update form
         updateReviewForm.style.display = 'block';
         if (textBubble) textBubble.classList.add('expanded'); // Expand text bubble if update form is inside it
+        updateAddButtonState();
     });
 
     // Update form submission logic (ensure this is robust)
@@ -535,6 +558,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     textBubble.classList.remove('expanded'); // Restore original styling
                 }
 
+                updateAddButtonState();
+
                 alert('Review updated successfully!');
             } else {
                 alert('Failed to update review in storage.');
@@ -543,18 +568,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // --- Initialize ---
     displayInitialReviews(); // Load and display existing reviews
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const addTicketButton = document.getElementById('add-ticket-button');
-    const promptElement = document.getElementById('prompt');
-
-    addTicketButton.addEventListener('click', () => {
-        // Toggle the visibility of the prompt element
-        if (promptElement.classList.contains('hidden')) {
-            promptElement.classList.remove('hidden');
-        } else {
-            promptElement.classList.add('hidden');
-        }
-    });
 });

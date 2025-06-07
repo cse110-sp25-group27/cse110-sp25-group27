@@ -110,6 +110,15 @@ body {
   border: transparent;
 }
 
+.submit-btn{
+  background-color: transparent;
+  border: transparent;
+}
+
+.save-changes-btn{
+  background-color: transparent;
+  border: transparent;
+}
 
 button:active {
   filter: drop-shadow(5px 5px 5px #222);
