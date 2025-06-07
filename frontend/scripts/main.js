@@ -22,6 +22,9 @@
 import { getReviewsFromStorage, saveReviewsToStorage, createReviewObject, addReviewsToDocument as originalAddReviewsToDocument, updateReview, deleteReviewById, initFormHandler } from '../../backend/localStorage.js';
 import '../../backend/reviewCard.js'; // This ensures ReviewCard custom element is defined
 
+const ADD_REVIEW_BTN_SRC = '../assets/landing_imgs/add_review_btn.png';
+const CANCEL_REVIEW_BTN_SRC = '../assets/landing_imgs/cancel_review_btn.png';
+
 // --- Carousel Variables & Functions ---
 let carouselTrack = null;
 let reviewCardsInCarousel = []; // Holds the DOM elements of review-card
@@ -130,20 +133,15 @@ let newReviewFormLoaded = false;
 if (addButton && textBubble && newReviewFormContainer) {
     addButton.addEventListener('click', async () => {
         const updateForm = document.querySelector('#update-form');
-        if (updateForm && updateForm.style.display !== 'none') {
-            updateForm.style.display = 'none'; // Hide update form if open
-        }
-        // Hide the update form if it's open
+        const buttonImg = document.getElementById('ticket-button-img');
+
+        // If the update form is currently visible, hide it to prevent overlap.
         if (updateForm && updateForm.style.display !== 'none') {
             updateForm.style.display = 'none';
-            updateForm.reset(); // Optionally reset the form fields
+            updateForm.reset();
         }
 
-        // Hide the new review form if it's open
-        if (newReviewFormContainer && !newReviewFormContainer.classList.contains('hidden')) {
-            newReviewFormContainer.classList.add('hidden');
-        }
-
+        // Load the new review form content via fetch the first time it's needed.
         if (!newReviewFormLoaded) {
             try {
                 const response = await fetch('../components/template.html');
@@ -152,23 +150,33 @@ if (addButton && textBubble && newReviewFormContainer) {
                 newReviewFormLoaded = true;
                 newReviewForm = newReviewFormContainer.querySelector('form');
                 if (newReviewForm) {
-                    if (!newReviewForm.id) newReviewForm.id = 'new-review'; // Ensure ID for localStorage handler
-                    // The initFormHandler in localStorage.js should call a function to add the review
-                    // to the carousel after it's created and saved.
+                    if (!newReviewForm.id) newReviewForm.id = 'new-review';
                     initFormHandler((createdReviewObject) => {
-                        addReviewCardToCarouselDOM(createdReviewObject); // Add to end
-                        // If we want to show the new card immediately:
+                        addReviewCardToCarouselDOM(createdReviewObject);
                         currentCarouselIndex = reviewCardsInCarousel.length - 1;
-                        updateCarouselPosition(true); // Animate to the new card
-                        newReviewFormContainer.classList.add('hidden'); // Hide the form
+                        updateCarouselPosition(true);
+                        newReviewFormContainer.classList.add('hidden'); // Hide form on successful submit
                         if (textBubble) textBubble.classList.remove('expanded');
+
+                        // After submission, reset the button image to the "add" state.
+                        if (buttonImg) buttonImg.src = ADD_REVIEW_BTN_SRC;
                     });
                 } else { console.error("Loaded template.html does not contain a form element."); }
             } catch (err) { console.error('Failed to load new review form:', err); }
         }
-        // Toggle visibility of the form container and text bubble state
+        
+        // Toggle the visibility of the new review form and expand/collapse the text bubble.
         textBubble.classList.toggle('expanded');
         newReviewFormContainer.classList.toggle('hidden');
+
+        // Check the new state of the form to set the correct button image.
+        if (newReviewFormContainer.classList.contains('hidden')) {
+            // If the form is now hidden (i.e., was just closed), show the "add review" button.
+            buttonImg.src = ADD_REVIEW_BTN_SRC;
+        } else {
+            // If the form is now visible (i.e., was just opened), show the "cancel review" button.
+            buttonImg.src = CANCEL_REVIEW_BTN_SRC;
+        }
     });
 } else {
     console.warn("Add ticket button, text bubble, or new review form container not found.");
@@ -267,13 +275,14 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelUpdateButton.addEventListener('click', () => {
                 updateReviewForm.style.display = 'none';
                 updateReviewForm.reset();
-                // Restore text bubble/new form visibility if needed
-                // if (textBubble) textBubble.classList.add('expanded'); 
                 const textBubble = document.getElementById('text-bubble');
                 if (textBubble) {
                     textBubble.classList.remove('expanded'); // Restore original styling
                 }
-                // if (newReviewFormContainer && newReviewFormLoaded) newReviewFormContainer.classList.add('hidden');
+                
+                // When canceling an update, reset the button image
+                const buttonImg = document.getElementById('ticket-button-img');
+                if (buttonImg) buttonImg.src = ADD_REVIEW_BTN_SRC;
             });
         }
     }
@@ -534,6 +543,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (textBubble) {
                     textBubble.classList.remove('expanded'); // Restore original styling
                 }
+
+                // After updating, reset the button image
+                const buttonImg = document.getElementById('ticket-button-img');
+                if (buttonImg) buttonImg.src = ADD_REVIEW_BTN_SRC;
 
                 alert('Review updated successfully!');
             } else {
