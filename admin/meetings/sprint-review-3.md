@@ -1,5 +1,5 @@
 # Sprint Review 3
-### May 30th, 2025
+## May 30th, 2025
 
 ## Attendance
 - Prachi Heda

@@ -1,5 +1,5 @@
 # Retrospective 3  
-**Date:** May 30th, 2025  
+## May 27th, 2025  
 
 ## Attendance  
 - Prachi Heda  
