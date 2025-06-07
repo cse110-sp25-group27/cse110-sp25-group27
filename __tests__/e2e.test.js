@@ -15,7 +15,6 @@ describe('Basic user flow for onboarding', () => {
     await page.click("#save-onboarding-button");
     await dialogPromise;
 
-
     const onboarded = await page.evaluate(() => {
       return localStorage.getItem('hasCompletedOnboarding');
     });
@@ -24,15 +23,9 @@ describe('Basic user flow for onboarding', () => {
     expect(onboarded).toBe(null);
   });
 
-
-
-
   it('Onboarding page updates correctly after movies are selected', async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
     await page.evaluate(() => localStorage.clear());
-
-
-
 
     await page.waitForSelector('#watch-date-p4');
     
@@ -56,9 +49,6 @@ describe('Basic user flow for onboarding', () => {
   }, 20000);
 
 });
-
-
-
 
 describe('Basic user flow for landing', ()=>{
   beforeAll(async () => {
