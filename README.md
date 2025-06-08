@@ -108,33 +108,35 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 .
 ├── __tests__
 ├── admin
-│   ├── adr
-│   ├── branding
-│   ├── cipipeline
-│   ├── meetings
-│   │   └── assets
-│   ├── misc
-│   └── videos
+│   ├── adr
+│   ├── branding
+│   ├── cipipeline
+│   ├── meetings
+│   │   └── assets
+│   ├── misc
+│   └── videos
 ├── backend
-├── code-to-unit-test
 ├── docs
-│   └── coverage_report
-│       ├── backend
-│       ├── code-to-unit-test
-│       └── lcov-report
-│           ├── backend
-│           └── code-to-unit-test
+│   ├── coverage_report
+│   │   ├── backend
+│   │   ├── code-to-unit-test
+│   │   └── lcov-report
+│   │       ├── backend
+│   │       └── code-to-unit-test
+│   └── e2e-report
+│       └── jest-html-reporters-attach
+│           └── e2e-report
 ├── frontend
-│   ├── assets
-│   │   └── meeting_refs
-│   ├── components
-│   ├── pages
-│   ├── scripts
-│   └── styles
-├── source
-├── specs
-│   ├── adrs
-│   ├── brainstorm
-│   └── script
-└── unit-testing
+│   ├── assets
+│   │   ├── landing_imgs
+│   │   ├── meeting_refs
+│   │   └── posters
+│   ├── components
+│   ├── pages
+│   ├── scripts
+│   └── styles
+└── specs
+    ├── adrs
+    ├── brainstorm
+    └── mvp
 ```
