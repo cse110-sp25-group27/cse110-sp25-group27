@@ -71,11 +71,13 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [April 16](admin/meetings/april_16.md)
 - [April 16 TA](admin/meetings/april_16_TA.md)
 - [April 18](admin/meetings/april_18.md)
+- [April 23 TA](admin/meetings/april_23_TA.md)
 - [April 25, Brainstorming](admin/meetings/042525-brainstorm.md)
 - [May 21 TA](admin/meetings/may_21_TA.md)
-- [May 23 TA](admin/meetings/april_23_TA.md)
 - [May 28](admin/meetings/may_28.md)
 - [May 30 TA](admin/meetings/may_30_TA.md)
+- [June 6](admin/meetings/june_6.md)
+- [June 7](admin/meetings/june_7.md)
 
 **Sprint Notes:**
 - [Sprint 1 Review](admin/meetings/51525-sprint-1-review.md)
@@ -99,6 +101,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [FormSubmission](/specs/adrs/05142025-FormSubmission.md)
 - [GridLayout](/specs/adrs/05302025-GridLayout.md)
 - [CardLayout](/specs/adrs/05302025-CardLayout.md)
+- [ReevaluatedMVP](/specs/adrs/05302025-ReevaluatedMVP.md)
 
 ## Repo Formatting (Tree diagram):
 ```
