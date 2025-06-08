@@ -1,3 +1,4 @@
+<!--Form for Ticket-->
 <form id="new-review">
     <fieldset>
         <label for="movie-title">Movie Title</label>
@@ -22,8 +23,6 @@
         <textarea id="review" name="review" rows="4" cols="50" required></textarea><br>
     </fieldset>
 
-    <!--Hover over the stars that you want to rate the movie, once you click it will update the rating-->
-
     <fieldset id = "rating-field">
         <legend>Rating</legend>
         <label for="rating-0">0<input type="radio" id="rating-0" value="0" name="rating" /> </label>
@@ -40,7 +39,7 @@
 </form>
 <script type="module" src="../scripts/formTemplate.js"></script>
 
-
+<!--Styling for Ticket-->
 <style>
 #new-review {
     padding-top:10px;
@@ -49,7 +48,6 @@
 
 #new-review fieldset:not(#rating-field) {
     display: flex;
-    /*justify-content: flex-start;*/
     flex-direction: column;
     align-items: flex-start;
     border: none;

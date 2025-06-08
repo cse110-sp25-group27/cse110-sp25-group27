@@ -31,7 +31,7 @@ Frontend:
 Backend:
 - Fix bugs:
   - URL redirection logic to prevent user from returning back to onboarding page is glitching and spazzing
-  - 
+  - Edit Ticket updating the wrong ticket due to id number
 
 Both Teams:
 - Compressed large png files for landing page
@@ -46,6 +46,7 @@ Frontend:
 Backend:
 - Fixed:
   - URL redirection logic between landing and onboarding
+  - id number fixed in order for ticket to update correctly after being edited
 
 Both: 
 - Finish public video planning script

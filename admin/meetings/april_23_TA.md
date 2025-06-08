@@ -13,7 +13,7 @@
   - github cheat sheet (more comfortable with github functions)
 - make sure to pair up frontend and backend
   - good communication
-- get recurring weekly meeting (
+- get recurring weekly meeting 
   - inperson/online
   - planning/accomplished?
   - strengths/weaknesses

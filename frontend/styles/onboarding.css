@@ -277,14 +277,14 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #27ae60; /* Green */
+    background-color: #27ae60; 
     color: white;
     padding: 3px 7px;
     font-size: 0.75em;
     border-radius: 3px;
-    opacity: 0; /* Hidden by default */
+    opacity: 0; 
     transition: opacity 0.3s ease;
-    z-index: 5; /* Above poster */
+    z-index: 5; 
 }
 .movie-card-front .selection-indicator.active {
     opacity: 1;
@@ -294,22 +294,22 @@ body {
     display: block;
     width: 320px;
     padding: 15px 20px;
-    background-color: #B08D57; /* Gold */
-    color: #2E2925; /* Dark text */
-    border: 1px solid #2E2925; /* Dark border for contrast on gold */
+    background-color: #B08D57;
+    color: #2E2925; 
+    border: 1px solid #2E2925;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.15em;
     font-weight: bold;
-    margin: 40px auto 10px; /* Centering with auto margins, and top/bottom margin */
+    margin: 40px auto 10px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Added transition */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 .save-onboarding-button:hover {
-    background-color: #a07d47; /* Darker gold */
+    background-color: #a07d47;
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
 

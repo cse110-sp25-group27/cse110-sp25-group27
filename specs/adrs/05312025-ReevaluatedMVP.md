@@ -42,7 +42,8 @@ Backend:
 * naming conventions should be consistent across repo
   
 Frontend
-* styling for the form,
+* Redo Design (found in frontend.md) and include it in MVP w/ flowchart
+* styling for the form
 * Delete viewing page
 * change the image
   
