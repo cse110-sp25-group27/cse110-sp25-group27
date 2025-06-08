@@ -15,16 +15,12 @@ describe('Basic user flow for onboarding', () => {
     await page.click("#save-onboarding-button");
     await dialogPromise;
 
-
     const onboarded = await page.evaluate(() => {
       return localStorage.getItem('hasCompletedOnboarding');
     });
 
-
     expect(onboarded).toBe(null);
   });
-
-
 
   it('Onboarding page updates correctly after movies are selected', async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
@@ -52,7 +48,6 @@ describe('Basic user flow for onboarding', () => {
   }, 20000);
 
 });
-
 
 describe('Basic user flow for landing', ()=>{
   beforeAll(async () => {
@@ -89,16 +84,13 @@ describe('Basic user flow for landing', ()=>{
       .some(r => r.title === 'Test Movie');
     });
 
-
     const reviews = await page.evaluate(() => {
       return JSON.parse(localStorage.getItem('reviews') || '[]');
     });
     const found = reviews.some(r => r.title === 'Test Movie');
     expect(found).toBe(true);
 
-
   }, 30000);
-
 
   it('User inputs incorrect value', async ()=>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
@@ -134,8 +126,6 @@ describe('Basic user flow for landing', ()=>{
 
   }, 30000);
 
-
-  //test for update
   it('Updates an existing movie review', async () =>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
 
@@ -202,8 +192,7 @@ describe('Basic user flow for landing', ()=>{
     expect(updated).toBe(false);
   }, 30000);
 
-  //test for delete
-    it('Delete existing review on landing page', async () =>{
+  it('Delete existing review on landing page', async () =>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
 
     let reviews = await page.evaluate(() => {
@@ -244,7 +233,6 @@ describe('Basic user flow for landing', ()=>{
 
 });
 
-
 describe('Test redirect to landing page if there is at least 1 review', () => {
   beforeAll(async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
@@ -256,7 +244,6 @@ describe('Test redirect to landing page if there is at least 1 review', () => {
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
 
   }, 20000);
-
 
   it('Test redirect', async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
