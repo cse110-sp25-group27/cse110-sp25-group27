@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.59% </span>
+                <span class="strong">68.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>73/108</span>
+                <span class='fraction'>75/110</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.61% </span>
+                <span class="strong">68.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/105</span>
+                <span class='fraction'>73/107</span>
             </div>
         
             
@@ -345,7 +345,12 @@
 <a name='L280'></a><a href='#L280'>280</a>
 <a name='L281'></a><a href='#L281'>281</a>
 <a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -430,6 +435,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -440,6 +447,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -452,6 +460,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -707,10 +717,12 @@ export function saveReviewsToStorage(reviews) {
  *   - {string} createdAt - ISO string timestamp for when the object was created.
  *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
  */
-export function createReviewObject(form){
+export function createReviewObject(form) {
     return new Promise(async (resolve, reject) =&gt; {
-        let currentID = parseInt(localStorage.getItem('idCounter') || 0);
-        localStorage.setItem('idCounter', currentID + 1);
+        let currentID = parseInt(localStorage.getItem('idCounter') || '0');
+        currentID++;
+        localStorage.setItem('idCounter', currentID.toString());
+&nbsp;
         const file = form.get('movie-poster');
         let processedImageData = "";
 &nbsp;
@@ -719,21 +731,24 @@ export function createReviewObject(form){
 <span class="cstat-no" title="statement not covered" >                processedImageData = await processImageForStorage(file);</span>
             } catch (err) {
 <span class="cstat-no" title="statement not covered" >                console.error("Image processing failed:", err);</span>
+                // We can still proceed without an image
             }
         }
 &nbsp;
-        resolve({
-            id : currentID,       
-            title : form.get('movie-title'),
-            watchedOn : form.get('watch-date'),
+        const reviewObject = {
+            id: currentID,
+            title: form.get('movie-title'),
+            watchedOn: form.get('watch-date'),
             watchCount: parseInt(form.get('watch-count')) || <span class="branch-1 cbranch-no" title="branch not covered" >1,</span>
-            rating : parseInt(form.get('rating')) || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-            imageData : processedImageData,
-            notes : form.get('review'),
+            rating: parseInt(form.get('rating')) || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
+            imageData: processedImageData,
+            notes: form.get('review'),
             releaseDate: form.get('release-date'),
-            createdAt : new Date().toISOString(),
-            updatedAt : new Date().toISOString()
-        });
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        resolve(reviewObject);
     });
 }
 &nbsp;
@@ -916,7 +931,7 @@ export async function processImageForStorage(imageFile, maxWidth = 600, maxHeigh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-07T04:19:31.680Z
+                at 2025-06-08T08:35:06.054Z
             </div>
         <script src="prettify.js"></script>
         <script>

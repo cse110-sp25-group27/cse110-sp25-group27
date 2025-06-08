@@ -1,7 +1,7 @@
 const TICKET_BACKGROUND = '#2E2925'; 
 const TICKET_GOLD = '#B08D57';       
 const TICKET_TEXT_GOLD = '#B08D57';
-const TICKET_TEXT_CONTENT = '#D7D7D7'; 
+const TICKET_TEXT_CONTENT = '#2ee7fb'; 
 
 const frontTemplateHTML = `
   <style>
