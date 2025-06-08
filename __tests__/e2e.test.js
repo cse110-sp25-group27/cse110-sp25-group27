@@ -3,7 +3,7 @@ describe('Basic user flow for onboarding', () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
   }, 20000);
 
-  it('block users from landing with zero reviews', async () => {
+  it('Block users from landing with zero reviews', async () => {
     await page.goto("http://localhost:8080/frontend/pages/onboarding.html");
     const dialogPromise = new Promise(resolve =>{
       page.once('dialog', async dialog =>{
@@ -64,7 +64,7 @@ describe('Basic user flow for landing', ()=>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
   }, 20000);
 
-  it('adds new movie review and displays it on page', async ()=>{
+  it('Adds new movie review and displays it on page', async ()=>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
         
     await page.click('#add-ticket-button');
@@ -100,7 +100,7 @@ describe('Basic user flow for landing', ()=>{
   }, 30000);
 
 
-  it('user inputs incorrect value', async ()=>{
+  it('User inputs incorrect value', async ()=>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
         
     await page.click('#add-ticket-button');
@@ -136,7 +136,7 @@ describe('Basic user flow for landing', ()=>{
 
 
   //test for update
-  it('updates an existing movie review', async () =>{
+  it('Updates an existing movie review', async () =>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
 
     await page.evaluate(() => {
@@ -174,18 +174,75 @@ describe('Basic user flow for landing', ()=>{
     expect(updated).toBe(true);
   }, 30000);
 
-  //test for delete
-  it('Delete existing review on landing page', async () => {
-    let reviews = await page.evaluate(() => {
-      return document.querySelectorAll('review-card');
+  it('Incorrectly updated review with missing field', async () =>{
+    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
+
+    await page.evaluate(() => {
+      const card = document.querySelector('review-card');
+      card.click();
     });
 
-    const originalReviewsLen = Object.keys(reviews).length;
-  });
+    await page.evaluate(() => {
+      const card = document.querySelector('review-card');
+      const shadow = card.shadowRoot;
+      shadow.querySelector('.edit-button').click();
+    });
+
+    await page.waitForSelector('#update-form', );
+    await page.$eval('#update-review', el => el.value = '');
+
+    await page.click('button[type="submit"]');
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const updated = await page.evaluate(() => {
+      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+      return reviews.some(r => r.notes === '');
+    });
+
+    expect(updated).toBe(false);
+  }, 30000);
+
+  //test for delete
+    it('Delete existing review on landing page', async () =>{
+    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
+
+    let reviews = await page.evaluate(() => {
+      return document.querySelectorAll('review-card').length;
+    });
+
+    await page.evaluate(() => {
+      const card = document.querySelector('review-card');
+      card.click();
+    });
+
+    const dialogPromise = new Promise(resolve =>{
+      page.once('dialog', async dialog =>{
+        expect(dialog.type()).toBe('confirm');
+        await dialog.accept();
+        resolve();
+      });
+    });
+
+    await page.evaluate(() => {
+      const card = document.querySelector('review-card');
+      const shadow = card.shadowRoot;
+      shadow.querySelector('.delete-button').click();
+    });
+
+    await dialogPromise;
+
+    await page.waitForFunction((prevCount) => {
+      return document.querySelectorAll('review-card').length === prevCount - 1;
+    }, {}, reviews);
+
+    const newCount = await page.evaluate(() => {
+      return document.querySelectorAll('review-card').length;
+    });
+
+    expect(newCount).toBe(reviews - 1);
+  }, 30000);
 
 });
-
-
 
 
 describe('Test redirect to landing page if there is at least 1 review', () => {
