@@ -1,10 +1,10 @@
-# June 16 notes
+# June 6 Meeting Notes
 
-## Agenda:
-- 11:00 AM- Start meeting
-- 10:00 Planning
+## Agenda
+- 11:00 AM - Start meeting
+- 10:30 PM - Meeting adjourned!
 
-## Attendance:
+## Attendance
 - Albert Ho
 - Prachi Heda
 - Charlie Zhu
@@ -17,7 +17,7 @@
 - Srujam Dave
 - Svetlana Bobiles
 
-## Notes:
+## Notes
 - Working together (avoid merge conflicts)
 - Both teams
   - Frontend
@@ -30,7 +30,7 @@
   - Franklin Antonio Hall
 - 11-10pm
 
-## Application planning:
+## Application planning
 Frontend: 
 - Fix Styling on Landing Page and Onboarding page
 - Fix the Form functionality bugs
@@ -66,7 +66,6 @@ Backend:
 - Unit tests are completed
 - E2E tests 
 - Error Page created
-
 
 Both: 
 - Idea for private/public videos

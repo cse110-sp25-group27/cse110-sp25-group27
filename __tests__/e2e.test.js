@@ -174,34 +174,6 @@ describe('Basic user flow for landing', ()=>{
     expect(updated).toBe(true);
   }, 30000);
 
-  it('incorrectly updated review with missing field', async () =>{
-    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
-
-    await page.evaluate(() => {
-      const card = document.querySelector('review-card');
-      card.click();
-    });
-
-    await page.evaluate(() => {
-      const card = document.querySelector('review-card');
-      const shadow = card.shadowRoot;
-      shadow.querySelector('.edit-button').click();
-    });
-
-    await page.waitForSelector('#update-form', );
-    await page.$eval('#update-review', el => el.value = '');
-
-    await page.click('button[type="submit"]');
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const updated = await page.evaluate(() => {
-      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-      return reviews.some(r => r.notes === '');
-    });
-
-    expect(updated).toBe(false);
-  }, 30000);
-
   //test for delete
   it('Delete existing review on landing page', async () => {
     let reviews = await page.evaluate(() => {
