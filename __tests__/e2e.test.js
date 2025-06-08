@@ -126,6 +126,46 @@ describe('Basic user flow for landing', ()=>{
 
   }, 30000);
 
+  it('User inputs duplicate value', async ()=>{
+    await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
+
+    let reviews = await page.evaluate(() => {
+      return document.querySelectorAll('review-card').length;
+    });
+        
+    await page.click('#add-ticket-button');
+
+    await page.waitForSelector('#movie-title');
+    await page.type('#movie-title', 'Parasite');
+    
+    await page.$eval('#release-date', el => el.value = '2024-06-01');
+    await page.$eval('#date-input', el => el.value = '2024-06-01');
+
+    await page.$eval('#watch-count', el => el.value = '1');  
+    await page.$eval('#review', el => el.value = 'Amazing!');  
+    await page.click('input[name="rating"][value="3"]');
+
+    const fileInput = await page.waitForSelector('input[type="file"]');
+    await fileInput.uploadFile('frontend/assets/ticket.png');
+
+    const dialogPromise = new Promise(resolve => {
+      page.once('dialog', async dialog => {
+        await dialog.accept(); 
+        resolve();
+      });
+    });
+
+    await page.click('button[type="submit"]');
+    await dialogPromise;
+
+    const newCount = await page.evaluate(() => {
+      return document.querySelectorAll('review-card').length;
+    });
+
+    expect(newCount).toBe(reviews);
+
+  }, 30000);
+
   it('Updates an existing movie review', async () =>{
     await page.goto("http://localhost:8080/frontend/pages/landing_page.html");
 
@@ -143,7 +183,6 @@ describe('Basic user flow for landing', ()=>{
     await page.waitForSelector('#update-form', );
     await page.$eval('#update-review', el => el.value = 'I hated it!');
     await page.click('input[name="update-rating"][value="0"]');
-
 
     const dialogPromise = new Promise(resolve =>{
       page.once('dialog', async dialog =>{
