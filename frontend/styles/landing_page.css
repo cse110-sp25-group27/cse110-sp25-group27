@@ -21,20 +21,21 @@ body {
 .banner {
   display: block;
   height: auto;
-  width: 100%;
+  width: 55vw;
   object-fit: cover;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 .scrolling-text {
   position: absolute;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 1.5vw;
-  bottom: 6%;
+  font-size: 1.2vw;
+  bottom: .99em;
   width: 100%;
-  max-width: 35%;
+  max-width: 50%;
   pointer-events: none;
+  transform: translateX(.1em);
 }
 
 .scrolling-text p {
@@ -50,7 +51,7 @@ body {
     transform: translateX(100%);
   }
   100% {
-    transform: translateX(-180vw);
+    transform: translateX(-140vw);
   }
 }
 
