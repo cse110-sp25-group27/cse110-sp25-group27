@@ -148,6 +148,7 @@ function updateAddButtonState() {
         welcomePrompt.classList.add('hidden');
     } else {
         buttonImg.src = ADD_REVIEW_BTN_SRC;
+        welcomePrompt.classList.remove('hidden');
     }
 }
 
