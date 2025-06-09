@@ -134,6 +134,8 @@ function updateAddButtonState() {
     const newReviewForm = document.getElementById('form-container');
     const updateForm = document.getElementById('update-form');
 
+    const welcomePrompt = document.getElementById('text-prompt');
+
     if (!buttonImg || !newReviewForm || !updateForm) {
         return;
     }
@@ -143,8 +145,10 @@ function updateAddButtonState() {
 
     if (isNewFormVisible || isUpdateFormVisible) {
         buttonImg.src = CANCEL_REVIEW_BTN_SRC;
+        welcomePrompt.classList.add('hidden');
     } else {
         buttonImg.src = ADD_REVIEW_BTN_SRC;
+        welcomePrompt.classList.remove('hidden');
     }
 }
 
@@ -416,6 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('The #update-form element could not be found. Cannot edit review.');
             return;
         }
+
 
 
         if (newReviewFormContainer && !newReviewFormContainer.classList.contains('hidden')) {
