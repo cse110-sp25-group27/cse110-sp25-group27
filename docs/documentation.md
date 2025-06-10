@@ -10,16 +10,31 @@
     *   [Parameters][6]
 *   [createReviewObject][7]
     *   [Parameters][8]
-*   [initFormHandler][9]
-    *   [Parameters][10]
-*   [updateReview][11]
-    *   [Parameters][12]
-*   [deleteReviewById][13]
-    *   [Parameters][14]
-*   [data][15]
-    *   [Parameters][16]
-*   [data][17]
-    *   [Parameters][18]
+*   [createReviewObject][9]
+*   [initFormHandler][10]
+    *   [Parameters][11]
+*   [updateReview][12]
+    *   [Parameters][13]
+*   [deleteReviewById][14]
+    *   [Parameters][15]
+*   [data][16]
+    *   [Parameters][17]
+*   [data][18]
+    *   [Parameters][19]
+*   [Review][20]
+    *   [Properties][21]
+*   [addEventListener][22]
+*   [addEventListener][23]
+*   [getItem][24]
+*   [updateCarouselPosition][25]
+    *   [Parameters][26]
+*   [addReviewCardToCarouselDOM][27]
+    *   [Parameters][28]
+*   [updateAddButtonState][29]
+*   [showNextCard][30]
+*   [Carousel Navigation helper functions][31]
+*   [endsWith][32]
+*   [renderMovieOptionCards][33]
 
 ## getReviewsFromStorage
 
@@ -44,7 +59,7 @@ all of the reviews found (parsed, not in string form). If
 nothing is found in localStorage for 'reviews', an empty array
 is returned.
 
-Returns **[Array][19]<[Object][20]>**&#x20;
+Returns **[Array][34]<[Object][35]>**&#x20;
 
 ## addReviewsToDocument
 
@@ -55,7 +70,7 @@ to <main>
 
 ### Parameters
 
-*   `reviews` **[Array][19]<[Object][20]>** An array of recipes
+*   `reviews` **[Array][34]<[Object][35]>** An array of recipes
 
 ## saveReviewsToStorage
 
@@ -64,7 +79,9 @@ saves that string to 'reviews' in localStorage
 
 ### Parameters
 
-*   `reviews` **[Array][19]<[Object][20]>**&#x20;
+*   `reviews` **[Array][34]<[Object][35]>** An array of review objects.
+
+Returns **[boolean][36]** True if the save was successful, false otherwise.
 
 ## createReviewObject
 
@@ -72,13 +89,13 @@ Creates a review object using the data provided from a form.
 
 ### Parameters
 
-*   `form` **[FormData][21]** A FormData object containing review details. Expected keys:*   'title': {string} The title of the review.
+*   `form` **[FormData][37]** A FormData object containing review details. Expected keys:*   'title': {string} The title of the review.
     *   'watchedOn': {string} The date the item was watched.
     *   'rating': {string|number} The rating given, which will be parsed as an integer.
     *   'imageData': {string} Base64 or URL string for the image.
     *   'notes': {string} Optional notes about the item.
 
-Returns **[Object][20]** A review object with the following properties:*   {string} id - A unique identifier for the review.
+Returns **[Object][35]** A review object with the following properties:*   {string} id - A unique identifier for the review.
 *   {string} title - The title from the form.
 *   {string} watchedOn - The date the item was watched.
 *   {number} rating - The parsed integer rating.
@@ -88,13 +105,18 @@ Returns **[Object][20]** A review object with the following properties:*   {stri
 *   {string} createdAt - ISO string timestamp for when the object was created.
 *   {string} updatedAt - ISO string timestamp for when the object was last updated.
 
+## createReviewObject
+
+This handles the client‑side logic for accepting a new review
+Uses the <form id="new-review"> element to rendering it to the page as a <review-card> custom element.
+
 ## initFormHandler
 
 Initializes event handlers for new review form submission.
 
 ### Parameters
 
-*   `onReviewCreated` **function ([Object][20]): void?** Optional callback function
+*   `onReviewCreated` **function ([Object][35]): void?** Optional callback function
     that receives the new review object.
     If provided, DOM appending is skipped.
 
@@ -104,10 +126,12 @@ Updates an existing review in localStorage by matching its ID.
 
 ### Parameters
 
-*   `updatedReview` **[Object][20]** The updated review object.
+*   `updatedReview` **[Object][35]** The updated review object.
 
-    *   `updatedReview.id` **[string][22]** The unique identifier of the review to update.
-        Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.Side effects:*   Replaces the existing review with the same ID in localStorage.
+    *   `updatedReview.id` **[string][38]** The unique identifier of the review to update.
+        Other expected properties: title, watchedOn, watchCount, rating, imageData, review, createdAt, updatedAt.
+
+Returns **[boolean][36]** True if the review was found and updated successfully, false otherwise.Side effects:*   Replaces the existing review with the same ID in localStorage.
 
 ## deleteReviewById
 
@@ -115,13 +139,13 @@ Deletes a review from localStorage by its unique ID.
 
 ### Parameters
 
-*   `id` **[string][22]** The unique identifier of the review to delete.Side effects:*   Removes the review with the given ID from localStorage.
+*   `id` **[string][38]** The unique identifier of the review to delete.Side effects:*   Removes the review with the given ID from localStorage.
 
 ## data
 
 ### Parameters
 
-*   `data` **[Object][20]** {
+*   `data` **[Object][35]** {
     id: string,
     title: string,
     titleLnk: string,
@@ -139,7 +163,7 @@ Sets the data for the card.
 
 ### Parameters
 
-*   `data` **[Object][20]** {
+*   `data` **[Object][35]** {
     id: string,          // review ID (not shown)
     title: string,
     watchedOn: string,
@@ -149,6 +173,92 @@ Sets the data for the card.
     createdAt: string,
     updatedAt: string
     }
+
+## Review
+
+Shape of review Object from createReviewObjects()
+
+Type: [Object][35]
+
+### Properties
+
+*   `id` **[string][38]** // Unique identifier (e.g. UUID)
+*   `title` **[string][38]** // Review headline
+*   `body` **[string][38]** // Main review text
+*   `rating` **[number][39]** // Numeric rating (1 to 5)
+*   `createdAt` **[string][38]** // ISO 8601 date time string
+
+## addEventListener
+
+## addEventListener
+
+***
+
+Returns **void**&#x20;
+
+## getItem
+
+Immediately redirects the user to `onboarding.html` if they have not completed onboarding.
+The check is based on a localStorage flag `hasCompletedOnboarding`.
+
+This logic should be placed at the top of your script to ensure it executes
+before any other UI logic, preventing unauthorized access to the landing page.
+
+Returns **void**&#x20;
+
+## updateCarouselPosition
+
+Updates the position of the carousel to center the currently active card.
+Applies a transform to shift the carousel track based on the active index.
+Also applies the 'active-card' class to the current card for styling.
+
+### Parameters
+
+*   `animate` **[boolean][36]** If false, disables animation for the movement. (optional, default `true`)
+
+Returns **void**&#x20;
+
+## addReviewCardToCarouselDOM
+
+Adds a new `<review-card>` element to the carousel DOM based on the given review data.
+The card is inserted at a specified index or appended to the end if no valid index is provided.
+
+### Parameters
+
+*   `reviewObject` **[Object][35]** The data object used to populate the review card.
+*   `atIndex` **[number][39]** Optional index at which to insert the card.
+    If out of bounds, appends the card instead. (optional, default `-1`)
+
+Returns **([HTMLElement][40] | null)** The newly created `<review-card>` element, or `null` if insertion failed.
+
+## updateAddButtonState
+
+Checks the visibility of the new review and update forms and sets the add/cancel
+button image accordingly. The button shows "cancel" if any form is visible.
+
+## showNextCard
+
+***
+
+## Carousel Navigation helper functions
+
+## endsWith
+
+Immediately redirects the user to `landing_page.html` if there is at least one review.
+The check is based on if there is at least 1 review using getReviewsFromStorage().
+
+This logic should be placed at the top of your script to ensure it executes
+before any other UI logic, preventing unauthorized access to the onboarding page.
+
+Returns **void**&#x20;
+
+## renderMovieOptionCards
+
+Renders the preset movie options as interactive flip cards in the DOM.
+Each card has a front with the movie poster and a button to add details,
+and a back with a form for the user to input their review. Event listeners
+are attached to handle flipping the card and tracking which cards have had
+details saved.
 
 [1]: #getreviewsfromstorage
 
@@ -166,30 +276,66 @@ Sets the data for the card.
 
 [8]: #parameters-2
 
-[9]: #initformhandler
+[9]: #createreviewobject-1
 
-[10]: #parameters-3
+[10]: #initformhandler
 
-[11]: #updatereview
+[11]: #parameters-3
 
-[12]: #parameters-4
+[12]: #updatereview
 
-[13]: #deletereviewbyid
+[13]: #parameters-4
 
-[14]: #parameters-5
+[14]: #deletereviewbyid
 
-[15]: #data
+[15]: #parameters-5
 
-[16]: #parameters-6
+[16]: #data
 
-[17]: #data-1
+[17]: #parameters-6
 
-[18]: #parameters-7
+[18]: #data-1
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[19]: #parameters-7
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[20]: #review
 
-[21]: https://developer.mozilla.org/docs/Web/API/FormData
+[21]: #properties
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[22]: #addeventlistener
+
+[23]: #addeventlistener-1
+
+[24]: #getitem
+
+[25]: #updatecarouselposition
+
+[26]: #parameters-8
+
+[27]: #addreviewcardtocarouseldom
+
+[28]: #parameters-9
+
+[29]: #updateaddbuttonstate
+
+[30]: #shownextcard
+
+[31]: #carousel-navigation-helper-functions
+
+[32]: #endswith
+
+[33]: #rendermovieoptioncards
+
+[34]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[35]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[36]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[37]: https://developer.mozilla.org/docs/Web/API/FormData
+
+[38]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[40]: https://developer.mozilla.org/docs/Web/HTML/Element
