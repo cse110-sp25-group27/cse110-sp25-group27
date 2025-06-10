@@ -52,7 +52,7 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 
 [**JS Documentation**](/docs/documentation.md)
 
-[**Code Coverage Report**](https://cse110-sp25-group27.github.io/cse110-sp25-group27/)
+[**Code Coverage Report**](https://cse110-sp25-group27.github.io/cse110-sp25-group27/docs/coverage_report/index.html)
 
 [**Code Styling Documentation**](/docs/code_style.md)
 
