@@ -1,10 +1,8 @@
-// Color Palette (as used in the perforation version)
 const TICKET_BACKGROUND = '#2E2925'; 
 const TICKET_GOLD = '#B08D57';       
 const TICKET_TEXT_GOLD = '#B08D57';
 const TICKET_TEXT_CONTENT = '#D7D7D7'; 
 
-// frontTemplateHTML from the iteration with perforations and "ADMIT ONE"
 const frontTemplateHTML = `
   <style>
     .review-card-front-content { /* Renamed from .review-card-front for consistency */
@@ -13,7 +11,7 @@ const frontTemplateHTML = `
       align-items: center;
       justify-content: flex-start; 
       height: 100%;
-      padding: 20px 25px; 
+      
       box-sizing: border-box;
       text-align: center;
       position: relative; 
@@ -35,18 +33,16 @@ const frontTemplateHTML = `
       height: 2px;
       border: none;
       border-top: 3px dashed ${TICKET_GOLD};
-      margin-bottom: 15px;
     }
     .movie-title-front { /* Ensure class name matches render method */
       font-size: 1.4em;
       font-weight: bold;
       color: ${TICKET_TEXT_CONTENT};
-      margin-bottom: 10px;
-      line-height: 1.2;
+      line-height: .1;
     }
     .movie-poster-front { /* Ensure class name matches render method */
-      max-width: 90%;
-      max-height: 180px; 
+      width: 90%;
+      max-height: 100%; 
       object-fit: contain;
       margin-bottom: 10px;
     }
@@ -69,7 +65,6 @@ const frontTemplateHTML = `
   </div>
 `;
 
-// backTemplateHTML from the iteration with perforations
 const backTemplateHTML = `
   <style>
     .review-card-back-content { /* Renamed from .review-card-back for consistency */
@@ -134,7 +129,7 @@ const backTemplateHTML = `
     <p class="movie-title-back">Movie Title</p>
     <hr class="dashed-line" style="border-top-color: ${TICKET_GOLD}; width: calc(100% - 10px); margin-bottom: 10px;">
     <p><span class="label">Released:</span> <span class="release-date"></span></p>
-    <p><span class="label">Watched:</span> <span class="watch-date"></span> at <span class="watch-time"></span></p>
+    <p><span class="label">Watched:</span> <span class="watch-date"></span></p>
     <p><span class="label">Count:</span> <span class="watch-count"></span></p>
     <div>
       <p class="label">Review:</p>
@@ -254,8 +249,6 @@ class ReviewCard extends HTMLElement {
 
   _render() {
     if (!this._data) return;
-
-    // Populate Front - Ensure class names match the template
     this.frontDiv.querySelector('.movie-title-front').textContent = this._data.title || 'N/A';
     const frontImg = this.frontDiv.querySelector('.movie-poster-front');
     if (this._data.imageData) {
@@ -266,12 +259,23 @@ class ReviewCard extends HTMLElement {
     }
     frontImg.alt = this._data.title ? `Poster for ${this._data.title}` : 'Movie Poster';
 
-    // Populate Back - Ensure class names match the template
     this.backDiv.querySelector('.movie-title-back').textContent = this._data.title || 'N/A';
-    this.backDiv.querySelector('.release-date').textContent = this._data.releaseDate ? new Date(this._data.releaseDate).toLocaleDateString() : 'N/A';
-    const watchedDate = this._data.watchedOn ? new Date(this._data.watchedOn) : null;
-    this.backDiv.querySelector('.watch-date').textContent = watchedDate ? watchedDate.toLocaleDateString() : 'N/A';
-    this.backDiv.querySelector('.watch-time').textContent = watchedDate ? watchedDate.toLocaleTimeString() : '';
+
+    const releaseDateString = this._data.releaseDate;
+    let [year, month, date] = releaseDateString.split('-').map(Number);
+    let localRelease = new Date(year, month-1, date);
+    const formattedRelease = localRelease.toLocaleDateString('en-US');
+
+    this.backDiv.querySelector('.release-date').textContent = this._data.releaseDate ? formattedRelease : 'N/A';
+
+    const watchDateString = this._data.watchedOn;
+    [year, month, date] = watchDateString.split('-').map(Number);
+    let localWatched = new Date(year, month-1, date);
+    const formattedWatched = localWatched.toLocaleDateString('en-US');
+    
+    const watchedDate = this._data.watchedOn ? formattedWatched : null;
+    this.backDiv.querySelector('.watch-date').textContent = watchedDate ? watchedDate : 'N/A';
+
     this.backDiv.querySelector('.watch-count').textContent = this._data.watchCount !== undefined ? this._data.watchCount : 'N/A';
     this.backDiv.querySelector('.user-review').textContent = this._data.notes || 'No review provided.';
     const rating = this._data.rating !== undefined ? parseInt(this._data.rating) : 0;
@@ -286,7 +290,7 @@ class ReviewCard extends HTMLElement {
     const deleteButton = this.backDiv.querySelector('.delete-button');
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation(); this._handleDelete();
-      event.stopPropagation(); // Prevent card flip
+      event.stopPropagation(); 
       this._handleDelete();
     });
     
@@ -294,15 +298,14 @@ class ReviewCard extends HTMLElement {
   }
 
   _flipCard(event) {
-    console.log('Review card clicked. ID:', this._data ? this._data.id : 'N/A', 'Target:', event.target); // DEBUG LINE
-    // Don't flip if the click was on a button inside the card
+    console.log('Review card clicked. ID:', this._data ? this._data.id : 'N/A', 'Target:', event.target);
     if (event.target.closest('button')) {
-      console.log('Flip prevented: click was on a button.'); // DEBUG LINE
+      console.log('Flip prevented: click was on a button.'); 
       return;
     }
     this._isFlipped = !this._isFlipped;
     this.classList.toggle('flipped', this._isFlipped);
-    console.log('Flipped state:', this._isFlipped); // DEBUG LINE
+    console.log('Flipped state:', this._isFlipped);
     this._updateView();
   }
 
@@ -319,10 +322,10 @@ class ReviewCard extends HTMLElement {
   _handleEdit() {
     this.dispatchEvent(new CustomEvent('edit-review', {
       detail: { reviewData: this._data },
-      bubbles: true, // Allows event to bubble up through the DOM
-      composed: true // Allows event to cross shadow DOM boundaries
+      bubbles: true, 
+      composed: true
     }));
-    console.log('Edit review:', this._data); // Placeholder
+    console.log('Edit review:', this._data); 
   }
 
   _handleDelete() {
@@ -331,8 +334,7 @@ class ReviewCard extends HTMLElement {
       bubbles: true,
       composed: true
     }));
-    console.log('Delete review ID:', this._data.id); // Placeholder
-    // The actual removal from DOM and localStorage will be handled by the listener of this event.
+    console.log('Delete review ID:', this._data.id); 
   }
 }
 

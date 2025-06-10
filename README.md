@@ -11,15 +11,18 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 
 ## About Box Office Project:
 - Box Office is an interactive and visually engaging movie review platform designed for everyday movie lovers — not just critics or industry insiders. Inspired by the charm of classic theaters, ticket booths, and cinema nostalgia, it lets users create personalized, ticket-stub-style movie reviews, track the exact day they watched films, and explore posters and ratings through intuitive, playful interactions. Unlike traditional text-heavy review sites, Box Office focuses on delivering a beautiful, user-friendly experience where people can privately journal, customize, and celebrate their movie-watching journeys.
-- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/landing_page.html)
+- [Access the Project](https://cse110-sp25-group27.github.io/cse110-sp25-group27/frontend/pages/onboarding.html)
+
+**Quick BoxOffice Demo:**
+![BoxOffice Demo Gif](admin/videos/boxoffice-demo.gif)
 
 **Project Flow:**
 1. [Flow v1](specs/brainstorm/Box%20Office%20Flow_v1.png)
 2. [Flow v2](specs/brainstorm/Box%20Office%20Flow_v2.png)
 
 **BoxOffice Pitch Documents:**
-- [Original](specs\mvp\BoxOfficePitchScript-Draft1.pdf)
-- [Reevaluated/Updated](specs\mvp\BoxOfficePitchScript-Draft2.pdf)
+- [Original](specs/mvp/BoxOfficePitchScript-Draft1.pdf)
+- [Reevaluated/Updated](specs/mvp/BoxOfficePitchScript-Draft2.pdf)
 
 **Installation/Local Deployment:**
 1. Clone the repo
@@ -68,11 +71,13 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [April 16](admin/meetings/april_16.md)
 - [April 16 TA](admin/meetings/april_16_TA.md)
 - [April 18](admin/meetings/april_18.md)
+- [April 23 TA](admin/meetings/april_23_TA.md)
 - [April 25, Brainstorming](admin/meetings/042525-brainstorm.md)
 - [May 21 TA](admin/meetings/may_21_TA.md)
-- [May 23 TA](admin/meetings/april_23_TA.md)
 - [May 28](admin/meetings/may_28.md)
 - [May 30 TA](admin/meetings/may_30_TA.md)
+- [June 6](admin/meetings/june_6.md)
+- [June 7](admin/meetings/june_7.md)
 
 **Sprint Notes:**
 - [Sprint 1 Review](admin/meetings/51525-sprint-1-review.md)
@@ -96,39 +101,42 @@ We're the Powell Rangers, a plucky group of students whose mission is to defeat 
 - [FormSubmission](/specs/adrs/05142025-FormSubmission.md)
 - [GridLayout](/specs/adrs/05302025-GridLayout.md)
 - [CardLayout](/specs/adrs/05302025-CardLayout.md)
+- [ReevaluatedMVP](/specs/adrs/05302025-ReevaluatedMVP.md)
 
 ## Repo Formatting (Tree diagram):
 ```
 .
 ├── __tests__
 ├── admin
-│   ├── adr
-│   ├── branding
-│   ├── cipipeline
-│   ├── meetings
-│   │   └── assets
-│   ├── misc
-│   └── videos
+│   ├── adr
+│   ├── branding
+│   ├── cipipeline
+│   ├── meetings
+│   │   └── assets
+│   ├── misc
+│   └── videos
 ├── backend
-├── code-to-unit-test
 ├── docs
-│   └── coverage_report
-│       ├── backend
-│       ├── code-to-unit-test
-│       └── lcov-report
-│           ├── backend
-│           └── code-to-unit-test
+│   ├── coverage_report
+│   │   ├── backend
+│   │   ├── code-to-unit-test
+│   │   └── lcov-report
+│   │       ├── backend
+│   │       └── code-to-unit-test
+│   └── e2e-report
+│       └── jest-html-reporters-attach
+│           └── e2e-report
 ├── frontend
-│   ├── assets
-│   │   └── meeting_refs
-│   ├── components
-│   ├── pages
-│   ├── scripts
-│   └── styles
-├── source
-├── specs
-│   ├── adrs
-│   ├── brainstorm
-│   └── script
-└── unit-testing
+│   ├── assets
+│   │   ├── landing_imgs
+│   │   ├── meeting_refs
+│   │   └── posters
+│   ├── components
+│   ├── pages
+│   ├── scripts
+│   └── styles
+└── specs
+    ├── adrs
+    ├── brainstorm
+    └── mvp
 ```

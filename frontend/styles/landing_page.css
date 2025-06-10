@@ -4,6 +4,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  height: 100%;
 }
 
 .banner-container {
@@ -20,25 +21,25 @@ body {
 .banner {
   display: block;
   height: auto;
-  width: 100%;
+  width: 55vw;
   object-fit: cover;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 .scrolling-text {
   position: absolute;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 1.5vw;
-  bottom: 6%;
+  font-size: 1.2vw;
+  bottom: .99em;
   width: 100%;
-  max-width: 35%;
+  max-width: 50%;
   pointer-events: none;
+  transform: translateX(.1em);
 }
 
 .scrolling-text p {
-  animation: scroll 3s linear infinite;
-  /*font-size: 1.5rem;*/
+  animation: scroll 18s linear infinite;
   color: #222;
   font-size:1.5em;
   font-family: Limelight;
@@ -49,9 +50,8 @@ body {
   0% {
     transform: translateX(100%);
   }
-
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-140vw);
   }
 }
 
@@ -133,7 +133,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   top: -20px;
-  transform: translateY(-50px) scale(0.8);
+  transform: translateY(-40px) scale(.9);
 }
 
 .text-bubble {
@@ -190,72 +190,68 @@ button:hover {
 }
 
 .poster-carousel {
-  display: flex;           /* Use flexbox to arrange children (buttons and main viewport) */
-  align-items: center;     /* Vertically align children to the center */
-  justify-content: center; /* Horizontally center the group of children */
-  padding: 20px 0;         /* Some vertical padding for the section */
-  position: relative;      /* Establishes a positioning context if needed, though not strictly for this layout */
-  width: 100%;             /* Take full available width */
+  display: flex;          
+  align-items: center;     
+  justify-content: center; 
+  padding: 20px 0;         
+  position: relative;      
+  width: 100%;             
   box-sizing: border-box;
   z-index: 0;
 }
 
 .poster-carousel > #carousel-prev-btn {
-  order: 1;                /* Display order: First item */
-  margin-right: 15px;      /* Space between this button and the main card viewport */
-  flex-shrink: 0;          /* Prevent this button from shrinking if space is tight */
+  order: 1;      
+  margin-right: 15px;
+  flex-shrink: 0;
   background-color: transparent;
   border: none;
   padding: 10px;
   cursor: pointer;
   opacity: 0.8;
-  z-index: 6;             /* Ensure buttons are above the carousel track content if any accidental overlap */
+  z-index: 6;
 }
+
 .poster-carousel > #carousel-prev-btn:hover {
   opacity: 1;
 }
 
 .poster-carousel > main {
-  order: 2;                /* Display order: Second item (between buttons) */
-  width: 280px;            /* Fixed width: This is the "window" to see one card */
-  height: 560px;           /* Fixed height: Accommodates card (520px) + its vertical margins (20px top + 20px bottom) */
-  overflow: hidden;        /* CRUCIAL: Hides parts of the .carousel-track that are outside this viewport */
-  position: relative;      /* CRUCIAL: Establishes positioning context for the absolutely positioned .carousel-track */
-  flex-shrink: 0;          /* Prevent this viewport from shrinking */
-  /* For debugging: border: 2px solid blue; */
+  order: 2;
+  width: 280px;
+  height: 560px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .poster-carousel > #carousel-next-btn {
-  order: 3;                /* Display order: Third item */
-  margin-left: 15px;       /* Space between the main card viewport and this button */
-  flex-shrink: 0;          /* Prevent this button from shrinking */
+  order: 3;
+  margin-left: 15px;
+  flex-shrink: 0;
   background-color: transparent;
   border: none;
   padding: 10px;
   cursor: pointer;
   opacity: 0.8;
-  z-index: 6;             /* Ensure buttons are above the carousel track content */
+  z-index: 6;
 }
 .poster-carousel > #carousel-next-btn:hover {
   opacity: 1;
 }
 
 .carousel-track {
-  display: flex;            /* CRUCIAL: Lays out children (review-card) in a horizontal row */
-  position: absolute;       /* Allows positioning relative to its parent (main) using top/left/transform */
+  display: flex;
+  position: absolute;
   top: 0;
-  left: 0;                  /* Initial horizontal position, JS will use transform: translateX() for movement */
-  height: 100%;             /* Take full height of its parent (main viewport) */
-  /* Width is determined by the sum of its children's widths (review-card elements) */
-  transition: transform 0.5s ease-in-out; /* Smooth animation for sliding */
-  /* For debugging: border: 1px dashed limegreen; */
+  left: 0;                  
+  height: 100%;             
+  transition: transform 0.5s ease-in-out; 
 }
 
 .carousel-track > review-card {
   flex-shrink: 0;
-  /* ADD a margin to the right of each card for spacing */
-  margin-right: 15px; /* Adjust this value as needed for desired spacing */
-  /* The existing margin: 20px 0; from the card's :host style will still apply for top/bottom */
+  margin-right: 15px;
 }
 
 .carousel-track > review-card:last-child {

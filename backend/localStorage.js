@@ -78,10 +78,12 @@ export function saveReviewsToStorage(reviews) {
  *   - {string} createdAt - ISO string timestamp for when the object was created.
  *   - {string} updatedAt - ISO string timestamp for when the object was last updated.
  */
-export function createReviewObject(form){
+export function createReviewObject(form) {
     return new Promise(async (resolve, reject) => {
-        let currentID = parseInt(localStorage.getItem('idCounter') || 0);
-        localStorage.setItem('idCounter', currentID + 1);
+        let currentID = parseInt(localStorage.getItem('idCounter') || '0');
+        currentID++;
+        localStorage.setItem('idCounter', currentID.toString());
+
         const file = form.get('movie-poster');
         let processedImageData = "";
 
@@ -90,21 +92,24 @@ export function createReviewObject(form){
                 processedImageData = await processImageForStorage(file);
             } catch (err) {
                 console.error("Image processing failed:", err);
+                // We can still proceed without an image
             }
         }
 
-        resolve({
-            id : currentID,       
-            title : form.get('movie-title'),
-            watchedOn : form.get('watch-date'),
+        const reviewObject = {
+            id: currentID,
+            title: form.get('movie-title'),
+            watchedOn: form.get('watch-date'),
             watchCount: parseInt(form.get('watch-count')) || 1,
-            rating : parseInt(form.get('rating')) || 0,
-            imageData : processedImageData,
-            notes : form.get('review'),
+            rating: parseInt(form.get('rating')) || 0,
+            imageData: processedImageData,
+            notes: form.get('review'),
             releaseDate: form.get('release-date'),
-            createdAt : new Date().toISOString(),
-            updatedAt : new Date().toISOString()
-        });
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        resolve(reviewObject);
     });
 }
 
